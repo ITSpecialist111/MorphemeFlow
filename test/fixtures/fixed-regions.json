@@ -1,0 +1,572 @@
+[
+  {
+    "text": "More menu",
+    "x": 1286,
+    "y": 282,
+    "width": 86,
+    "height": 20,
+    "font_size": 14.285714285714286,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "View more",
+    "x": 1428,
+    "y": 1123,
+    "width": 91,
+    "height": 22,
+    "font_size": 15.714285714285715,
+    "source": "Accessibility",
+    "control_type": 50005
+  },
+  {
+    "text": "View more",
+    "x": 1428,
+    "y": 1527,
+    "width": 91,
+    "height": 23,
+    "font_size": 16.42857142857143,
+    "source": "Accessibility",
+    "control_type": 50005
+  },
+  {
+    "text": "View more",
+    "x": 1428,
+    "y": 1918,
+    "width": 91,
+    "height": 23,
+    "font_size": 16.42857142857143,
+    "source": "Accessibility",
+    "control_type": 50005
+  },
+  {
+    "text": "View more",
+    "x": 1428,
+    "y": 2310,
+    "width": 91,
+    "height": 23,
+    "font_size": 16.42857142857143,
+    "source": "Accessibility",
+    "control_type": 50005
+  },
+  {
+    "text": "Home",
+    "x": 653,
+    "y": 255,
+    "width": 45,
+    "height": 56,
+    "font_size": 22,
+    "source": "Accessibility",
+    "control_type": 50005
+  },
+  {
+    "text": "Notifications",
+    "x": 579,
+    "y": 255,
+    "width": 48,
+    "height": 56,
+    "font_size": 15,
+    "source": "Accessibility",
+    "control_type": 50007
+  },
+  {
+    "text": "News",
+    "x": 719,
+    "y": 255,
+    "width": 63,
+    "height": 56,
+    "font_size": 18,
+    "source": "Accessibility",
+    "control_type": 50007
+  },
+  {
+    "text": "Sport",
+    "x": 801,
+    "y": 255,
+    "width": 64,
+    "height": 56,
+    "font_size": 18,
+    "source": "Accessibility",
+    "control_type": 50007
+  },
+  {
+    "text": "iPlayer",
+    "x": 985,
+    "y": 255,
+    "width": 73,
+    "height": 56,
+    "font_size": 18,
+    "source": "Accessibility",
+    "control_type": 50007
+  },
+  {
+    "text": "Sounds",
+    "x": 1077,
+    "y": 255,
+    "width": 75,
+    "height": 56,
+    "font_size": 18,
+    "source": "Accessibility",
+    "control_type": 50007
+  },
+  {
+    "text": "Bitesize",
+    "x": 1171,
+    "y": 255,
+    "width": 77,
+    "height": 56,
+    "font_size": 18,
+    "source": "Accessibility",
+    "control_type": 50007
+  },
+  {
+    "text": "Weather",
+    "x": 884,
+    "y": 255,
+    "width": 82,
+    "height": 56,
+    "font_size": 18,
+    "source": "Accessibility",
+    "control_type": 50007
+  },
+  {
+    "text": "Find your regional news",
+    "x": 1294,
+    "y": 2102,
+    "width": 213,
+    "height": 23,
+    "font_size": 16.42857142857143,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "Latest news and must-see moments",
+    "x": 271,
+    "y": 2311,
+    "width": 266,
+    "height": 20,
+    "font_size": 14.285714285714286,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "Keep up with the latest from BBC Sport",
+    "x": 271,
+    "y": 1528,
+    "width": 292,
+    "height": 20,
+    "font_size": 14.285714285714286,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "BBC Homepage",
+    "x": 271,
+    "y": 255,
+    "width": 128,
+    "height": 56,
+    "font_size": 20,
+    "source": "Accessibility",
+    "control_type": 50005
+  },
+  {
+    "text": "The rocket is due to launch from 23:24 BST on Wednesday 1st April",
+    "x": 271,
+    "y": 1124,
+    "width": 497,
+    "height": 19,
+    "font_size": 13.571428571428573,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "Sign in",
+    "x": 403,
+    "y": 255,
+    "width": 176,
+    "height": 56,
+    "font_size": 18,
+    "source": "Accessibility",
+    "control_type": 50007
+  },
+  {
+    "text": "The top stories from England, Scotland, Wales and Northern Ireland",
+    "x": 271,
+    "y": 1919,
+    "width": 501,
+    "height": 20,
+    "font_size": 14.285714285714286,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "Welcome to the BBC",
+    "x": 271,
+    "y": 330,
+    "width": 310,
+    "height": 38,
+    "font_size": 27.142857142857146,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "Next stop, Mars? Why Nasa's mission matters",
+    "x": 599,
+    "y": 1341,
+    "width": 276,
+    "height": 45,
+    "font_size": 18,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "The personal items the crew are taking with them",
+    "x": 915,
+    "y": 1341,
+    "width": 276,
+    "height": 45,
+    "font_size": 18,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "Inside the mission to fly humans further than ever",
+    "x": 1231,
+    "y": 1341,
+    "width": 276,
+    "height": 45,
+    "font_size": 18,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "Minimum wage rises to £12.71 an hour as firms warn of impact",
+    "x": 1294,
+    "y": 747,
+    "width": 213,
+    "height": 66,
+    "font_size": 18,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "Chelsea make biggest pre-tax loss in Premier League history",
+    "x": 283,
+    "y": 1710,
+    "width": 213,
+    "height": 67,
+    "font_size": 18,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "Italy miss out on third World Cup in row - how have they got here?",
+    "x": 1294,
+    "y": 1710,
+    "width": 213,
+    "height": 67,
+    "font_size": 16,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "Man appears in court after pedestrians hit by car",
+    "x": 283,
+    "y": 2102,
+    "width": 213,
+    "height": 67,
+    "font_size": 18,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "Stella McCartney's clifftop 'forever home' gets planning consent",
+    "x": 1294,
+    "y": 2493,
+    "width": 213,
+    "height": 67,
+    "font_size": 18,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "BBC knew about Scott Mills sexual offences investigation in 2017",
+    "x": 788,
+    "y": 544,
+    "width": 214,
+    "height": 67,
+    "font_size": 18,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "Weather looks favourable for Artemis launch despite cloud",
+    "x": 1041,
+    "y": 544,
+    "width": 214,
+    "height": 67,
+    "font_size": 18,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "UK will seek closer ties with EU in light of Iran war, Starmer says",
+    "x": 788,
+    "y": 880,
+    "width": 214,
+    "height": 67,
+    "font_size": 16,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "Who were Scotland's winners and losers from international break?",
+    "x": 1041,
+    "y": 1710,
+    "width": 214,
+    "height": 67,
+    "font_size": 18,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "SNP candidate ditched over handling of Linden complaints",
+    "x": 535,
+    "y": 2102,
+    "width": 214,
+    "height": 67,
+    "font_size": 18,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "Dissident groups still have 'capacity and desire' to attack police",
+    "x": 1041,
+    "y": 2102,
+    "width": 214,
+    "height": 67,
+    "font_size": 16,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "From small to big screen: The TV shows that became films",
+    "x": 1041,
+    "y": 2794,
+    "width": 214,
+    "height": 67,
+    "font_size": 18,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "The UK will host a meeting with dozens of countries on reopening the Strait after Trump told countries on Tuesday to \"get your own oil\".",
+    "x": 283,
+    "y": 823,
+    "width": 449,
+    "height": 35,
+    "font_size": 12,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "Artemis II launch",
+    "x": 271,
+    "y": 1087,
+    "width": 579,
+    "height": 28,
+    "font_size": 20,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "The weather presenter said her 28 years on air had been a \"privilege and honour\".",
+    "x": 283,
+    "y": 2708,
+    "width": 465,
+    "height": 35,
+    "font_size": 16,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "Sport headlines",
+    "x": 271,
+    "y": 1491,
+    "width": 579,
+    "height": 29,
+    "font_size": 20.714285714285715,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "Around the UK",
+    "x": 271,
+    "y": 1882,
+    "width": 579,
+    "height": 29,
+    "font_size": 20.714285714285715,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "Entertainment and TV",
+    "x": 271,
+    "y": 2274,
+    "width": 579,
+    "height": 29,
+    "font_size": 20.714285714285715,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "Food and recipes",
+    "x": 271,
+    "y": 2966,
+    "width": 579,
+    "height": 29,
+    "font_size": 20.714285714285715,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "'It's going to be a great show': Crowds gather for countdown to Nasa’s Artemis launch",
+    "x": 283,
+    "y": 1341,
+    "width": 276,
+    "height": 67,
+    "font_size": 16,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "Devastated Italians reckon with 'third apocalypse' of World Cup failure",
+    "x": 1294,
+    "y": 411,
+    "width": 213,
+    "height": 88,
+    "font_size": 18,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "LIVE .  Trump arrives at Supreme Court for arguments over US birthright citizenship",
+    "x": 1294,
+    "y": 579,
+    "width": 213,
+    "height": 88,
+    "font_size": 18,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "'I am speechless!': Stacey Solomon reveals a special new bedroom design. Video, 00:02:14",
+    "x": 1294,
+    "y": 2794,
+    "width": 213,
+    "height": 89,
+    "font_size": 16,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "Over 100 driverless cars stop mid-traffic in Wuhan in 'system malfunction'",
+    "x": 1041,
+    "y": 880,
+    "width": 214,
+    "height": 89,
+    "font_size": 18,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "BBC Sport's McNulty picks his England World Cup squad - do you agree?",
+    "x": 535,
+    "y": 1710,
+    "width": 214,
+    "height": 89,
+    "font_size": 18,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "Failed experiment as England get grim glimpse of life without Kane",
+    "x": 788,
+    "y": 1710,
+    "width": 214,
+    "height": 89,
+    "font_size": 18,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "Newly qualified paramedics told to apply for jobs abroad due to hire freeze",
+    "x": 788,
+    "y": 2102,
+    "width": 214,
+    "height": 89,
+    "font_size": 18,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "Sir David Attenborough reveals the animals hiding away in our gardens",
+    "x": 788,
+    "y": 2493,
+    "width": 214,
+    "height": 89,
+    "font_size": 18,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "Why does Morning Live presenter have Commonwealth pole vault conundrum?",
+    "x": 1041,
+    "y": 2493,
+    "width": 214,
+    "height": 89,
+    "font_size": 18,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "'I haven't played Wordle since the day I sold it' says game's Welsh creator",
+    "x": 788,
+    "y": 2794,
+    "width": 214,
+    "height": 89,
+    "font_size": 18,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "Watch Carol Kirkwood's emotional goodbye and funniest moments as she leaves the BBC. Video, 00:01:56",
+    "x": 1294,
+    "y": 893,
+    "width": 213,
+    "height": 110,
+    "font_size": 18,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "Carol Kirkwood bids emotional farewell to BBC Breakfast",
+    "x": 283,
+    "y": 2635,
+    "width": 466,
+    "height": 65,
+    "font_size": 18,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "LIVE .  Trump says he's considering leaving Nato as Starmer says UK will host talks on Strait of Hormuz",
+    "x": 283,
+    "y": 686,
+    "width": 466,
+    "height": 129,
+    "font_size": 22,
+    "source": "Accessibility",
+    "control_type": 50020
+  }
+]

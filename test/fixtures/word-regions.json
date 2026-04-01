@@ -1,0 +1,532 @@
+[
+  {
+    "text": "Word Count 664 words",
+    "x": 80.0,
+    "y": 1011.0,
+    "width": 69.0,
+    "height": 21.0,
+    "font_size": 12.0,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "",
+    "x": 1008.0,
+    "y": 985.0,
+    "width": 194.0,
+    "height": 17.0,
+    "font_size": 13.0,
+    "source": "Accessibility",
+    "control_type": 50007
+  },
+  {
+    "text": "",
+    "x": 1008.0,
+    "y": 944.0,
+    "width": 206.0,
+    "height": 17.0,
+    "font_size": 13.0,
+    "source": "Accessibility",
+    "control_type": 50007
+  },
+  {
+    "text": "",
+    "x": 1008.0,
+    "y": 964.0,
+    "width": 248.0,
+    "height": 17.0,
+    "font_size": 13.0,
+    "source": "Accessibility",
+    "control_type": 50007
+  },
+  {
+    "text": "",
+    "x": 1008.0,
+    "y": 923.0,
+    "width": 264.0,
+    "height": 17.0,
+    "font_size": 13.0,
+    "source": "Accessibility",
+    "control_type": 50007
+  },
+  {
+    "text": "",
+    "x": 1008.0,
+    "y": 841.0,
+    "width": 296.0,
+    "height": 17.0,
+    "font_size": 13.0,
+    "source": "Accessibility",
+    "control_type": 50007
+  },
+  {
+    "text": "",
+    "x": 1008.0,
+    "y": 902.0,
+    "width": 302.0,
+    "height": 17.0,
+    "font_size": 13.0,
+    "source": "Accessibility",
+    "control_type": 50007
+  },
+  {
+    "text": "",
+    "x": 1008.0,
+    "y": 820.0,
+    "width": 303.0,
+    "height": 17.0,
+    "font_size": 13.0,
+    "source": "Accessibility",
+    "control_type": 50007
+  },
+  {
+    "text": "¶ Normal",
+    "x": 757.0,
+    "y": 92.0,
+    "width": 108.0,
+    "height": 56.0,
+    "font_size": 20.0,
+    "source": "Accessibility",
+    "control_type": 50007
+  },
+  {
+    "text": "¶ No Spacing",
+    "x": 865.0,
+    "y": 92.0,
+    "width": 108.0,
+    "height": 56.0,
+    "font_size": 20.0,
+    "source": "Accessibility",
+    "control_type": 50007
+  },
+  {
+    "text": "Heading 1",
+    "x": 973.0,
+    "y": 92.0,
+    "width": 108.0,
+    "height": 56.0,
+    "font_size": 20.0,
+    "source": "Accessibility",
+    "control_type": 50007
+  },
+  {
+    "text": "Heading 2",
+    "x": 1081.0,
+    "y": 92.0,
+    "width": 108.0,
+    "height": 56.0,
+    "font_size": 20.0,
+    "source": "Accessibility",
+    "control_type": 50007
+  },
+  {
+    "text": "Heading 3",
+    "x": 1189.0,
+    "y": 92.0,
+    "width": 108.0,
+    "height": 56.0,
+    "font_size": 20.0,
+    "source": "Accessibility",
+    "control_type": 50007
+  },
+  {
+    "text": "Heading 4",
+    "x": 1297.0,
+    "y": 92.0,
+    "width": 108.0,
+    "height": 56.0,
+    "font_size": 20.0,
+    "source": "Accessibility",
+    "control_type": 50007
+  },
+  {
+    "text": "Title",
+    "x": 757.0,
+    "y": 148.0,
+    "width": 108.0,
+    "height": 56.0,
+    "font_size": 20.0,
+    "source": "Accessibility",
+    "control_type": 50007
+  },
+  {
+    "text": "Subtitle",
+    "x": 865.0,
+    "y": 148.0,
+    "width": 108.0,
+    "height": 56.0,
+    "font_size": 20.0,
+    "source": "Accessibility",
+    "control_type": 50007
+  },
+  {
+    "text": "Subtle Emphasis",
+    "x": 973.0,
+    "y": 148.0,
+    "width": 108.0,
+    "height": 56.0,
+    "font_size": 20.0,
+    "source": "Accessibility",
+    "control_type": 50007
+  },
+  {
+    "text": "Emphasis",
+    "x": 1081.0,
+    "y": 148.0,
+    "width": 108.0,
+    "height": 56.0,
+    "font_size": 20.0,
+    "source": "Accessibility",
+    "control_type": 50007
+  },
+  {
+    "text": "Intense Emphasis",
+    "x": 1189.0,
+    "y": 148.0,
+    "width": 108.0,
+    "height": 56.0,
+    "font_size": 20.0,
+    "source": "Accessibility",
+    "control_type": 50007
+  },
+  {
+    "text": "Strong",
+    "x": 1297.0,
+    "y": 148.0,
+    "width": 108.0,
+    "height": 56.0,
+    "font_size": 20.0,
+    "source": "Accessibility",
+    "control_type": 50007
+  },
+  {
+    "text": "Quote",
+    "x": 757.0,
+    "y": 204.0,
+    "width": 108.0,
+    "height": 56.0,
+    "font_size": 20.0,
+    "source": "Accessibility",
+    "control_type": 50007
+  },
+  {
+    "text": "Intense Quote",
+    "x": 865.0,
+    "y": 204.0,
+    "width": 108.0,
+    "height": 56.0,
+    "font_size": 20.0,
+    "source": "Accessibility",
+    "control_type": 50007
+  },
+  {
+    "text": "Subtle Reference",
+    "x": 973.0,
+    "y": 204.0,
+    "width": 108.0,
+    "height": 56.0,
+    "font_size": 20.0,
+    "source": "Accessibility",
+    "control_type": 50007
+  },
+  {
+    "text": "Intense Reference",
+    "x": 1081.0,
+    "y": 204.0,
+    "width": 108.0,
+    "height": 56.0,
+    "font_size": 20.0,
+    "source": "Accessibility",
+    "control_type": 50007
+  },
+  {
+    "text": "Book Title",
+    "x": 1189.0,
+    "y": 204.0,
+    "width": 108.0,
+    "height": 56.0,
+    "font_size": 20.0,
+    "source": "Accessibility",
+    "control_type": 50007
+  },
+  {
+    "text": "¶ List Paragraph",
+    "x": 1297.0,
+    "y": 204.0,
+    "width": 108.0,
+    "height": 56.0,
+    "font_size": 20.0,
+    "source": "Accessibility",
+    "control_type": 50007
+  },
+  {
+    "text": "",
+    "x": 1008.0,
+    "y": 882.0,
+    "width": 381.0,
+    "height": 17.0,
+    "font_size": 13.0,
+    "source": "Accessibility",
+    "control_type": 50007
+  },
+  {
+    "text": "",
+    "x": 1008.0,
+    "y": 861.0,
+    "width": 391.0,
+    "height": 17.0,
+    "font_size": 13.0,
+    "source": "Accessibility",
+    "control_type": 50007
+  },
+  {
+    "text": "",
+    "x": 1008.0,
+    "y": 462.0,
+    "width": 503.0,
+    "height": 17.0,
+    "font_size": 13.0,
+    "source": "Accessibility",
+    "control_type": 50007
+  },
+  {
+    "text": "",
+    "x": 175.0,
+    "y": 703.0,
+    "width": 554.0,
+    "height": 17.0,
+    "font_size": 13.0,
+    "source": "Accessibility",
+    "control_type": 50007
+  },
+  {
+    "text": "",
+    "x": 175.0,
+    "y": 724.0,
+    "width": 559.0,
+    "height": 17.0,
+    "font_size": 13.0,
+    "source": "Accessibility",
+    "control_type": 50007
+  },
+  {
+    "text": "",
+    "x": 1008.0,
+    "y": 602.0,
+    "width": 580.0,
+    "height": 17.0,
+    "font_size": 13.0,
+    "source": "Accessibility",
+    "control_type": 50007
+  },
+  {
+    "text": "",
+    "x": 175.0,
+    "y": 621.0,
+    "width": 597.0,
+    "height": 17.0,
+    "font_size": 13.0,
+    "source": "Accessibility",
+    "control_type": 50007
+  },
+  {
+    "text": "",
+    "x": 175.0,
+    "y": 662.0,
+    "width": 603.0,
+    "height": 17.0,
+    "font_size": 13.0,
+    "source": "Accessibility",
+    "control_type": 50007
+  },
+  {
+    "text": "",
+    "x": 175.0,
+    "y": 682.0,
+    "width": 631.0,
+    "height": 17.0,
+    "font_size": 13.0,
+    "source": "Accessibility",
+    "control_type": 50007
+  },
+  {
+    "text": "",
+    "x": 1008.0,
+    "y": 741.0,
+    "width": 631.0,
+    "height": 17.0,
+    "font_size": 13.0,
+    "source": "Accessibility",
+    "control_type": 50007
+  },
+  {
+    "text": "",
+    "x": 175.0,
+    "y": 641.0,
+    "width": 634.0,
+    "height": 17.0,
+    "font_size": 13.0,
+    "source": "Accessibility",
+    "control_type": 50007
+  },
+  {
+    "text": "",
+    "x": 1008.0,
+    "y": 482.0,
+    "width": 650.0,
+    "height": 17.0,
+    "font_size": 13.0,
+    "source": "Accessibility",
+    "control_type": 50007
+  },
+  {
+    "text": "",
+    "x": 1008.0,
+    "y": 244.0,
+    "width": 651.0,
+    "height": 17.0,
+    "font_size": 13.0,
+    "source": "Accessibility",
+    "control_type": 50007
+  },
+  {
+    "text": "",
+    "x": 1008.0,
+    "y": 343.0,
+    "width": 657.0,
+    "height": 17.0,
+    "font_size": 13.0,
+    "source": "Accessibility",
+    "control_type": 50007
+  },
+  {
+    "text": "",
+    "x": 175.0,
+    "y": 880.0,
+    "width": 675.0,
+    "height": 17.0,
+    "font_size": 13.0,
+    "source": "Accessibility",
+    "control_type": 50007
+  },
+  {
+    "text": "",
+    "x": 1008.0,
+    "y": 363.0,
+    "width": 675.0,
+    "height": 17.0,
+    "font_size": 13.0,
+    "source": "Accessibility",
+    "control_type": 50007
+  },
+  {
+    "text": "",
+    "x": 1008.0,
+    "y": 582.0,
+    "width": 676.0,
+    "height": 17.0,
+    "font_size": 13.0,
+    "source": "Accessibility",
+    "control_type": 50007
+  },
+  {
+    "text": "",
+    "x": 175.0,
+    "y": 982.0,
+    "width": 706.0,
+    "height": 17.0,
+    "font_size": 13.0,
+    "source": "Accessibility",
+    "control_type": 50007
+  },
+  {
+    "text": "",
+    "x": 1008.0,
+    "y": 503.0,
+    "width": 726.0,
+    "height": 17.0,
+    "font_size": 13.0,
+    "source": "Accessibility",
+    "control_type": 50007
+  },
+  {
+    "text": "",
+    "x": 1008.0,
+    "y": 561.0,
+    "width": 728.0,
+    "height": 17.0,
+    "font_size": 13.0,
+    "source": "Accessibility",
+    "control_type": 50007
+  },
+  {
+    "text": "",
+    "x": 1008.0,
+    "y": 701.0,
+    "width": 655.0,
+    "height": 37.0,
+    "font_size": 20.0,
+    "source": "Accessibility",
+    "control_type": 50007
+  },
+  {
+    "text": "",
+    "x": 1008.0,
+    "y": 265.0,
+    "width": 674.0,
+    "height": 37.0,
+    "font_size": 20.0,
+    "source": "Accessibility",
+    "control_type": 50007
+  },
+  {
+    "text": "",
+    "x": 175.0,
+    "y": 901.0,
+    "width": 700.0,
+    "height": 37.0,
+    "font_size": 20.0,
+    "source": "Accessibility",
+    "control_type": 50007
+  },
+  {
+    "text": "",
+    "x": 1008.0,
+    "y": 384.0,
+    "width": 710.0,
+    "height": 37.0,
+    "font_size": 20.0,
+    "source": "Accessibility",
+    "control_type": 50007
+  },
+  {
+    "text": "",
+    "x": 1008.0,
+    "y": 623.0,
+    "width": 717.0,
+    "height": 37.0,
+    "font_size": 20.0,
+    "source": "Accessibility",
+    "control_type": 50007
+  },
+  {
+    "text": "",
+    "x": 175.0,
+    "y": 941.0,
+    "width": 721.0,
+    "height": 37.0,
+    "font_size": 20.0,
+    "source": "Accessibility",
+    "control_type": 50007
+  },
+  {
+    "text": "",
+    "x": 175.0,
+    "y": 840.0,
+    "width": 723.0,
+    "height": 37.0,
+    "font_size": 20.0,
+    "source": "Accessibility",
+    "control_type": 50007
+  }
+]

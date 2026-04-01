@@ -1,0 +1,662 @@
+[
+  {
+    "text": "Cambria (Body)",
+    "x": 194.0,
+    "y": 94.0,
+    "width": 83.0,
+    "height": 15.0,
+    "font_size": 11.0,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "Word Count 664 words",
+    "x": 80.0,
+    "y": 1011.0,
+    "width": 69.0,
+    "height": 21.0,
+    "font_size": 12.0,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "• Microsoft Certified: Azure",
+    "x": 1032.0,
+    "y": 985.0,
+    "width": 162.0,
+    "height": 17.0,
+    "font_size": 12.142857142857144,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "• Prosci Change Management",
+    "x": 1008.0,
+    "y": 944.0,
+    "width": 206.0,
+    "height": 17.0,
+    "font_size": 12.142857142857144,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "Core Competencies",
+    "x": 175.0,
+    "y": 594.0,
+    "width": 161.0,
+    "height": 23.0,
+    "font_size": 16.42857142857143,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "• Microsoft Coaching Habit Certified",
+    "x": 1008.0,
+    "y": 964.0,
+    "width": 248.0,
+    "height": 17.0,
+    "font_size": 12.142857142857144,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "Professional Summary",
+    "x": 175.0,
+    "y": 397.0,
+    "width": 185.0,
+    "height": 23.0,
+    "font_size": 16.42857142857143,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "• Microsoft Global Challenger Certified",
+    "x": 1008.0,
+    "y": 923.0,
+    "width": 264.0,
+    "height": 17.0,
+    "font_size": 12.142857142857144,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "Professional Experience",
+    "x": 175.0,
+    "y": 776.0,
+    "width": 196.0,
+    "height": 23.0,
+    "font_size": 16.42857142857143,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "• Prompt Engineering for AI-Ops (Certified)",
+    "x": 1008.0,
+    "y": 841.0,
+    "width": 296.0,
+    "height": 17.0,
+    "font_size": 12.142857142857144,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "• Microsoft Certified: Information Protection",
+    "x": 1008.0,
+    "y": 902.0,
+    "width": 302.0,
+    "height": 17.0,
+    "font_size": 12.142857142857144,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "• Microsoft Certified Trainer (2020–Present)",
+    "x": 1008.0,
+    "y": 820.0,
+    "width": 303.0,
+    "height": 17.0,
+    "font_size": 12.142857142857144,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "¶ Normal",
+    "x": 757.0,
+    "y": 92.0,
+    "width": 108.0,
+    "height": 56.0,
+    "font_size": 20.0,
+    "source": "Accessibility",
+    "control_type": 50007
+  },
+  {
+    "text": "¶ No Spacing",
+    "x": 865.0,
+    "y": 92.0,
+    "width": 108.0,
+    "height": 56.0,
+    "font_size": 20.0,
+    "source": "Accessibility",
+    "control_type": 50007
+  },
+  {
+    "text": "Heading 1",
+    "x": 973.0,
+    "y": 92.0,
+    "width": 108.0,
+    "height": 56.0,
+    "font_size": 20.0,
+    "source": "Accessibility",
+    "control_type": 50007
+  },
+  {
+    "text": "Heading 2",
+    "x": 1081.0,
+    "y": 92.0,
+    "width": 108.0,
+    "height": 56.0,
+    "font_size": 20.0,
+    "source": "Accessibility",
+    "control_type": 50007
+  },
+  {
+    "text": "Heading 3",
+    "x": 1189.0,
+    "y": 92.0,
+    "width": 108.0,
+    "height": 56.0,
+    "font_size": 20.0,
+    "source": "Accessibility",
+    "control_type": 50007
+  },
+  {
+    "text": "Heading 4",
+    "x": 1297.0,
+    "y": 92.0,
+    "width": 108.0,
+    "height": 56.0,
+    "font_size": 20.0,
+    "source": "Accessibility",
+    "control_type": 50007
+  },
+  {
+    "text": "Title",
+    "x": 757.0,
+    "y": 148.0,
+    "width": 108.0,
+    "height": 56.0,
+    "font_size": 20.0,
+    "source": "Accessibility",
+    "control_type": 50007
+  },
+  {
+    "text": "Subtitle",
+    "x": 865.0,
+    "y": 148.0,
+    "width": 108.0,
+    "height": 56.0,
+    "font_size": 20.0,
+    "source": "Accessibility",
+    "control_type": 50007
+  },
+  {
+    "text": "Subtle Emphasis",
+    "x": 973.0,
+    "y": 148.0,
+    "width": 108.0,
+    "height": 56.0,
+    "font_size": 20.0,
+    "source": "Accessibility",
+    "control_type": 50007
+  },
+  {
+    "text": "Emphasis",
+    "x": 1081.0,
+    "y": 148.0,
+    "width": 108.0,
+    "height": 56.0,
+    "font_size": 20.0,
+    "source": "Accessibility",
+    "control_type": 50007
+  },
+  {
+    "text": "Intense Emphasis",
+    "x": 1189.0,
+    "y": 148.0,
+    "width": 108.0,
+    "height": 56.0,
+    "font_size": 20.0,
+    "source": "Accessibility",
+    "control_type": 50007
+  },
+  {
+    "text": "Strong",
+    "x": 1297.0,
+    "y": 148.0,
+    "width": 108.0,
+    "height": 56.0,
+    "font_size": 20.0,
+    "source": "Accessibility",
+    "control_type": 50007
+  },
+  {
+    "text": "Quote",
+    "x": 757.0,
+    "y": 204.0,
+    "width": 108.0,
+    "height": 56.0,
+    "font_size": 20.0,
+    "source": "Accessibility",
+    "control_type": 50007
+  },
+  {
+    "text": "Intense Quote",
+    "x": 865.0,
+    "y": 204.0,
+    "width": 108.0,
+    "height": 56.0,
+    "font_size": 20.0,
+    "source": "Accessibility",
+    "control_type": 50007
+  },
+  {
+    "text": "Subtle Reference",
+    "x": 973.0,
+    "y": 204.0,
+    "width": 108.0,
+    "height": 56.0,
+    "font_size": 20.0,
+    "source": "Accessibility",
+    "control_type": 50007
+  },
+  {
+    "text": "Intense Reference",
+    "x": 1081.0,
+    "y": 204.0,
+    "width": 108.0,
+    "height": 56.0,
+    "font_size": 20.0,
+    "source": "Accessibility",
+    "control_type": 50007
+  },
+  {
+    "text": "Book Title",
+    "x": 1189.0,
+    "y": 204.0,
+    "width": 108.0,
+    "height": 56.0,
+    "font_size": 20.0,
+    "source": "Accessibility",
+    "control_type": 50007
+  },
+  {
+    "text": "¶ List Paragraph",
+    "x": 1297.0,
+    "y": 204.0,
+    "width": 108.0,
+    "height": 56.0,
+    "font_size": 20.0,
+    "source": "Accessibility",
+    "control_type": 50007
+  },
+  {
+    "text": "Education & Professional Training",
+    "x": 1008.0,
+    "y": 793.0,
+    "width": 273.0,
+    "height": 23.0,
+    "font_size": 16.42857142857143,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "• Microsoft 365 Certified: Teams Administrator Associate",
+    "x": 1008.0,
+    "y": 882.0,
+    "width": 381.0,
+    "height": 17.0,
+    "font_size": 12.142857142857144,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "• Microsoft 365 Certified: Security Administrator Associate",
+    "x": 1008.0,
+    "y": 861.0,
+    "width": 391.0,
+    "height": 17.0,
+    "font_size": 12.142857142857144,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "• Aligned to multiple verticals over the years from PSNS, FSI, LRG and others.",
+    "x": 1008.0,
+    "y": 462.0,
+    "width": 503.0,
+    "height": 17.0,
+    "font_size": 12.142857142857144,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "• Customer Workshops | Solution Demos | Objection Handling | CxO Communications",
+    "x": 175.0,
+    "y": 703.0,
+    "width": 554.0,
+    "height": 17.0,
+    "font_size": 12.142857142857144,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "• Deal Acceleration | Pipeline Development | Co-Sell Execution | Partner Collaboration",
+    "x": 175.0,
+    "y": 724.0,
+    "width": 559.0,
+    "height": 17.0,
+    "font_size": 12.142857142857144,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "• Directed disaster recovery and business continuity for global IT; reported to Global CIO.",
+    "x": 1008.0,
+    "y": 602.0,
+    "width": 580.0,
+    "height": 17.0,
+    "font_size": 12.142857142857144,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "• Technical Pre-Sales Leadership | Solution Strategy | Customer Engagement & Value Selling",
+    "x": 175.0,
+    "y": 621.0,
+    "width": 597.0,
+    "height": 17.0,
+    "font_size": 12.142857142857144,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "• Microsoft 365 | Copilot & Copilot Studio | Azure | Power Platform | Low/Pro-code Solutions",
+    "x": 175.0,
+    "y": 662.0,
+    "width": 603.0,
+    "height": 17.0,
+    "font_size": 12.142857142857144,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "07411029006 | Graham@hosking.wales | LinkedIn: https://uk.linkedin.com/in/grahamhosking",
+    "x": 175.0,
+    "y": 345.0,
+    "width": 609.0,
+    "height": 17.0,
+    "font_size": 12.142857142857144,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "Director, Advisory Sales EMEA – Lighthouse Global (2021 – 2023)",
+    "x": 1008.0,
+    "y": 317.0,
+    "width": 475.0,
+    "height": 22.0,
+    "font_size": 15.714285714285715,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "• AI Business Process Solutions | AI Security Solutions | Security & Compliance (GDPR, ISO27001)",
+    "x": 175.0,
+    "y": 682.0,
+    "width": 631.0,
+    "height": 17.0,
+    "font_size": 12.142857142857144,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "• Delivered major infrastructure projects, including DR, compliance, and network transformation.",
+    "x": 1008.0,
+    "y": 741.0,
+    "width": 631.0,
+    "height": 17.0,
+    "font_size": 12.142857142857144,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "• Practice Building | Hiring & Team Coaching | People Development | 1:1s & Performance Reviews",
+    "x": 175.0,
+    "y": 641.0,
+    "width": 634.0,
+    "height": 17.0,
+    "font_size": 12.142857142857144,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "Graham Hosking",
+    "x": 175.0,
+    "y": 243.0,
+    "width": 257.0,
+    "height": 42.0,
+    "font_size": 28.0,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "Technology Manager – Forest of Dean District Council (2010 – 2014)",
+    "x": 1008.0,
+    "y": 676.0,
+    "width": 497.0,
+    "height": 22.0,
+    "font_size": 15.714285714285715,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "• Delivered technical closure on complex deals (e.g., WW wins: Barclays, HSBC), driving E5 adoption.",
+    "x": 1008.0,
+    "y": 482.0,
+    "width": 650.0,
+    "height": 17.0,
+    "font_size": 12.142857142857144,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "• Evangelised Copilot for Security and integrated Microsoft AI frameworks into customer operations.",
+    "x": 1008.0,
+    "y": 244.0,
+    "width": 651.0,
+    "height": 17.0,
+    "font_size": 12.142857142857144,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "• Managed team of 5 direct reports and supported 15-person wider IT unit; led coaching, training, and performance planning.",
+    "x": 1008.0,
+    "y": 701.0,
+    "width": 655.0,
+    "height": 17.0,
+    "font_size": 12.142857142857144,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "• Led technical pre-sales for Microsoft Compliance and Security across EMEA, building $5M+ pipeline.",
+    "x": 1008.0,
+    "y": 343.0,
+    "width": 657.0,
+    "height": 17.0,
+    "font_size": 12.142857142857144,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "• Generated $3M+ qualified pipeline across UK and U.S. via value-focused pre-sales leadership and co-sell execution.",
+    "x": 1008.0,
+    "y": 265.0,
+    "width": 674.0,
+    "height": 17.0,
+    "font_size": 12.142857142857144,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "• Developing solutions from bespoke MCP servers, Microsoft Foundry agents for real-business use cases.",
+    "x": 175.0,
+    "y": 880.0,
+    "width": 675.0,
+    "height": 17.0,
+    "font_size": 12.142857142857144,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "• Partnered with Microsoft sales teams to land and execute co-sell motions in regulated industry sectors.",
+    "x": 1008.0,
+    "y": 363.0,
+    "width": 675.0,
+    "height": 17.0,
+    "font_size": 12.142857142857144,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "• Owned global enterprise infrastructure (M365 , VMware, EMC) with full project and delivery oversight.",
+    "x": 1008.0,
+    "y": 582.0,
+    "width": 676.0,
+    "height": 17.0,
+    "font_size": 12.142857142857144,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "• Demonstrated technical capabilities and secured solution design endorsements through workshops, demos, and technical PoC and evaluations.",
+    "x": 175.0,
+    "y": 901.0,
+    "width": 700.0,
+    "height": 17.0,
+    "font_size": 12.0,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "Senior Solutions Engineer – AI, Cyber Security & Microsoft 365  &  Former Solutions Director at Quorum Cyber.",
+    "x": 175.0,
+    "y": 312.0,
+    "width": 701.0,
+    "height": 17.0,
+    "font_size": 12.142857142857144,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "• Built Power Platform integrations to expand Copilot scenarios and address advanced automation strategies.",
+    "x": 175.0,
+    "y": 982.0,
+    "width": 706.0,
+    "height": 17.0,
+    "font_size": 12.142857142857144,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "• Delivered executive-level workshops and developed value-centric statements of work for data protection and governance.",
+    "x": 1008.0,
+    "y": 384.0,
+    "width": 710.0,
+    "height": 17.0,
+    "font_size": 12.142857142857144,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "• Standardised tech operations, conducted security audits, and led major system rollouts in Office 365 and cloud adoption.",
+    "x": 1008.0,
+    "y": 623.0,
+    "width": 717.0,
+    "height": 17.0,
+    "font_size": 12.142857142857144,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "• Collaborated with account and partner teams to accelerate opportunity qualification and formalise deployment plans with KPIs. Dedicated part of the sales team to drive Copilot revenue.",
+    "x": 175.0,
+    "y": 941.0,
+    "width": 721.0,
+    "height": 17.0,
+    "font_size": 12.0,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "• Lead customer engagements focused on Copilot for Microsoft 365 and Copilot Studio, building agentic solutions via low-code to pro-code with various models including Anthropic.",
+    "x": 175.0,
+    "y": 840.0,
+    "width": 723.0,
+    "height": 17.0,
+    "font_size": 12.0,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "• Presented at Microsoft Ignite and regional forums; UK Compliance Champion for Microsoft 365 multiple times.",
+    "x": 1008.0,
+    "y": 503.0,
+    "width": 726.0,
+    "height": 17.0,
+    "font_size": 12.142857142857144,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "• Led international solution architecture across 43 countries and managed 11-person support/engineering team.",
+    "x": 1008.0,
+    "y": 561.0,
+    "width": 728.0,
+    "height": 17.0,
+    "font_size": 12.142857142857144,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "Global Technology Solutions Manager – Marie Stopes International (2011 – 2015)",
+    "x": 1008.0,
+    "y": 536.0,
+    "width": 594.0,
+    "height": 22.0,
+    "font_size": 15.714285714285715,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "Technical Specialist – Security, Compliance & Productivity – Microsoft UK (2015 – 2021)",
+    "x": 1008.0,
+    "y": 436.0,
+    "width": 637.0,
+    "height": 22.0,
+    "font_size": 15.714285714285715,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "Senior AI Solutions Engineer – Microsoft UK (Nov 2024 – Present) ISVs / Software Development",
+    "x": 175.0,
+    "y": 814.0,
+    "width": 695.0,
+    "height": 22.0,
+    "font_size": 15.714285714285715,
+    "source": "Accessibility",
+    "control_type": 50020
+  }
+]

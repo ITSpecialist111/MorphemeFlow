@@ -76,7 +76,7 @@ fn capture_from_window(title_filter: Option<&str>) -> Vec<TextRegion> {
         let root = uia.ElementFromHandle(target_hwnd).expect("ElementFromHandle failed");
 
         // Use the same detection logic as the main app
-        let regions = morphemeflow_overlay_lib::text_detection::collect_from_element(&root, &uia);
+        let regions = morphemeflow_overlay_lib::text_detection::collect_from_element(&root, &uia, target_hwnd);
         eprintln!("[Capture] Found {} regions (after filtering + dedup)", regions.len());
         regions
     }

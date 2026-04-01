@@ -42,8 +42,8 @@ let settings = {
   rootColor: "#1E293B",
   suffixColor: "#059669",
   rootBold: true,
-  bgColor: "#FFFBF0",  // warm cream background to cover original text
-  bgOpacity: 0.95,
+  bgColor: "#FFFFFF",  // white background — blends with most apps
+  bgOpacity: 1.0,
 };
 
 function init(): void {
@@ -124,10 +124,28 @@ async function scanAndRender(): Promise<void> {
 function renderTextRegions(regions: TextRegion[]): void {
   clearCanvas();
 
-  // Small status bar at top
-  renderStatusBar(`MorphemeFlow active — ${regions.length} text regions | Ctrl+Shift+M to hide`);
+  // Filter: skip regions in the top toolbar/ribbon area of most apps,
+  // very small regions, status bars, and sidebar chrome
+  const screenW = window.innerWidth;
+  const screenH = window.innerHeight;
+  const contentRegions = regions.filter(r => {
+    // Skip anything in the top 180px (app chrome: ribbon, toolbars, tabs)
+    if (r.y < 180) return false;
+    // Skip tiny regions (UI labels, not content)
+    if (r.height < 12 || r.width < 30) return false;
+    // Skip status bars at the very bottom
+    if (r.y > screenH - 40) return false;
+    // Skip very short text that's likely a UI button/link label
+    if (r.text.length <= 4 && r.width < 50) return false;
+    // Skip settings panels / sidebars far to the right (>85% of screen)
+    if (r.x > screenW * 0.85 && r.width < 200) return false;
+    return true;
+  });
 
-  for (const region of regions) {
+  // Status bar at top
+  renderStatusBar(`MorphemeFlow active — ${regions.length} detected, ${contentRegions.length} rendered | Ctrl+Shift+M to hide`);
+
+  for (const region of contentRegions) {
     renderRegionOverlay(region);
   }
 }
@@ -136,7 +154,7 @@ function renderTextRegions(regions: TextRegion[]): void {
  * Render a single text region: background cover + morpheme text
  */
 function renderRegionOverlay(region: TextRegion): void {
-  const padding = 2;
+  const padding = 4;
   const fontSize = region.font_size;
 
   // Draw background to cover original text

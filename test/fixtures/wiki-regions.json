@@ -1,0 +1,1742 @@
+[
+  {
+    "text": "edit",
+    "x": 572.0,
+    "y": 1867.0,
+    "width": 21.0,
+    "height": 16.0,
+    "font_size": 11.428571428571429,
+    "source": "Accessibility",
+    "control_type": 50005
+  },
+  {
+    "text": "edit",
+    "x": 621.0,
+    "y": 396.0,
+    "width": 22.0,
+    "height": 16.0,
+    "font_size": 11.428571428571429,
+    "source": "Accessibility",
+    "control_type": 50005
+  },
+  {
+    "text": "edit",
+    "x": 578.0,
+    "y": 548.0,
+    "width": 22.0,
+    "height": 16.0,
+    "font_size": 11.428571428571429,
+    "source": "Accessibility",
+    "control_type": 50005
+  },
+  {
+    "text": "edit",
+    "x": 650.0,
+    "y": 746.0,
+    "width": 22.0,
+    "height": 16.0,
+    "font_size": 11.428571428571429,
+    "source": "Accessibility",
+    "control_type": 50005
+  },
+  {
+    "text": "edit",
+    "x": 642.0,
+    "y": 1138.0,
+    "width": 22.0,
+    "height": 16.0,
+    "font_size": 11.428571428571429,
+    "source": "Accessibility",
+    "control_type": 50005
+  },
+  {
+    "text": "edit",
+    "x": 952.0,
+    "y": 1365.0,
+    "width": 22.0,
+    "height": 16.0,
+    "font_size": 11.428571428571429,
+    "source": "Accessibility",
+    "control_type": 50005
+  },
+  {
+    "text": "edit",
+    "x": 593.0,
+    "y": 1611.0,
+    "width": 22.0,
+    "height": 16.0,
+    "font_size": 11.428571428571429,
+    "source": "Accessibility",
+    "control_type": 50005
+  },
+  {
+    "text": "edit",
+    "x": 662.0,
+    "y": 2071.0,
+    "width": 22.0,
+    "height": 16.0,
+    "font_size": 11.428571428571429,
+    "source": "Accessibility",
+    "control_type": 50005
+  },
+  {
+    "text": "edit",
+    "x": 583.0,
+    "y": 2764.0,
+    "width": 22.0,
+    "height": 16.0,
+    "font_size": 11.428571428571429,
+    "source": "Accessibility",
+    "control_type": 50005
+  },
+  {
+    "text": "edit",
+    "x": 614.0,
+    "y": 2852.0,
+    "width": 22.0,
+    "height": 16.0,
+    "font_size": 11.428571428571429,
+    "source": "Accessibility",
+    "control_type": 50005
+  },
+  {
+    "text": " in ",
+    "x": 826.0,
+    "y": 333.0,
+    "width": 22.0,
+    "height": 18.0,
+    "font_size": 12.857142857142858,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": " or ",
+    "x": 882.0,
+    "y": 1982.0,
+    "width": 24.0,
+    "height": 18.0,
+    "font_size": 12.857142857142858,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "QC",
+    "x": 630.0,
+    "y": 2291.0,
+    "width": 25.0,
+    "height": 18.0,
+    "font_size": 12.857142857142858,
+    "source": "Accessibility",
+    "control_type": 50005
+  },
+  {
+    "text": "MP",
+    "x": 718.0,
+    "y": 2427.0,
+    "width": 25.0,
+    "height": 18.0,
+    "font_size": 12.857142857142858,
+    "source": "Accessibility",
+    "control_type": 50005
+  },
+  {
+    "text": "Text",
+    "x": 1466.0,
+    "y": 404.0,
+    "width": 27.0,
+    "height": 17.0,
+    "font_size": 12.142857142857144,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "Light",
+    "x": 1490.0,
+    "y": 728.0,
+    "width": 31.0,
+    "height": 17.0,
+    "font_size": 12.142857142857144,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "Dark",
+    "x": 1490.0,
+    "y": 760.0,
+    "width": 31.0,
+    "height": 17.0,
+    "font_size": 12.142857142857144,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "Wide",
+    "x": 1490.0,
+    "y": 617.0,
+    "width": 33.0,
+    "height": 17.0,
+    "font_size": 12.142857142857144,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "Small",
+    "x": 1490.0,
+    "y": 442.0,
+    "width": 36.0,
+    "height": 17.0,
+    "font_size": 12.142857142857144,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "Log in",
+    "x": 1656.0,
+    "y": 112.0,
+    "width": 39.0,
+    "height": 16.0,
+    "font_size": 13.0,
+    "source": "Accessibility",
+    "control_type": 50007
+  },
+  {
+    "text": "Large",
+    "x": 1490.0,
+    "y": 506.0,
+    "width": 37.0,
+    "height": 17.0,
+    "font_size": 12.142857142857144,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "Width",
+    "x": 1466.0,
+    "y": 547.0,
+    "width": 37.0,
+    "height": 17.0,
+    "font_size": 12.142857142857144,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "Cadw",
+    "x": 537.0,
+    "y": 2961.0,
+    "width": 37.0,
+    "height": 17.0,
+    "font_size": 12.142857142857144,
+    "source": "Accessibility",
+    "control_type": 50005
+  },
+  {
+    "text": " 2022",
+    "x": 1260.0,
+    "y": 2961.0,
+    "width": 37.0,
+    "height": 17.0,
+    "font_size": 12.142857142857144,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "Color ",
+    "x": 1466.0,
+    "y": 658.0,
+    "width": 38.0,
+    "height": 17.0,
+    "font_size": 12.142857142857144,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "(beta)",
+    "x": 1503.0,
+    "y": 658.0,
+    "width": 38.0,
+    "height": 17.0,
+    "font_size": 12.142857142857144,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "Wales",
+    "x": 1252.0,
+    "y": 1024.0,
+    "width": 39.0,
+    "height": 17.0,
+    "font_size": 12.142857142857144,
+    "source": "Accessibility",
+    "control_type": 50005
+  },
+  {
+    "text": "Wikimedia",
+    "x": 1246.0,
+    "y": 960.0,
+    "width": 57.0,
+    "height": 12.0,
+    "font_size": 11.0,
+    "source": "Accessibility",
+    "control_type": 50005
+  },
+  {
+    "text": "ISBN",
+    "x": 1285.0,
+    "y": 2992.0,
+    "width": 38.0,
+    "height": 18.0,
+    "font_size": 12.857142857142858,
+    "source": "Accessibility",
+    "control_type": 50005
+  },
+  {
+    "text": "stone",
+    "x": 650.0,
+    "y": 1029.0,
+    "width": 40.0,
+    "height": 18.0,
+    "font_size": 12.857142857142858,
+    "source": "Accessibility",
+    "control_type": 50005
+  },
+  {
+    "text": "WMS",
+    "x": 905.0,
+    "y": 1982.0,
+    "width": 40.0,
+    "height": 18.0,
+    "font_size": 12.857142857142858,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "Donate",
+    "x": 1500.0,
+    "y": 112.0,
+    "width": 46.0,
+    "height": 16.0,
+    "font_size": 13.0,
+    "source": "Accessibility",
+    "control_type": 50007
+  },
+  {
+    "text": "Wales",
+    "x": 1035.0,
+    "y": 333.0,
+    "width": 45.0,
+    "height": 18.0,
+    "font_size": 12.857142857142858,
+    "source": "Accessibility",
+    "control_type": 50005
+  },
+  {
+    "text": "Torfaen",
+    "x": 1233.0,
+    "y": 1249.0,
+    "width": 48.0,
+    "height": 17.0,
+    "font_size": 12.142857142857144,
+    "source": "Accessibility",
+    "control_type": 50005
+  },
+  {
+    "text": "Enabled",
+    "x": 1490.0,
+    "y": 335.0,
+    "width": 52.0,
+    "height": 17.0,
+    "font_size": 12.142857142857144,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "Edit",
+    "x": 1244.0,
+    "y": 216.0,
+    "width": 25.0,
+    "height": 37.0,
+    "font_size": 13.214285714285715,
+    "source": "Accessibility",
+    "control_type": 50007
+  },
+  {
+    "text": "Disabled",
+    "x": 1490.0,
+    "y": 303.0,
+    "width": 55.0,
+    "height": 17.0,
+    "font_size": 12.142857142857144,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "Talk",
+    "x": 533.0,
+    "y": 216.0,
+    "width": 26.0,
+    "height": 37.0,
+    "font_size": 13.214285714285715,
+    "source": "Accessibility",
+    "control_type": 50007
+  },
+  {
+    "text": "OpenStreetMap",
+    "x": 1321.0,
+    "y": 960.0,
+    "width": 81.0,
+    "height": 12.0,
+    "font_size": 11.0,
+    "source": "Accessibility",
+    "control_type": 50005
+  },
+  {
+    "text": "Torfaen",
+    "x": 927.0,
+    "y": 333.0,
+    "width": 54.0,
+    "height": 18.0,
+    "font_size": 12.857142857142858,
+    "source": "Accessibility",
+    "control_type": 50005
+  },
+  {
+    "text": "Torfaen",
+    "x": 841.0,
+    "y": 1302.0,
+    "width": 54.0,
+    "height": 18.0,
+    "font_size": 12.857142857142858,
+    "source": "Accessibility",
+    "control_type": 50005
+  },
+  {
+    "text": "Torfaen",
+    "x": 769.0,
+    "y": 2427.0,
+    "width": 54.0,
+    "height": 18.0,
+    "font_size": 12.857142857142858,
+    "source": "Accessibility",
+    "control_type": 50005
+  },
+  {
+    "text": "Standard",
+    "x": 1490.0,
+    "y": 474.0,
+    "width": 58.0,
+    "height": 17.0,
+    "font_size": 12.142857142857144,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "Standard",
+    "x": 1490.0,
+    "y": 585.0,
+    "width": 58.0,
+    "height": 17.0,
+    "font_size": 12.142857142857144,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": ", South ",
+    "x": 980.0,
+    "y": 333.0,
+    "width": 56.0,
+    "height": 18.0,
+    "font_size": 12.857142857142858,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "Automatic",
+    "x": 1490.0,
+    "y": 696.0,
+    "width": 63.0,
+    "height": 17.0,
+    "font_size": 12.142857142857144,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "Keighley",
+    "x": 1046.0,
+    "y": 2236.0,
+    "width": 62.0,
+    "height": 18.0,
+    "font_size": 12.857142857142858,
+    "source": "Accessibility",
+    "control_type": 50005
+  },
+  {
+    "text": "Coordinates",
+    "x": 1208.0,
+    "y": 266.0,
+    "width": 71.0,
+    "height": 16.0,
+    "font_size": 11.428571428571429,
+    "source": "Accessibility",
+    "control_type": 50005
+  },
+  {
+    "text": " (Welsh: ",
+    "x": 660.0,
+    "y": 307.0,
+    "width": 64.0,
+    "height": 18.0,
+    "font_size": 12.857142857142858,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "AstroTurf",
+    "x": 606.0,
+    "y": 1648.0,
+    "width": 66.0,
+    "height": 18.0,
+    "font_size": 12.857142857142858,
+    "source": "Accessibility",
+    "control_type": 50005
+  },
+  {
+    "text": "AstroTurf",
+    "x": 1115.0,
+    "y": 1648.0,
+    "width": 66.0,
+    "height": 18.0,
+    "font_size": 12.857142857142858,
+    "source": "Accessibility",
+    "control_type": 50005
+  },
+  {
+    "text": "Sporting",
+    "x": 478.0,
+    "y": 2510.0,
+    "width": 67.0,
+    "height": 18.0,
+    "font_size": 12.857142857142858,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "Read",
+    "x": 1195.0,
+    "y": 216.0,
+    "width": 34.0,
+    "height": 37.0,
+    "font_size": 20.0,
+    "source": "Accessibility",
+    "control_type": 50007
+  },
+  {
+    "text": ". Retrieved ",
+    "x": 1096.0,
+    "y": 2961.0,
+    "width": 75.0,
+    "height": 17.0,
+    "font_size": 12.142857142857144,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "Pontypool",
+    "x": 847.0,
+    "y": 333.0,
+    "width": 72.0,
+    "height": 18.0,
+    "font_size": 12.857142857142858,
+    "source": "Accessibility",
+    "control_type": 50005
+  },
+  {
+    "text": "West Mon",
+    "x": 810.0,
+    "y": 1982.0,
+    "width": 72.0,
+    "height": 18.0,
+    "font_size": 12.857142857142858,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "See also: ",
+    "x": 504.0,
+    "y": 2106.0,
+    "width": 72.0,
+    "height": 18.0,
+    "font_size": 12.857142857142858,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "West Mon",
+    "x": 984.0,
+    "y": 307.0,
+    "width": 76.0,
+    "height": 18.0,
+    "font_size": 12.857142857142858,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "Ken Jones",
+    "x": 504.0,
+    "y": 2599.0,
+    "width": 76.0,
+    "height": 18.0,
+    "font_size": 12.857142857142858,
+    "source": "Accessibility",
+    "control_type": 50005
+  },
+  {
+    "text": "Appearance",
+    "x": 1466.0,
+    "y": 227.0,
+    "width": 81.0,
+    "height": 17.0,
+    "font_size": 12.142857142857144,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "Monmouth",
+    "x": 879.0,
+    "y": 637.0,
+    "width": 77.0,
+    "height": 18.0,
+    "font_size": 12.857142857142858,
+    "source": "Accessibility",
+    "control_type": 50005
+  },
+  {
+    "text": "citation needed",
+    "x": 902.0,
+    "y": 1297.0,
+    "width": 88.0,
+    "height": 16.0,
+    "font_size": 11.428571428571429,
+    "source": "Accessibility",
+    "control_type": 50005
+  },
+  {
+    "text": "Contents",
+    "x": 222.0,
+    "y": 224.0,
+    "width": 62.0,
+    "height": 23.0,
+    "font_size": 16.42857142857143,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "Llantarnam",
+    "x": 784.0,
+    "y": 2346.0,
+    "width": 81.0,
+    "height": 18.0,
+    "font_size": 12.857142857142858,
+    "source": "Accessibility",
+    "control_type": 50005
+  },
+  {
+    "text": "Public Life",
+    "x": 478.0,
+    "y": 2202.0,
+    "width": 82.0,
+    "height": 18.0,
+    "font_size": 12.857142857142858,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "Article",
+    "x": 478.0,
+    "y": 216.0,
+    "width": 40.0,
+    "height": 37.0,
+    "font_size": 13.214285714285715,
+    "source": "Accessibility",
+    "control_type": 50007
+  },
+  {
+    "text": "Create account",
+    "x": 1553.0,
+    "y": 112.0,
+    "width": 96.0,
+    "height": 16.0,
+    "font_size": 13.0,
+    "source": "Accessibility",
+    "control_type": 50007
+  },
+  {
+    "text": "16 September",
+    "x": 1170.0,
+    "y": 2961.0,
+    "width": 91.0,
+    "height": 17.0,
+    "font_size": 12.142857142857144,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "Henry Stock",
+    "x": 814.0,
+    "y": 951.0,
+    "width": 88.0,
+    "height": 18.0,
+    "font_size": 12.857142857142858,
+    "source": "Accessibility",
+    "control_type": 50005
+  },
+  {
+    "text": "Co-educational",
+    "x": 1233.0,
+    "y": 1348.0,
+    "width": 95.0,
+    "height": 17.0,
+    "font_size": 12.142857142857144,
+    "source": "Accessibility",
+    "control_type": 50005
+  },
+  {
+    "text": "Paul Murphy",
+    "x": 504.0,
+    "y": 2427.0,
+    "width": 90.0,
+    "height": 18.0,
+    "font_size": 12.857142857142858,
+    "source": "Accessibility",
+    "control_type": 50005
+  },
+  {
+    "text": "haberdasher",
+    "x": 905.0,
+    "y": 585.0,
+    "width": 91.0,
+    "height": 18.0,
+    "font_size": 12.857142857142858,
+    "source": "Accessibility",
+    "control_type": 50005
+  },
+  {
+    "text": "James Waite",
+    "x": 504.0,
+    "y": 2544.0,
+    "width": 92.0,
+    "height": 18.0,
+    "font_size": 12.857142857142858,
+    "source": "Accessibility",
+    "control_type": 50005
+  },
+  {
+    "text": "Terry Cobner",
+    "x": 504.0,
+    "y": 2572.0,
+    "width": 93.0,
+    "height": 18.0,
+    "font_size": 12.857142857142858,
+    "source": "Accessibility",
+    "control_type": 50005
+  },
+  {
+    "text": "Comprehensive",
+    "x": 1233.0,
+    "y": 1102.0,
+    "width": 99.0,
+    "height": 17.0,
+    "font_size": 12.142857142857144,
+    "source": "Accessibility",
+    "control_type": 50005
+  },
+  {
+    "text": "Rhys Probert",
+    "x": 504.0,
+    "y": 2455.0,
+    "width": 94.0,
+    "height": 18.0,
+    "font_size": 12.857142857142858,
+    "source": "Accessibility",
+    "control_type": 50005
+  },
+  {
+    "text": "; colloquially: ",
+    "x": 888.0,
+    "y": 307.0,
+    "width": 97.0,
+    "height": 18.0,
+    "font_size": 12.857142857142858,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "Graham Price",
+    "x": 504.0,
+    "y": 2654.0,
+    "width": 99.0,
+    "height": 18.0,
+    "font_size": 12.857142857142858,
+    "source": "Accessibility",
+    "control_type": 50005
+  },
+  {
+    "text": "Bryn Meredith",
+    "x": 504.0,
+    "y": 2627.0,
+    "width": 100.0,
+    "height": 18.0,
+    "font_size": 12.857142857142858,
+    "source": "Accessibility",
+    "control_type": 50005
+  },
+  {
+    "text": "Iestyn Thomas",
+    "x": 504.0,
+    "y": 2682.0,
+    "width": 105.0,
+    "height": 18.0,
+    "font_size": 12.857142857142858,
+    "source": "Accessibility",
+    "control_type": 50005
+  },
+  {
+    "text": "Edwin Stevens",
+    "x": 504.0,
+    "y": 2482.0,
+    "width": 106.0,
+    "height": 18.0,
+    "font_size": 12.857142857142858,
+    "source": "Accessibility",
+    "control_type": 50005
+  },
+  {
+    "text": "Mako Vunipola",
+    "x": 504.0,
+    "y": 2709.0,
+    "width": 106.0,
+    "height": 18.0,
+    "font_size": 12.857142857142858,
+    "source": "Accessibility",
+    "control_type": 50005
+  },
+  {
+    "text": "51.6965°N 3.0376°W",
+    "x": 1305.0,
+    "y": 266.0,
+    "width": 122.0,
+    "height": 16.0,
+    "font_size": 11.428571428571429,
+    "source": "Accessibility",
+    "control_type": 50005
+  },
+  {
+    "text": "Radio Authority",
+    "x": 724.0,
+    "y": 2372.0,
+    "width": 110.0,
+    "height": 18.0,
+    "font_size": 12.857142857142858,
+    "source": "Accessibility",
+    "control_type": 50005
+  },
+  {
+    "text": "Monmouthshire",
+    "x": 693.0,
+    "y": 689.0,
+    "width": 111.0,
+    "height": 18.0,
+    "font_size": 12.857142857142858,
+    "source": "Accessibility",
+    "control_type": 50005
+  },
+  {
+    "text": "Haberdashers'",
+    "x": 667.0,
+    "y": 1930.0,
+    "width": 111.0,
+    "height": 18.0,
+    "font_size": 12.857142857142858,
+    "source": "Accessibility",
+    "control_type": 50005
+  },
+  {
+    "text": "Names",
+    "x": 478.0,
+    "y": 1857.0,
+    "width": 75.0,
+    "height": 28.0,
+    "font_size": 20.0,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "Anthony Hopkins",
+    "x": 527.0,
+    "y": 2174.0,
+    "width": 122.0,
+    "height": 18.0,
+    "font_size": 12.857142857142858,
+    "source": "Accessibility",
+    "control_type": 50005
+  },
+  {
+    "text": "Theodore Huckle",
+    "x": 504.0,
+    "y": 2291.0,
+    "width": 122.0,
+    "height": 18.0,
+    "font_size": 12.857142857142858,
+    "source": "Accessibility",
+    "control_type": 50005
+  },
+  {
+    "text": "51.6965°N 3.0376°W",
+    "x": 1253.0,
+    "y": 1050.0,
+    "width": 133.0,
+    "height": 17.0,
+    "font_size": 12.142857142857144,
+    "source": "Accessibility",
+    "control_type": 50005
+  },
+  {
+    "text": "History",
+    "x": 478.0,
+    "y": 538.0,
+    "width": 81.0,
+    "height": 28.0,
+    "font_size": 20.0,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "West Mon has an ",
+    "x": 478.0,
+    "y": 1648.0,
+    "width": 129.0,
+    "height": 18.0,
+    "font_size": 12.857142857142858,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "Monmouth School",
+    "x": 870.0,
+    "y": 663.0,
+    "width": 130.0,
+    "height": 18.0,
+    "font_size": 12.857142857142858,
+    "source": "Accessibility",
+    "control_type": 50005
+  },
+  {
+    "text": "Monmouth School",
+    "x": 504.0,
+    "y": 2799.0,
+    "width": 130.0,
+    "height": 18.0,
+    "font_size": 12.857142857142858,
+    "source": "Accessibility",
+    "control_type": 50005
+  },
+  {
+    "text": " and in later years ",
+    "x": 1202.0,
+    "y": 1930.0,
+    "width": 132.0,
+    "height": 18.0,
+    "font_size": 12.857142857142858,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "See also",
+    "x": 478.0,
+    "y": 2754.0,
+    "width": 86.0,
+    "height": 28.0,
+    "font_size": 20.0,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": ", who died in 1615.",
+    "x": 521.0,
+    "y": 611.0,
+    "width": 135.0,
+    "height": 18.0,
+    "font_size": 12.857142857142858,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "Noel Debroy Jones",
+    "x": 504.0,
+    "y": 2400.0,
+    "width": 137.0,
+    "height": 18.0,
+    "font_size": 12.857142857142858,
+    "source": "Accessibility",
+    "control_type": 50005
+  },
+  {
+    "text": "John Capel Hanbury",
+    "x": 844.0,
+    "y": 805.0,
+    "width": 146.0,
+    "height": 18.0,
+    "font_size": 12.857142857142858,
+    "source": "Accessibility",
+    "control_type": 50005
+  },
+  {
+    "text": "Ivor Bulmer-Thomas",
+    "x": 504.0,
+    "y": 2236.0,
+    "width": 146.0,
+    "height": 18.0,
+    "font_size": 12.857142857142858,
+    "source": "Accessibility",
+    "control_type": 50005
+  },
+  {
+    "text": "David Philip Gething",
+    "x": 504.0,
+    "y": 2263.0,
+    "width": 146.0,
+    "height": 18.0,
+    "font_size": 12.857142857142858,
+    "source": "Accessibility",
+    "control_type": 50005
+  },
+  {
+    "text": "Haberdashers' Company",
+    "x": 1255.0,
+    "y": 515.0,
+    "width": 157.0,
+    "height": 17.0,
+    "font_size": 12.142857142857144,
+    "source": "Accessibility",
+    "control_type": 50005
+  },
+  {
+    "text": "David Gwilym James",
+    "x": 504.0,
+    "y": 2318.0,
+    "width": 150.0,
+    "height": 18.0,
+    "font_size": 12.857142857142858,
+    "source": "Accessibility",
+    "control_type": 50005
+  },
+  {
+    "text": "Facilities",
+    "x": 478.0,
+    "y": 1601.0,
+    "width": 97.0,
+    "height": 28.0,
+    "font_size": 20.0,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "View history",
+    "x": 1284.0,
+    "y": 216.0,
+    "width": 76.0,
+    "height": 37.0,
+    "font_size": 13.214285714285715,
+    "source": "Accessibility",
+    "control_type": 50007
+  },
+  {
+    "text": "Ysgol Gorllewin Mynwy",
+    "x": 723.0,
+    "y": 307.0,
+    "width": 166.0,
+    "height": 18.0,
+    "font_size": 12.857142857142858,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "Birthday mode (Baby Globe)",
+    "x": 1466.0,
+    "y": 265.0,
+    "width": 178.0,
+    "height": 17.0,
+    "font_size": 12.142857142857144,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "\"West Monmouth School\"",
+    "x": 537.0,
+    "y": 2886.0,
+    "width": 178.0,
+    "height": 17.0,
+    "font_size": 12.142857142857144,
+    "source": "Accessibility",
+    "control_type": 50005
+  },
+  {
+    "text": "Comprehensive",
+    "x": 478.0,
+    "y": 1133.0,
+    "width": 145.0,
+    "height": 22.0,
+    "font_size": 15.714285714285715,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "\"Stock Page Stock History\"",
+    "x": 537.0,
+    "y": 2936.0,
+    "width": 188.0,
+    "height": 17.0,
+    "font_size": 12.142857142857144,
+    "source": "Accessibility",
+    "control_type": 50005
+  },
+  {
+    "text": "Arts and Entertainment",
+    "x": 478.0,
+    "y": 2140.0,
+    "width": 178.0,
+    "height": 18.0,
+    "font_size": 12.857142857142858,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "Bishop of Sodor and Man",
+    "x": 654.0,
+    "y": 2400.0,
+    "width": 181.0,
+    "height": 18.0,
+    "font_size": 12.857142857142858,
+    "source": "Accessibility",
+    "control_type": 50005
+  },
+  {
+    "text": "References",
+    "x": 478.0,
+    "y": 2842.0,
+    "width": 117.0,
+    "height": 28.0,
+    "font_size": 20.0,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "West Monmouth School",
+    "x": 478.0,
+    "y": 307.0,
+    "width": 183.0,
+    "height": 18.0,
+    "font_size": 12.857142857142858,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "West Monmouth School",
+    "x": 976.0,
+    "y": 2008.0,
+    "width": 183.0,
+    "height": 18.0,
+    "font_size": 12.857142857142858,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": " West Monmouth School",
+    "x": 777.0,
+    "y": 1930.0,
+    "width": 187.0,
+    "height": 18.0,
+    "font_size": 12.857142857142858,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "Grammar school",
+    "x": 478.0,
+    "y": 741.0,
+    "width": 154.0,
+    "height": 22.0,
+    "font_size": 15.714285714285715,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "University of Southampton",
+    "x": 928.0,
+    "y": 2318.0,
+    "width": 189.0,
+    "height": 18.0,
+    "font_size": 12.857142857142858,
+    "source": "Accessibility",
+    "control_type": 50005
+  },
+  {
+    "text": "Monmouth School for Girls",
+    "x": 577.0,
+    "y": 1003.0,
+    "width": 190.0,
+    "height": 18.0,
+    "font_size": 12.857142857142858,
+    "source": "Accessibility",
+    "control_type": 50005
+  },
+  {
+    "text": " it has also been known as ",
+    "x": 478.0,
+    "y": 1930.0,
+    "width": 190.0,
+    "height": 18.0,
+    "font_size": 12.857142857142858,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "Admissions",
+    "x": 478.0,
+    "y": 386.0,
+    "width": 124.0,
+    "height": 28.0,
+    "font_size": 20.0,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "Monmouth School for Boys",
+    "x": 825.0,
+    "y": 977.0,
+    "width": 193.0,
+    "height": 18.0,
+    "font_size": 12.857142857142858,
+    "source": "Accessibility",
+    "control_type": 50005
+  },
+  {
+    "text": "Counsel General for Wales",
+    "x": 668.0,
+    "y": 2291.0,
+    "width": 193.0,
+    "height": 18.0,
+    "font_size": 12.857142857142858,
+    "source": "Accessibility",
+    "control_type": 50005
+  },
+  {
+    "text": "National Historic Assets of Wales",
+    "x": 885.0,
+    "y": 2961.0,
+    "width": 212.0,
+    "height": 17.0,
+    "font_size": 12.142857142857144,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "Royal Aircraft Establishment",
+    "x": 842.0,
+    "y": 2455.0,
+    "width": 201.0,
+    "height": 18.0,
+    "font_size": 12.857142857142858,
+    "source": "Accessibility",
+    "control_type": 50005
+  },
+  {
+    "text": "Monmouth Grammar School",
+    "x": 943.0,
+    "y": 2799.0,
+    "width": 202.0,
+    "height": 18.0,
+    "font_size": 12.857142857142858,
+    "source": "Accessibility",
+    "control_type": 50005
+  },
+  {
+    "text": " He bequeathed money to the ",
+    "x": 669.0,
+    "y": 611.0,
+    "width": 217.0,
+    "height": 18.0,
+    "font_size": 12.857142857142858,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "non-selective secondary school",
+    "x": 603.0,
+    "y": 333.0,
+    "width": 224.0,
+    "height": 18.0,
+    "font_size": 12.857142857142858,
+    "source": "Accessibility",
+    "control_type": 50005
+  },
+  {
+    "text": ". The official name, however, is ",
+    "x": 753.0,
+    "y": 2008.0,
+    "width": 224.0,
+    "height": 18.0,
+    "font_size": 12.857142857142858,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "From Wikipedia, the free encyclopedia",
+    "x": 478.0,
+    "y": 264.0,
+    "width": 239.0,
+    "height": 17.0,
+    "font_size": 12.142857142857144,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "West Monmouth Boys' School",
+    "x": 972.0,
+    "y": 1930.0,
+    "width": 231.0,
+    "height": 18.0,
+    "font_size": 12.857142857142858,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "Jones' West Monmouth School",
+    "x": 1178.0,
+    "y": 1904.0,
+    "width": 237.0,
+    "height": 18.0,
+    "font_size": 12.857142857142858,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "Notable alumni",
+    "x": 478.0,
+    "y": 2061.0,
+    "width": 166.0,
+    "height": 28.0,
+    "font_size": 20.0,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "Alun Gwynne Jones, Baron Chalfont",
+    "x": 504.0,
+    "y": 2346.0,
+    "width": 259.0,
+    "height": 18.0,
+    "font_size": 12.857142857142858,
+    "source": "Accessibility",
+    "control_type": 50005
+  },
+  {
+    "text": "Jones' West Monmouthshire School",
+    "x": 478.0,
+    "y": 2008.0,
+    "width": 276.0,
+    "height": 18.0,
+    "font_size": 12.857142857142858,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "\"West Monmouth School (Grade II) (18841)\"",
+    "x": 581.0,
+    "y": 2961.0,
+    "width": 297.0,
+    "height": 17.0,
+    "font_size": 12.142857142857144,
+    "source": "Accessibility",
+    "control_type": 50005
+  },
+  {
+    "text": "Wikipedia The Free Encyclopedia",
+    "x": 271.0,
+    "y": 101.0,
+    "width": 141.0,
+    "height": 38.0,
+    "font_size": 16.0,
+    "source": "Accessibility",
+    "control_type": 50005
+  },
+  {
+    "text": " for the foundation of a grammar school in ",
+    "x": 579.0,
+    "y": 637.0,
+    "width": 301.0,
+    "height": 18.0,
+    "font_size": 12.857142857142858,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": " dressings and roofs of Welsh slate. It is a ",
+    "x": 689.0,
+    "y": 1029.0,
+    "width": 301.0,
+    "height": 18.0,
+    "font_size": 12.857142857142858,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "West Monmouth Comprehensive School",
+    "x": 1070.0,
+    "y": 1956.0,
+    "width": 307.0,
+    "height": 18.0,
+    "font_size": 12.857142857142858,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "Worshipful Company of Haberdashers",
+    "x": 1233.0,
+    "y": 1201.0,
+    "width": 147.0,
+    "height": 39.0,
+    "font_size": 15.0,
+    "source": "Accessibility",
+    "control_type": 50005
+  },
+  {
+    "text": "Grammar school",
+    "x": 234.0,
+    "y": 343.0,
+    "width": 205.0,
+    "height": 29.0,
+    "font_size": 20.714285714285715,
+    "source": "Accessibility",
+    "control_type": 50005
+  },
+  {
+    "text": "Comprehensive",
+    "x": 234.0,
+    "y": 371.0,
+    "width": 205.0,
+    "height": 29.0,
+    "font_size": 20.714285714285715,
+    "source": "Accessibility",
+    "control_type": 50005
+  },
+  {
+    "text": "The original school buildings were designed by ",
+    "x": 478.0,
+    "y": 951.0,
+    "width": 337.0,
+    "height": 18.0,
+    "font_size": 12.857142857142858,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "(Top)",
+    "x": 222.0,
+    "y": 259.0,
+    "width": 217.0,
+    "height": 29.0,
+    "font_size": 20.714285714285715,
+    "source": "Accessibility",
+    "control_type": 50005
+  },
+  {
+    "text": "Admissions",
+    "x": 222.0,
+    "y": 287.0,
+    "width": 217.0,
+    "height": 29.0,
+    "font_size": 20.714285714285715,
+    "source": "Accessibility",
+    "control_type": 50005
+  },
+  {
+    "text": "History",
+    "x": 222.0,
+    "y": 315.0,
+    "width": 217.0,
+    "height": 29.0,
+    "font_size": 20.714285714285715,
+    "source": "Accessibility",
+    "control_type": 50005
+  },
+  {
+    "text": "Facilities",
+    "x": 222.0,
+    "y": 443.0,
+    "width": 217.0,
+    "height": 29.0,
+    "font_size": 20.714285714285715,
+    "source": "Accessibility",
+    "control_type": 50005
+  },
+  {
+    "text": "Names",
+    "x": 222.0,
+    "y": 471.0,
+    "width": 217.0,
+    "height": 29.0,
+    "font_size": 20.714285714285715,
+    "source": "Accessibility",
+    "control_type": 50005
+  },
+  {
+    "text": "Notable alumni",
+    "x": 222.0,
+    "y": 499.0,
+    "width": 217.0,
+    "height": 29.0,
+    "font_size": 20.714285714285715,
+    "source": "Accessibility",
+    "control_type": 50005
+  },
+  {
+    "text": "See also",
+    "x": 222.0,
+    "y": 527.0,
+    "width": 217.0,
+    "height": 29.0,
+    "font_size": 20.714285714285715,
+    "source": "Accessibility",
+    "control_type": 50005
+  },
+  {
+    "text": "References",
+    "x": 222.0,
+    "y": 555.0,
+    "width": 217.0,
+    "height": 29.0,
+    "font_size": 20.714285714285715,
+    "source": "Accessibility",
+    "control_type": 50005
+  },
+  {
+    "text": "External links",
+    "x": 222.0,
+    "y": 583.0,
+    "width": 217.0,
+    "height": 29.0,
+    "font_size": 20.714285714285715,
+    "source": "Accessibility",
+    "control_type": 50005
+  },
+  {
+    "text": "Learn more about Birthday mode",
+    "x": 1466.0,
+    "y": 364.0,
+    "width": 217.0,
+    "height": 29.0,
+    "font_size": 14.0,
+    "source": "Accessibility",
+    "control_type": 50005
+  },
+  {
+    "text": "www .westmonmouthschool .org .uk",
+    "x": 1233.0,
+    "y": 1453.0,
+    "width": 171.0,
+    "height": 38.0,
+    "font_size": 18.0,
+    "source": "Accessibility",
+    "control_type": 50005
+  },
+  {
+    "text": "http://www.habs-monmouth.org/index.cfm?alias=allhistory",
+    "x": 537.0,
+    "y": 2911.0,
+    "width": 383.0,
+    "height": 17.0,
+    "font_size": 12.142857142857144,
+    "source": "Accessibility",
+    "control_type": 50005
+  },
+  {
+    "text": ". Today the school is often referred to (incorrectly) as ",
+    "x": 693.0,
+    "y": 1956.0,
+    "width": 378.0,
+    "height": 18.0,
+    "font_size": 12.857142857142858,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "Category:People educated at West Monmouth School",
+    "x": 575.0,
+    "y": 2106.0,
+    "width": 382.0,
+    "height": 18.0,
+    "font_size": 12.857142857142858,
+    "source": "Accessibility",
+    "control_type": 50005
+  },
+  {
+    "text": "The school owes its existence to the charitable donations of ",
+    "x": 478.0,
+    "y": 585.0,
+    "width": 428.0,
+    "height": 18.0,
+    "font_size": 12.857142857142858,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": ". There is at least one plaque in the school that refers to it as ",
+    "x": 944.0,
+    "y": 1982.0,
+    "width": 429.0,
+    "height": 18.0,
+    "font_size": 12.857142857142858,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": " football pitch which has floodlights. As of November 2019, the ",
+    "x": 671.0,
+    "y": 1648.0,
+    "width": 445.0,
+    "height": 18.0,
+    "font_size": 12.857142857142858,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "Expansion and changes of school buildings",
+    "x": 222.0,
+    "y": 399.0,
+    "width": 217.0,
+    "height": 45.0,
+    "font_size": 18.0,
+    "source": "Accessibility",
+    "control_type": 50005
+  },
+  {
+    "text": "The school has been known by a variety of names over the last 100 years. Originally conceived as ",
+    "x": 478.0,
+    "y": 1904.0,
+    "width": 701.0,
+    "height": 18.0,
+    "font_size": 12.857142857142858,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "Expansion and changes of school buildings",
+    "x": 478.0,
+    "y": 1355.0,
+    "width": 455.0,
+    "height": 28.0,
+    "font_size": 20.0,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "To get missing image descriptions, open the context menu.",
+    "x": 1209.0,
+    "y": 370.0,
+    "width": 126.0,
+    "height": 144.0,
+    "font_size": 18.0,
+    "source": "Accessibility",
+    "control_type": 50005
+  },
+  {
+    "text": "Godfrey Morgan, 1st Viscount Tredegar",
+    "x": 478.0,
+    "y": 857.0,
+    "width": 574.0,
+    "height": 44.0,
+    "font_size": 31.42857142857143,
+    "source": "Accessibility",
+    "control_type": 50005
+  },
+  {
+    "text": " The school became a county grammar school (under the auspices of the then Monmouthshire County Council) in 1954, and the last boarders left in 1958.",
+    "x": 478.0,
+    "y": 1055.0,
+    "width": 592.0,
+    "height": 44.0,
+    "font_size": 14.0,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": " in 1898, to accommodate 70 boarders and 30 day boys. The total cost of erecting the school was estimated at £30,000.",
+    "x": 478.0,
+    "y": 883.0,
+    "width": 620.0,
+    "height": 44.0,
+    "font_size": 18.0,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "West Monmouth School",
+    "x": 478.0,
+    "y": 177.0,
+    "width": 793.0,
+    "height": 40.0,
+    "font_size": 28.571428571428573,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": " which closed in 2007. The new building is called 'Haberdashers Block' in a nod to its history and The Haberdashers' Company. It contains the Canteen plus Drama Theatre downstairs and 7 classrooms on the first floor.",
+    "x": 478.0,
+    "y": 1778.0,
+    "width": 849.0,
+    "height": 44.0,
+    "font_size": 14.0,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "Trevethin Community School",
+    "x": 478.0,
+    "y": 1752.0,
+    "width": 939.0,
+    "height": 44.0,
+    "font_size": 31.42857142857143,
+    "source": "Accessibility",
+    "control_type": 50005
+  },
+  {
+    "text": "The school's original building with its tall spires and grand entrance became too small for the school numbers. By 1934 a new 'Science Block' building had been added at a cost of £20,000 and contained extra classrooms and modern laboratories.",
+    "x": 478.0,
+    "y": 1402.0,
+    "width": 604.0,
+    "height": 70.0,
+    "font_size": 16.0,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "Pupils who attend the school generally live in the Torfaen area. The school offers education for 11-year-olds to 16-year-olds, and 1,174 pupils are currently enrolled there as of September 2024.",
+    "x": 478.0,
+    "y": 433.0,
+    "width": 619.0,
+    "height": 70.0,
+    "font_size": 16.0,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "The school recently went through a six million pound overhaul that has seen numerous changes. The school now has performing arts facilities including an auditorium housed in the Haberdashers' Building. The special educational needs department has been expanded and there is a new cafeteria.",
+    "x": 478.0,
+    "y": 1496.0,
+    "width": 915.0,
+    "height": 70.0,
+    "font_size": 16.0,
+    "source": "Accessibility",
+    "control_type": 50020
+  }
+]
