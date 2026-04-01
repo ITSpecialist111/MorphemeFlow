@@ -3,6 +3,7 @@ name = "morphemeflow-overlay"
 version = "0.1.0"
 edition = "2021"
 description = "MorphemeFlow universal screen overlay for dyslexia reading support"
+default-run = "morphemeflow-overlay"
 
 [dependencies]
 tauri = { version = "2", features = ["tray-icon"] }

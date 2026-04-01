@@ -21,6 +21,7 @@ interface TextRegion {
   height: number;
   font_size: number;
   source: "Accessibility" | "Ocr";
+  control_type: number;
 }
 
 // Shared word cache
@@ -149,53 +150,96 @@ function renderRegionOverlay(region: TextRegion): void {
   );
   ctx.globalAlpha = 1.0;
 
-  // Tokenize and render with morpheme colors
+  // Clip rendering to the bounding box so text doesn't overflow
+  ctx.save();
+  ctx.beginPath();
+  ctx.rect(region.x - padding, region.y - padding, region.width + padding * 2, region.height + padding * 2);
+  ctx.clip();
+
+  // For multi-line content (ListItem cards), wrap text into lines
+  const lineHeight = fontSize * 1.35;
+  const maxLines = Math.floor(region.height / lineHeight);
+  const maxWidth = region.width;
+
+  // Break text into words for wrapping
   const tokens = tokenize(region.text);
-  let xPos = region.x;
-  // Vertically center text in the region (baseline ≈ top + ascent)
-  const baseline = region.y + fontSize * 0.85;
+  const lines = wrapTokensIntoLines(tokens, fontSize, maxWidth, maxLines);
 
-  for (const token of tokens) {
-    if (token.type !== "word") {
-      // Whitespace / punctuation
-      ctx.font = `${fontSize}px 'Segoe UI', system-ui, sans-serif`;
-      ctx.fillStyle = "#64748B";
-      ctx.fillText(token.text, xPos, baseline);
-      xPos += ctx.measureText(token.text).width;
-      continue;
-    }
-
-    let result = cache.get(token.text);
-    if (!result) {
-      result = analyzeWord(token.text);
-      cache.set(token.text, result);
-    }
-
-    if (settings.morphemeHighlight && result.morphemes.length > 1) {
-      // Multi-morpheme: color each part
-      for (const morpheme of result.morphemes) {
-        const color = MORPHEME_COLORS[morpheme.type];
-        const isBold = morpheme.type === "root" && settings.rootBold;
-        ctx.font = `${isBold ? "bold " : ""}${fontSize}px 'Segoe UI', system-ui, sans-serif`;
-        ctx.fillStyle = color;
-        ctx.fillText(morpheme.text, xPos, baseline);
-        xPos += ctx.measureText(morpheme.text).width;
-
-        if (settings.syllableSpacing) {
-          xPos += fontSize * settings.syllableIntensity;
-        }
+  let lineY = region.y + fontSize * 0.85; // first line baseline
+  for (const line of lines) {
+    let xPos = region.x;
+    for (const token of line) {
+      if (token.type !== "word") {
+        ctx.font = `${fontSize}px 'Segoe UI', system-ui, sans-serif`;
+        ctx.fillStyle = "#64748B";
+        ctx.fillText(token.text, xPos, lineY);
+        xPos += ctx.measureText(token.text).width;
+        continue;
       }
-    } else {
-      // Single morpheme — render plainly
-      ctx.font = `${fontSize}px 'Segoe UI', system-ui, sans-serif`;
-      ctx.fillStyle = settings.rootColor;
-      ctx.fillText(token.text, xPos, baseline);
-      xPos += ctx.measureText(token.text).width;
+
+      let result = cache.get(token.text);
+      if (!result) {
+        result = analyzeWord(token.text);
+        cache.set(token.text, result);
+      }
+
+      if (settings.morphemeHighlight && result.morphemes.length > 1) {
+        for (const morpheme of result.morphemes) {
+          const color = MORPHEME_COLORS[morpheme.type];
+          const isBold = morpheme.type === "root" && settings.rootBold;
+          ctx.font = `${isBold ? "bold " : ""}${fontSize}px 'Segoe UI', system-ui, sans-serif`;
+          ctx.fillStyle = color;
+          ctx.fillText(morpheme.text, xPos, lineY);
+          xPos += ctx.measureText(morpheme.text).width;
+
+          if (settings.syllableSpacing) {
+            xPos += fontSize * settings.syllableIntensity;
+          }
+        }
+      } else {
+        ctx.font = `${fontSize}px 'Segoe UI', system-ui, sans-serif`;
+        ctx.fillStyle = settings.rootColor;
+        ctx.fillText(token.text, xPos, lineY);
+        xPos += ctx.measureText(token.text).width;
+      }
     }
+    lineY += lineHeight;
   }
 
-  // Subtle underline showing morpheme structure for multi-morpheme words
-  // (helps visually separate the morpheme groups)
+  ctx.restore(); // remove clip
+}
+
+/**
+ * Wrap tokens into lines that fit within maxWidth.
+ */
+function wrapTokensIntoLines(
+  tokens: ReturnType<typeof tokenize>,
+  fontSize: number,
+  maxWidth: number,
+  maxLines: number,
+): ReturnType<typeof tokenize>[] {
+  ctx.font = `${fontSize}px 'Segoe UI', system-ui, sans-serif`;
+
+  const lines: ReturnType<typeof tokenize>[] = [[]];
+  let lineWidth = 0;
+
+  for (const token of tokens) {
+    const w = ctx.measureText(token.text).width;
+
+    if (lineWidth + w > maxWidth && lines[lines.length - 1].length > 0) {
+      // Start new line
+      if (lines.length >= maxLines) break; // hit max lines
+      lines.push([]);
+      lineWidth = 0;
+      // Skip leading whitespace on new line
+      if (token.type !== "word") continue;
+    }
+
+    lines[lines.length - 1].push(token);
+    lineWidth += w;
+  }
+
+  return lines;
 }
 
 /**

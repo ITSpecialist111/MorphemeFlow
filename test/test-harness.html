@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>MorphemeFlow — Rendering Test Harness</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: #1e1e2e; color: #cdd6f4; font-family: 'Segoe UI', system-ui, sans-serif; }
+    .toolbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: #181825; border-bottom: 1px solid #313244; padding: 8px 16px;
+      display: flex; gap: 12px; align-items: center; flex-wrap: wrap;
+    }
+    .toolbar label { font-size: 12px; color: #a6adc8; }
+    .toolbar select, .toolbar input, .toolbar button {
+      font-size: 12px; padding: 4px 8px; border-radius: 4px; border: 1px solid #45475a;
+      background: #313244; color: #cdd6f4;
+    }
+    .toolbar button { cursor: pointer; background: #7c3aed; border-color: #7c3aed; color: #fff; }
+    .toolbar button:hover { background: #6d28d9; }
+    .toolbar .stats { margin-left: auto; font-size: 11px; color: #6c7086; }
+
+    #canvas-container {
+      margin-top: 50px; position: relative;
+      background: #fff; overflow: auto;
+    }
+    canvas { display: block; }
+
+    /* Debug info panel */
+    #debug-panel {
+      position: fixed; right: 0; top: 50px; bottom: 0; width: 360px;
+      background: #181825; border-left: 1px solid #313244;
+      overflow-y: auto; padding: 8px; font-size: 11px; z-index: 99;
+    }
+    #debug-panel .region-item {
+      padding: 4px 6px; border-bottom: 1px solid #313244; cursor: pointer;
+    }
+    #debug-panel .region-item:hover { background: #313244; }
+    #debug-panel .region-item.highlighted { background: #7c3aed33; border-left: 3px solid #7c3aed; }
+    .region-text { color: #cdd6f4; font-weight: 500; }
+    .region-meta { color: #6c7086; font-size: 10px; }
+
+    /* File drop zone */
+    #drop-zone {
+      display: none; position: fixed; inset: 0; z-index: 200;
+      background: rgba(124, 58, 237, 0.15); border: 3px dashed #7c3aed;
+      justify-content: center; align-items: center;
+      font-size: 24px; color: #7c3aed;
+    }
+    #drop-zone.active { display: flex; }
+  </style>
+</head>
+<body>
+  <div class="toolbar">
+    <label>Mode:</label>
+    <select id="mode">
+      <option value="overlay">Overlay (morpheme render)</option>
+      <option value="debug-boxes">Debug: bounding boxes</option>
+      <option value="debug-labels">Debug: boxes + labels</option>
+      <option value="side-by-side">Side by side comparison</option>
+    </select>
+    <label>BG opacity:</label>
+    <input type="range" id="bg-opacity" min="0" max="1" step="0.05" value="0.95" style="width:80px" />
+    <label>Min height:</label>
+    <input type="number" id="min-height" value="0" min="0" max="200" style="width:50px" />
+    <label>Max height:</label>
+    <input type="number" id="max-height" value="300" min="10" max="1000" style="width:60px" />
+    <button id="load-btn">Load JSON</button>
+    <button id="filter-btn">Apply Filters</button>
+    <span class="stats" id="stats">No data loaded</span>
+  </div>
+
+  <div id="canvas-container">
+    <canvas id="test-canvas"></canvas>
+  </div>
+
+  <div id="debug-panel">
+    <strong>Regions (click to highlight)</strong>
+    <div id="region-list"></div>
+  </div>
+
+  <div id="drop-zone">Drop captured-regions.json here</div>
+
+  <input type="file" id="file-input" accept=".json" style="display:none" />
+
+  <script type="module">
+    // ---- Morpheme engine (inline minimal version for test harness) ----
+    // We import from the built overlay bundle? No — keep it standalone.
+    // Simple morpheme color map for rendering test
+    const MORPHEME_COLORS = {
+      prefix: "#7C3AED",
+      root: "#1E293B",
+      suffix: "#059669",
+      inflection: "#6366F1",
+    };
+
+    // ---- State ----
+    let regions = [];
+    let filteredRegions = [];
+    let highlightedIdx = -1;
+    let screenW = 1366;
+    let screenH = 768;
+
+    const canvas = document.getElementById("test-canvas");
+    const ctx = canvas.getContext("2d");
+    const modeSelect = document.getElementById("mode");
+    const bgOpacity = document.getElementById("bg-opacity");
+    const minHeight = document.getElementById("min-height");
+    const maxHeight = document.getElementById("max-height");
+    const statsEl = document.getElementById("stats");
+    const regionList = document.getElementById("region-list");
+    const fileInput = document.getElementById("file-input");
+
+    // ---- Load data ----
+    document.getElementById("load-btn").addEventListener("click", () => fileInput.click());
+    fileInput.addEventListener("change", (e) => {
+      const file = e.target.files[0];
+      if (file) loadFile(file);
+    });
+
+    // Drag & drop
+    const dropZone = document.getElementById("drop-zone");
+    document.addEventListener("dragover", (e) => { e.preventDefault(); dropZone.classList.add("active"); });
+    document.addEventListener("dragleave", () => dropZone.classList.remove("active"));
+    document.addEventListener("drop", (e) => {
+      e.preventDefault();
+      dropZone.classList.remove("active");
+      const file = e.dataTransfer.files[0];
+      if (file) loadFile(file);
+    });
+
+    // Auto-load from default path
+    fetch("../test/fixtures/captured-regions.json")
+      .then(r => r.ok ? r.json() : Promise.reject())
+      .then(data => { regions = data; applyFilters(); })
+      .catch(() => {});
+
+    function loadFile(file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        try {
+          regions = JSON.parse(reader.result);
+          applyFilters();
+        } catch (e) {
+          alert("Invalid JSON: " + e.message);
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    // ---- Filters ----
+    document.getElementById("filter-btn").addEventListener("click", applyFilters);
+    modeSelect.addEventListener("change", render);
+    bgOpacity.addEventListener("input", render);
+
+    function applyFilters() {
+      const minH = parseFloat(minHeight.value) || 0;
+      const maxH = parseFloat(maxHeight.value) || 9999;
+
+      filteredRegions = regions.filter(r =>
+        r.height >= minH && r.height <= maxH
+      );
+
+      // Detect screen bounds from data
+      if (regions.length > 0) {
+        screenW = Math.max(...regions.map(r => r.x + r.width), 1366);
+        screenH = Math.max(...regions.map(r => r.y + r.height), 768);
+      }
+
+      // Deduplicate overlapping regions — keep smaller (more specific) ones
+      filteredRegions = deduplicateRegions(filteredRegions);
+
+      statsEl.textContent = `${filteredRegions.length}/${regions.length} regions | ${screenW.toFixed(0)}x${screenH.toFixed(0)}`;
+      populateRegionList();
+      render();
+    }
+
+    function deduplicateRegions(regs) {
+      // Sort by area (smallest first) so specific elements win over containers
+      const sorted = [...regs].sort((a, b) => (a.width * a.height) - (b.width * b.height));
+      const kept = [];
+
+      for (const r of sorted) {
+        // Check if this region substantially overlaps with an already-kept region
+        const dominated = kept.some(k => {
+          const overlapX = Math.max(0, Math.min(r.x + r.width, k.x + k.width) - Math.max(r.x, k.x));
+          const overlapY = Math.max(0, Math.min(r.y + r.height, k.y + k.height) - Math.max(r.y, k.y));
+          const overlapArea = overlapX * overlapY;
+          const rArea = r.width * r.height;
+          const kArea = k.width * k.height;
+          // If this region mostly contains an existing region, skip it
+          // (it's likely a container wrapping the child text)
+          return overlapArea > Math.min(rArea, kArea) * 0.6;
+        });
+
+        if (!dominated) {
+          kept.push(r);
+        }
+      }
+      return kept;
+    }
+
+    // ---- Region list ----
+    function populateRegionList() {
+      regionList.innerHTML = "";
+      filteredRegions.forEach((r, i) => {
+        const div = document.createElement("div");
+        div.className = "region-item";
+        div.innerHTML = `
+          <div class="region-text">${escHtml(r.text.substring(0, 60))}</div>
+          <div class="region-meta">
+            pos: (${r.x.toFixed(0)}, ${r.y.toFixed(0)}) | size: ${r.width.toFixed(0)}x${r.height.toFixed(0)} | font: ${r.font_size.toFixed(1)}px
+          </div>
+        `;
+        div.addEventListener("click", () => {
+          highlightedIdx = highlightedIdx === i ? -1 : i;
+          document.querySelectorAll(".region-item").forEach((el, j) =>
+            el.classList.toggle("highlighted", j === highlightedIdx)
+          );
+          render();
+        });
+        regionList.appendChild(div);
+      });
+    }
+
+    function escHtml(s) {
+      return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    }
+
+    // ---- Render ----
+    function render() {
+      const mode = modeSelect.value;
+      const scale = Math.min(
+        (window.innerWidth - 370) / screenW,
+        (window.innerHeight - 60) / screenH,
+        1
+      );
+
+      canvas.width = screenW * scale;
+      canvas.height = screenH * scale;
+      canvas.style.width = canvas.width + "px";
+      canvas.style.height = canvas.height + "px";
+
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+      ctx.scale(scale, scale);
+
+      // White background (simulating screen)
+      ctx.fillStyle = "#ffffff";
+      ctx.fillRect(0, 0, screenW, screenH);
+
+      // Gray placeholder text to show where "original" text would be
+      ctx.fillStyle = "#d4d4d4";
+      ctx.font = "14px 'Segoe UI'";
+      for (const r of filteredRegions) {
+        ctx.fillRect(r.x, r.y, r.width, r.height);
+      }
+
+      if (mode === "debug-boxes" || mode === "debug-labels") {
+        renderDebugBoxes(mode === "debug-labels");
+      } else if (mode === "overlay") {
+        renderOverlay();
+      } else if (mode === "side-by-side") {
+        renderOverlay();
+      }
+
+      // Highlight selected region
+      if (highlightedIdx >= 0 && highlightedIdx < filteredRegions.length) {
+        const r = filteredRegions[highlightedIdx];
+        ctx.strokeStyle = "#ff0000";
+        ctx.lineWidth = 2;
+        ctx.strokeRect(r.x, r.y, r.width, r.height);
+      }
+    }
+
+    function renderDebugBoxes(showLabels) {
+      const colors = ["#7c3aed44", "#059669aa", "#dc262644", "#2563eb44", "#f59e0b44"];
+      filteredRegions.forEach((r, i) => {
+        ctx.fillStyle = colors[i % colors.length];
+        ctx.fillRect(r.x, r.y, r.width, r.height);
+        ctx.strokeStyle = colors[i % colors.length].replace("44", "ff");
+        ctx.lineWidth = 1;
+        ctx.strokeRect(r.x, r.y, r.width, r.height);
+
+        if (showLabels) {
+          const label = `${r.text.substring(0, 30)} [${r.font_size.toFixed(0)}px]`;
+          ctx.font = "9px 'Segoe UI'";
+          ctx.fillStyle = "#000";
+          ctx.fillText(label, r.x + 2, r.y + 9);
+        }
+      });
+    }
+
+    function renderOverlay() {
+      const opacity = parseFloat(bgOpacity.value);
+
+      for (const region of filteredRegions) {
+        const padding = 2;
+        const fontSize = region.font_size;
+
+        // Draw background to cover original text
+        ctx.fillStyle = "#FFFBF0";
+        ctx.globalAlpha = opacity;
+        ctx.fillRect(
+          region.x - padding,
+          region.y - padding,
+          region.width + padding * 2,
+          region.height + padding * 2
+        );
+        ctx.globalAlpha = 1.0;
+
+        // Simple word-by-word rendering (no morpheme engine in test harness)
+        const words = region.text.split(/(\s+)/);
+        let xPos = region.x;
+        const baseline = region.y + fontSize * 0.85;
+
+        for (const word of words) {
+          if (/^\s+$/.test(word)) {
+            ctx.font = `${fontSize}px 'Segoe UI', system-ui, sans-serif`;
+            xPos += ctx.measureText(word).width;
+            continue;
+          }
+
+          // Simple morpheme simulation: color first 2-3 chars as prefix if word > 5 chars
+          if (word.length > 5) {
+            const prefixLen = Math.min(3, Math.floor(word.length * 0.3));
+            const suffixLen = Math.min(3, Math.floor(word.length * 0.25));
+            const prefix = word.substring(0, prefixLen);
+            const root = word.substring(prefixLen, word.length - suffixLen);
+            const suffix = word.substring(word.length - suffixLen);
+
+            // Prefix
+            ctx.font = `${fontSize}px 'Segoe UI', system-ui, sans-serif`;
+            ctx.fillStyle = MORPHEME_COLORS.prefix;
+            ctx.fillText(prefix, xPos, baseline);
+            xPos += ctx.measureText(prefix).width;
+
+            // Root
+            ctx.font = `bold ${fontSize}px 'Segoe UI', system-ui, sans-serif`;
+            ctx.fillStyle = MORPHEME_COLORS.root;
+            ctx.fillText(root, xPos, baseline);
+            xPos += ctx.measureText(root).width;
+
+            // Suffix
+            ctx.font = `${fontSize}px 'Segoe UI', system-ui, sans-serif`;
+            ctx.fillStyle = MORPHEME_COLORS.suffix;
+            ctx.fillText(suffix, xPos, baseline);
+            xPos += ctx.measureText(suffix).width;
+          } else {
+            ctx.font = `${fontSize}px 'Segoe UI', system-ui, sans-serif`;
+            ctx.fillStyle = MORPHEME_COLORS.root;
+            ctx.fillText(word, xPos, baseline);
+            xPos += ctx.measureText(word).width;
+          }
+        }
+      }
+    }
+
+    window.addEventListener("resize", render);
+  </script>
+</body>
+</html>

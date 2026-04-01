@@ -5,7 +5,7 @@
 // The system tray always remains accessible for quit/toggle.
 
 mod overlay_window;
-mod text_detection;
+pub mod text_detection;
 
 use text_detection::{detect_text_in_active_window, TextRegion};
 
@@ -13,6 +13,23 @@ use text_detection::{detect_text_in_active_window, TextRegion};
 #[tauri::command]
 fn scan_screen_text() -> Vec<TextRegion> {
     detect_text_in_active_window()
+}
+
+/// Tauri command: dump current UIA scan data to a JSON file for offline testing
+#[tauri::command]
+fn dump_regions() -> Result<String, String> {
+    let regions = detect_text_in_active_window();
+    let json = serde_json::to_string_pretty(&regions).map_err(|e| e.to_string())?;
+    let path = std::env::current_dir()
+        .unwrap_or_default()
+        .join("../../test/fixtures/captured-regions.json");
+    if let Some(parent) = path.parent() {
+        let _ = std::fs::create_dir_all(parent);
+    }
+    std::fs::write(&path, &json).map_err(|e| e.to_string())?;
+    let abs = std::fs::canonicalize(&path).unwrap_or(path);
+    eprintln!("[MorphemeFlow] Dumped {} regions to {:?}", regions.len(), abs);
+    Ok(format!("Saved {} regions to {:?}", regions.len(), abs))
 }
 
 /// Tauri command: toggle the overlay on/off
@@ -51,6 +68,7 @@ pub fn run() {
         .plugin(tauri_plugin_shell::init())
         .invoke_handler(tauri::generate_handler![
             scan_screen_text,
+            dump_regions,
             toggle_overlay,
             show_settings,
         ])
