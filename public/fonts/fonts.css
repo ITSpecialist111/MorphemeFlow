@@ -1,0 +1,67 @@
+/* MorphemeFlow — Font Face Declarations
+   All fonts are SIL OFL 1.1 licensed — free for use, modification, and distribution. */
+
+/* Lexend — Designed by Bonnie Shaver-Troup & Thomas Jockin
+   Specifically designed to reduce visual stress and improve reading proficiency.
+   Variable font: weight 100-900 */
+@font-face {
+  font-family: 'Lexend';
+  src: url('../fonts/lexend/Lexend-Variable.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Atkinson Hyperlegible — Designed by the Braille Institute
+   Focuses on letter differentiation to increase legibility for low-vision readers.
+   Characters like 'I', 'l', '1' are visually distinct. */
+@font-face {
+  font-family: 'Atkinson Hyperlegible';
+  src: url('../fonts/atkinson/AtkinsonHyperlegible-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Atkinson Hyperlegible';
+  src: url('../fonts/atkinson/AtkinsonHyperlegible-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Atkinson Hyperlegible';
+  src: url('../fonts/atkinson/AtkinsonHyperlegible-Italic.ttf') format('truetype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* OpenDyslexic — Created by Abelardo Gonzalez
+   Weighted bottoms on letters to prevent visual "flipping" and "swapping"
+   that dyslexic readers commonly experience. */
+@font-face {
+  font-family: 'OpenDyslexic';
+  src: url('../fonts/opendyslexic/OpenDyslexic-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'OpenDyslexic';
+  src: url('../fonts/opendyslexic/OpenDyslexic-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'OpenDyslexic';
+  src: url('../fonts/opendyslexic/OpenDyslexic-Italic.otf') format('opentype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}

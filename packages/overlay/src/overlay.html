@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>MorphemeFlow Overlay</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body {
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      background: transparent;
+      pointer-events: none;
+    }
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+    }
+    /* Reading ruler overlay */
+    #reading-ruler {
+      position: fixed;
+      left: 0;
+      width: 100vw;
+      pointer-events: none;
+      display: none;
+      z-index: 10;
+    }
+    #ruler-top, #ruler-bottom {
+      position: fixed;
+      left: 0;
+      width: 100vw;
+      background: rgba(0, 0, 0, 0.4);
+      pointer-events: none;
+    }
+    #ruler-top { top: 0; }
+  </style>
+</head>
+<body>
+  <canvas id="overlay-canvas"></canvas>
+  <div id="reading-ruler">
+    <div id="ruler-top"></div>
+    <div id="ruler-bottom"></div>
+  </div>
+  <script type="module" src="./overlay.ts"></script>
+</body>
+</html>

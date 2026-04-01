@@ -1,0 +1,686 @@
+/* ============================================================
+   MorphemeFlow Settings UI — styles.css
+   Clean, accessible settings panel for the Tauri overlay app.
+   ============================================================ */
+
+/* ----- CSS Custom Properties ----- */
+:root {
+  /* Brand */
+  --mf-purple: #7C3AED;
+  --mf-purple-hover: #6D28D9;
+  --mf-purple-light: #EDE9FE;
+  --mf-purple-dark: #4C1D95;
+
+  /* Surfaces */
+  --mf-bg: #F5F5F7;
+  --mf-card-bg: #FFFFFF;
+  --mf-card-border: #E5E7EB;
+  --mf-header-bg: #1A1A2E;
+  --mf-header-text: #FFFFFF;
+
+  /* Text */
+  --mf-text: #1E293B;
+  --mf-text-secondary: #64748B;
+  --mf-text-muted: #94A3B8;
+
+  /* Controls */
+  --mf-input-bg: #F1F5F9;
+  --mf-input-border: #CBD5E1;
+  --mf-focus-ring: rgba(124, 58, 237, 0.45);
+
+  /* Feedback */
+  --mf-success: #059669;
+  --mf-warning: #D97706;
+
+  /* Sizing */
+  --mf-radius: 10px;
+  --mf-radius-sm: 6px;
+  --mf-transition: 150ms ease;
+  --mf-panel-width: 340px;
+
+  /* Spacing scale */
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 20px;
+  --sp-6: 24px;
+  --sp-8: 32px;
+}
+
+
+/* ----- Reset & Base ----- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--mf-text);
+  background: var(--mf-bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+body::-webkit-scrollbar {
+  width: 6px;
+}
+
+body::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+body::-webkit-scrollbar-thumb {
+  background: var(--mf-text-muted);
+  border-radius: 3px;
+}
+
+body::-webkit-scrollbar-thumb:hover {
+  background: var(--mf-text-secondary);
+}
+
+
+/* ----- Settings Container ----- */
+.settings-container {
+  width: var(--mf-panel-width);
+  min-height: 100vh;
+  margin: 0 auto;
+  padding-bottom: var(--sp-8);
+}
+
+
+/* ----- Header ----- */
+.settings-header {
+  background: var(--mf-header-bg);
+  color: var(--mf-header-text);
+  padding: var(--sp-6) var(--sp-5);
+  text-align: center;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.settings-header h1 {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  background: linear-gradient(135deg, var(--mf-purple-light), var(--mf-purple));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.settings-header .subtitle {
+  font-size: 12px;
+  color: var(--mf-text-muted);
+  margin-top: var(--sp-1);
+  font-weight: 400;
+  letter-spacing: 0.04em;
+}
+
+
+/* ----- Section Cards ----- */
+.settings-section {
+  background: var(--mf-card-bg);
+  border: 1px solid var(--mf-card-border);
+  border-radius: var(--mf-radius);
+  margin: var(--sp-3) var(--sp-3) 0;
+  padding: var(--sp-4) var(--sp-5);
+  transition: box-shadow var(--mf-transition);
+}
+
+.settings-section:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.settings-section h2 {
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--mf-text-secondary);
+  margin-bottom: var(--sp-3);
+  padding-bottom: var(--sp-2);
+  border-bottom: 1px solid var(--mf-card-border);
+}
+
+
+/* ----- Generic Row Layouts ----- */
+.toggle-row,
+.slider-row,
+.color-row,
+.radio-row,
+.select-row,
+.theme-row {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-2) 0;
+}
+
+.toggle-row + .toggle-row,
+.slider-row + .slider-row,
+.color-row + .color-row,
+.radio-row + .radio-row {
+  border-top: 1px solid var(--mf-card-border);
+}
+
+.toggle-row label,
+.slider-row label,
+.select-row label,
+.theme-row > label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--mf-text);
+  flex-shrink: 0;
+}
+
+
+/* ----- Toggle Switch (Checkbox) ----- */
+input[type="checkbox"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 40px;
+  height: 22px;
+  background: var(--mf-input-border);
+  border-radius: 11px;
+  position: relative;
+  cursor: pointer;
+  transition: background var(--mf-transition);
+  flex-shrink: 0;
+  margin-left: auto;
+  border: none;
+}
+
+input[type="checkbox"]::after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 16px;
+  height: 16px;
+  background: #fff;
+  border-radius: 50%;
+  transition: transform var(--mf-transition);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+input[type="checkbox"]:checked {
+  background: var(--mf-purple);
+}
+
+input[type="checkbox"]:checked::after {
+  transform: translateX(18px);
+}
+
+input[type="checkbox"]:focus-visible {
+  outline: 2px solid var(--mf-focus-ring);
+  outline-offset: 2px;
+}
+
+.toggle-row {
+  flex-wrap: nowrap;
+}
+
+.toggle-row label {
+  flex: 1;
+}
+
+
+/* ----- Hotkey Hint Badge ----- */
+.hotkey-hint {
+  font-size: 11px;
+  font-family: 'Cascadia Code', 'Consolas', monospace;
+  color: var(--mf-text-muted);
+  background: var(--mf-input-bg);
+  border: 1px solid var(--mf-card-border);
+  border-radius: var(--mf-radius-sm);
+  padding: 2px 8px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+
+/* ----- Range Sliders ----- */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  flex: 1;
+  height: 6px;
+  background: var(--mf-input-bg);
+  border-radius: 3px;
+  outline: none;
+  cursor: pointer;
+  border: none;
+}
+
+/* Track -- WebKit */
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 6px;
+  border-radius: 3px;
+  background: linear-gradient(
+    to right,
+    var(--mf-purple) 0%,
+    var(--mf-purple) var(--track-fill, 50%),
+    var(--mf-input-bg) var(--track-fill, 50%),
+    var(--mf-input-bg) 100%
+  );
+}
+
+/* Thumb -- WebKit */
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--mf-purple);
+  border: 3px solid #fff;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+  margin-top: -6px;
+  cursor: grab;
+  transition: box-shadow var(--mf-transition), transform var(--mf-transition);
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+  box-shadow: 0 1px 6px rgba(124, 58, 237, 0.4);
+  transform: scale(1.1);
+}
+
+input[type="range"]::-webkit-slider-thumb:active {
+  cursor: grabbing;
+  transform: scale(0.95);
+}
+
+input[type="range"]:focus-visible {
+  outline: 2px solid var(--mf-focus-ring);
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+
+.slider-row {
+  flex-wrap: nowrap;
+}
+
+.slider-row label {
+  min-width: 70px;
+}
+
+.slider-value {
+  font-size: 12px;
+  font-weight: 600;
+  font-family: 'Cascadia Code', 'Consolas', monospace;
+  color: var(--mf-purple);
+  min-width: 48px;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+
+/* ----- Color Inputs (Swatches) ----- */
+.color-row {
+  gap: var(--sp-2);
+  flex-wrap: wrap;
+}
+
+.color-row label {
+  font-size: 12px;
+  color: var(--mf-text-secondary);
+  min-width: 40px;
+}
+
+input[type="color"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 32px;
+  height: 32px;
+  border: 2px solid var(--mf-card-border);
+  border-radius: var(--mf-radius-sm);
+  padding: 2px;
+  cursor: pointer;
+  background: none;
+  transition: border-color var(--mf-transition), box-shadow var(--mf-transition);
+}
+
+input[type="color"]::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+
+input[type="color"]::-webkit-color-swatch {
+  border: none;
+  border-radius: 3px;
+}
+
+input[type="color"]:hover {
+  border-color: var(--mf-purple);
+}
+
+input[type="color"]:focus-visible {
+  outline: 2px solid var(--mf-focus-ring);
+  outline-offset: 2px;
+}
+
+
+/* ----- Radio Buttons ----- */
+.radio-row {
+  gap: var(--sp-4);
+  flex-wrap: wrap;
+}
+
+.radio-row label {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  font-size: 13px;
+  color: var(--mf-text);
+  cursor: pointer;
+  padding: var(--sp-1) 0;
+}
+
+input[type="radio"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border: 2px solid var(--mf-input-border);
+  border-radius: 50%;
+  position: relative;
+  cursor: pointer;
+  transition: border-color var(--mf-transition);
+  flex-shrink: 0;
+}
+
+input[type="radio"]::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--mf-purple);
+  transform: translate(-50%, -50%) scale(0);
+  transition: transform var(--mf-transition);
+}
+
+input[type="radio"]:checked {
+  border-color: var(--mf-purple);
+}
+
+input[type="radio"]:checked::after {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+input[type="radio"]:focus-visible {
+  outline: 2px solid var(--mf-focus-ring);
+  outline-offset: 2px;
+}
+
+
+/* ----- Select Dropdown ----- */
+.select-row {
+  gap: var(--sp-3);
+}
+
+.select-row label {
+  min-width: 70px;
+}
+
+select {
+  flex: 1;
+  padding: var(--sp-2) var(--sp-3);
+  padding-right: var(--sp-8);
+  font-size: 13px;
+  font-family: inherit;
+  color: var(--mf-text);
+  background-color: var(--mf-input-bg);
+  border: 1px solid var(--mf-input-border);
+  border-radius: var(--mf-radius-sm);
+  cursor: pointer;
+  transition: border-color var(--mf-transition), box-shadow var(--mf-transition);
+
+  /* Custom dropdown arrow */
+  -webkit-appearance: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2364748B' d='M2.5 4.5L6 8l3.5-3.5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 12px;
+}
+
+select:hover {
+  border-color: var(--mf-purple);
+}
+
+select:focus-visible {
+  outline: none;
+  border-color: var(--mf-purple);
+  box-shadow: 0 0 0 3px var(--mf-focus-ring);
+}
+
+
+/* ----- Theme Swatch Grid ----- */
+.theme-row {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--sp-2);
+}
+
+.theme-swatches {
+  display: flex;
+  gap: var(--sp-2);
+  flex-wrap: wrap;
+}
+
+.swatch {
+  width: 36px;
+  height: 36px;
+  border: 2px solid var(--mf-card-border);
+  border-radius: var(--mf-radius-sm);
+  cursor: pointer;
+  transition: border-color var(--mf-transition), transform var(--mf-transition),
+    box-shadow var(--mf-transition);
+  position: relative;
+  font-size: 0;            /* hide any button text */
+  line-height: 0;
+  padding: 0;
+}
+
+.swatch:hover {
+  border-color: var(--mf-purple);
+  transform: scale(1.08);
+}
+
+.swatch.active {
+  border-color: var(--mf-purple);
+  box-shadow: 0 0 0 3px var(--mf-focus-ring);
+}
+
+/* Checkmark overlay on active swatch */
+.swatch.active::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 14px;
+  height: 14px;
+  transform: translate(-50%, -50%);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 14 14'%3E%3Cpath fill='none' stroke='%237C3AED' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' d='M3 7l3 3 5-5.5'/%3E%3C/svg%3E");
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+/* Dark swatch needs a light checkmark */
+.swatch[data-theme="dark"].active::after {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 14 14'%3E%3Cpath fill='none' stroke='%23EDE9FE' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' d='M3 7l3 3 5-5.5'/%3E%3C/svg%3E");
+}
+
+.swatch:focus-visible {
+  outline: 2px solid var(--mf-focus-ring);
+  outline-offset: 2px;
+}
+
+
+/* ----- Preset Buttons ----- */
+.preset-buttons {
+  display: flex;
+  gap: var(--sp-2);
+}
+
+.preset-btn {
+  flex: 1;
+  padding: var(--sp-2) var(--sp-3);
+  font-size: 13px;
+  font-weight: 500;
+  font-family: inherit;
+  color: var(--mf-text-secondary);
+  background: var(--mf-input-bg);
+  border: 1px solid var(--mf-card-border);
+  border-radius: var(--mf-radius-sm);
+  cursor: pointer;
+  transition: all var(--mf-transition);
+}
+
+.preset-btn:hover {
+  color: var(--mf-purple);
+  border-color: var(--mf-purple);
+  background: var(--mf-purple-light);
+}
+
+.preset-btn.active {
+  color: #fff;
+  background: var(--mf-purple);
+  border-color: var(--mf-purple);
+  font-weight: 600;
+  box-shadow: 0 2px 6px rgba(124, 58, 237, 0.3);
+}
+
+.preset-btn:focus-visible {
+  outline: 2px solid var(--mf-focus-ring);
+  outline-offset: 2px;
+}
+
+.preset-btn:active {
+  transform: scale(0.97);
+}
+
+
+/* ----- Accessibility — Focus Visible (global) ----- */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+:focus-visible {
+  outline: 2px solid var(--mf-focus-ring);
+  outline-offset: 2px;
+}
+
+
+/* ----- Accessibility — Reduced Motion ----- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
+
+
+/* ----- Accessibility — High Contrast Mode (Windows) ----- */
+@media (forced-colors: active) {
+  .settings-header {
+    border-bottom: 2px solid ButtonText;
+  }
+
+  .settings-section {
+    border: 1px solid ButtonText;
+  }
+
+  input[type="checkbox"] {
+    forced-color-adjust: none;
+    background: Canvas;
+    border: 2px solid ButtonText;
+  }
+
+  input[type="checkbox"]:checked {
+    background: Highlight;
+  }
+
+  input[type="checkbox"]::after {
+    background: ButtonText;
+  }
+
+  input[type="range"]::-webkit-slider-thumb {
+    forced-color-adjust: none;
+    background: Highlight;
+    border-color: Canvas;
+  }
+
+  input[type="radio"] {
+    forced-color-adjust: none;
+    border-color: ButtonText;
+  }
+
+  input[type="radio"]::after {
+    background: Highlight;
+  }
+
+  .preset-btn {
+    border: 1px solid ButtonText;
+  }
+
+  .preset-btn.active {
+    background: Highlight;
+    color: HighlightText;
+    border-color: Highlight;
+  }
+
+  .swatch {
+    forced-color-adjust: none;
+  }
+
+  .swatch.active {
+    border-color: Highlight;
+    outline: 2px solid Highlight;
+  }
+
+  select {
+    border: 1px solid ButtonText;
+  }
+}
+
+
+/* ----- Responsive — Narrower panels ----- */
+@media (max-width: 360px) {
+  .settings-container {
+    width: 100%;
+  }
+
+  .settings-section {
+    margin: var(--sp-2) var(--sp-2) 0;
+    padding: var(--sp-3) var(--sp-3);
+  }
+
+  .radio-row {
+    flex-direction: column;
+    gap: var(--sp-1);
+  }
+
+  .theme-swatches {
+    gap: var(--sp-1);
+  }
+
+  .swatch {
+    width: 32px;
+    height: 32px;
+  }
+}

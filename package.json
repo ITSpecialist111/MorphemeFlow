@@ -1,0 +1,49 @@
+{
+  "name": "morphemeflow",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Universal screen overlay combining morpheme highlighting, syllable micro-kerning, and adaptive typography to help people with dyslexia read in any application.",
+  "type": "module",
+  "workspaces": [
+    "packages/engine",
+    "packages/overlay",
+    "packages/extension"
+  ],
+  "scripts": {
+    "dev": "npm run dev:overlay",
+    "dev:overlay": "cd packages/overlay && npm run dev",
+    "dev:extension": "cd packages/extension && npm run dev",
+    "build": "npm run build:engine && npm run build:overlay && npm run build:extension",
+    "build:engine": "cd packages/engine && npm run build",
+    "build:overlay": "cd packages/overlay && npm run build",
+    "build:extension": "cd packages/extension && npm run build",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "eslint packages/*/src/ --ext .ts,.tsx"
+  },
+  "keywords": [
+    "dyslexia",
+    "accessibility",
+    "morpheme",
+    "reading",
+    "overlay",
+    "universal"
+  ],
+  "author": "MorphemeFlow Contributors",
+  "license": "MIT",
+  "devDependencies": {
+    "@tauri-apps/cli": "^2.10.1",
+    "@types/chrome": "^0.1.38",
+    "esbuild": "^0.27.4",
+    "eslint": "^9.0.0",
+    "sharp": "^0.34.5",
+    "typescript": "^5.4.0",
+    "vite": "^5.4.0",
+    "vitest": "^2.0.0",
+    "xlsx": "^0.18.5"
+  },
+  "dependencies": {
+    "hyphenation.en-us": "^0.2.1",
+    "hypher": "^0.2.5"
+  }
+}

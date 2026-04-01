@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MorphemeFlow</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      width: 320px;
+      font-family: system-ui, 'Segoe UI', -apple-system, sans-serif;
+      font-size: 14px;
+      color: #1E293B;
+      background: #FAFAFA;
+    }
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 16px;
+      background: linear-gradient(135deg, #7C3AED, #4F46E5);
+      color: white;
+    }
+    .header h1 { font-size: 16px; font-weight: 600; }
+    .toggle-btn {
+      background: rgba(255,255,255,0.2);
+      border: 1px solid rgba(255,255,255,0.3);
+      color: white;
+      padding: 6px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .toggle-btn.active { background: rgba(255,255,255,0.4); }
+    .toggle-btn:hover { background: rgba(255,255,255,0.35); }
+
+    .section { padding: 12px 16px; border-bottom: 1px solid #E2E8F0; }
+    .section-title {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #64748B;
+      margin-bottom: 8px;
+    }
+
+    .presets {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+    .preset-btn {
+      background: white;
+      border: 2px solid #E2E8F0;
+      padding: 8px;
+      border-radius: 8px;
+      cursor: pointer;
+      text-align: center;
+      font-size: 12px;
+      font-weight: 500;
+      transition: all 0.15s;
+    }
+    .preset-btn:hover { border-color: #7C3AED; }
+    .preset-btn.active { border-color: #7C3AED; background: #F5F3FF; }
+
+    .feature-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 6px 0;
+    }
+    .feature-label { font-size: 13px; }
+    .feature-toggle {
+      position: relative;
+      width: 36px;
+      height: 20px;
+    }
+    .feature-toggle input { display: none; }
+    .feature-toggle .slider {
+      position: absolute;
+      inset: 0;
+      background: #CBD5E1;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .feature-toggle .slider::after {
+      content: "";
+      position: absolute;
+      width: 16px; height: 16px;
+      left: 2px; top: 2px;
+      background: white;
+      border-radius: 50%;
+      transition: 0.2s;
+    }
+    .feature-toggle input:checked + .slider { background: #7C3AED; }
+    .feature-toggle input:checked + .slider::after { left: 18px; }
+
+    .stats {
+      font-size: 11px;
+      color: #94A3B8;
+      padding: 8px 16px;
+      text-align: center;
+    }
+
+    .demo-text {
+      padding: 12px 16px;
+      background: #F8FAFC;
+      font-size: 16px;
+      line-height: 1.8;
+      letter-spacing: 0.05em;
+    }
+    .demo-text .prefix { color: #7C3AED; }
+    .demo-text .root { color: #1E293B; font-weight: 600; }
+    .demo-text .suffix { color: #059669; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>MorphemeFlow</h1>
+    <button class="toggle-btn" id="toggle-btn">OFF</button>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Preview</div>
+    <div class="demo-text">
+      <span class="prefix">un</span><span class="root">success</span><span class="suffix">ful</span>
+      <span class="prefix">re</span><span class="root">construct</span><span class="suffix">ion</span>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Presets</div>
+    <div class="presets">
+      <button class="preset-btn" data-preset="subtle">Subtle</button>
+      <button class="preset-btn active" data-preset="balanced">Balanced</button>
+      <button class="preset-btn" data-preset="full">Full</button>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Features</div>
+    <div class="feature-row">
+      <span class="feature-label">Morpheme Highlighting</span>
+      <label class="feature-toggle">
+        <input type="checkbox" id="feat-morpheme" checked>
+        <span class="slider"></span>
+      </label>
+    </div>
+    <div class="feature-row">
+      <span class="feature-label">Syllable Spacing</span>
+      <label class="feature-toggle">
+        <input type="checkbox" id="feat-syllable" checked>
+        <span class="slider"></span>
+      </label>
+    </div>
+    <div class="feature-row">
+      <span class="feature-label">Reading Environment</span>
+      <label class="feature-toggle">
+        <input type="checkbox" id="feat-reading-env" checked>
+        <span class="slider"></span>
+      </label>
+    </div>
+    <div class="feature-row">
+      <span class="feature-label">Reading Ruler</span>
+      <label class="feature-toggle">
+        <input type="checkbox" id="feat-ruler">
+        <span class="slider"></span>
+      </label>
+    </div>
+  </div>
+
+  <div class="stats" id="stats">
+    Ready — Click toggle to activate
+  </div>
+
+  <script src="popup.js" type="module"></script>
+</body>
+</html>
