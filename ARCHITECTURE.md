@@ -1,8 +1,8 @@
 # MorphemeFlow — Architecture & Solution Design
 
-**Version:** 0.2 (Universal Overlay)
-**Date:** March 2026
-**Status:** BUILDING
+**Version:** 0.3 (Universal Overlay — Working)
+**Date:** April 2026
+**Status:** FUNCTIONAL — Engine complete, overlay working across Word, Chrome, VS Code
 
 ---
 
@@ -173,52 +173,94 @@ The user sees their normal apps — unchanged. But text is transformed: morpheme
 
 ### How We Read Text From Any Application
 
+The text detection layer uses **multiple extraction strategies** in priority order, falling back automatically when a strategy doesn't return results:
+
 ```
         ┌─────────────────────────────────────────┐
         │        Text Detection Pipeline           │
         └───────────────────┬─────────────────────┘
                             │
                     ┌───────┴───────┐
-                    │ Is active app │
-                    │ UIA-enabled?  │
+                    │ Find active   │
+                    │ window (z-order│
+                    │ walk, skip     │
+                    │ our overlay)   │
                     └───────┬───────┘
-                      yes ╱   ╲ no
-                         ╱     ╲
-              ┌─────────┐       ┌──────────┐
-              │ UIA API │       │ OCR Mode │
-              │         │       │          │
-              │ Read:   │       │ Capture  │
-              │ - Text  │       │ screen   │
-              │ - Bounds│       │ region → │
-              │ - Font  │       │ Tesseract│
-              │ - Size  │       │ or Win   │
-              └────┬────┘       │ OCR API  │
-                   │            └─────┬────┘
-                   │                  │
-                   └──────┬───────────┘
-                          │
-                  ┌───────┴────────┐
-                  │ Text Regions   │
-                  │ with bounding  │
-                  │ rectangles     │
-                  └───────┬────────┘
-                          │
-                          ▼
-                  ┌────────────────┐
-                  │ Morpheme       │
-                  │ Engine         │
-                  │ (shared core)  │
-                  └───────┬────────┘
-                          │
-                          ▼
-                  ┌────────────────┐
-                  │ Overlay        │
-                  │ Renderer       │
-                  │ (position text │
-                  │  over originals│
-                  │  with styling) │
-                  └────────────────┘
+                            │
+                    ┌───────┴───────┐
+                    │ Get UIA root  │
+                    │ element for   │
+                    │ target window │
+                    └───────┬───────┘
+                            │
+              ┌─────────────┴──────────────┐
+              │                            │
+    ┌─────────┴─────────┐     ┌────────────┴───────────┐
+    │ TextPattern        │     │  UIA Tree Walk         │
+    │ (Document/Edit     │     │  (all other controls)  │
+    │  controls)         │     │                        │
+    │                    │     │  Strategy per element:  │
+    │ GetVisibleRanges() │     │  1. CurrentName         │
+    │ → per-line text +  │     │  2. ValuePattern        │
+    │   bounding rects   │     │  3. LegacyIAccessible   │
+    │                    │     │                          │
+    │ Works for:         │     │  Filter by control type: │
+    │ - Word documents   │     │  Keep: Text, Hyperlink, │
+    │ - VS Code editors  │     │    ListItem, Group      │
+    │ - Rich text fields │     │  Skip: Button, Image,   │
+    └─────────┬─────────┘     │    TabItem, Toolbar     │
+              │                └────────────┬───────────┘
+              │                            │
+              └─────────────┬──────────────┘
+                            │
+                    ┌───────┴────────┐
+                    │ Deduplication  │
+                    │ + font size    │
+                    │ estimation     │
+                    └───────┬────────┘
+                            │
+                            ▼
+                    ┌────────────────┐
+                    │ Morpheme       │
+                    │ Engine         │
+                    │ (shared core)  │
+                    └───────┬────────┘
+                            │
+                            ▼
+                    ┌────────────────┐
+                    │ Canvas Overlay │
+                    │ Renderer       │
+                    │ (opaque bg +   │
+                    │  morpheme text)│
+                    └────────────────┘
 ```
+
+### Text Extraction Strategies (Priority Order)
+
+| Strategy | API | Best For | Details |
+|----------|-----|----------|---------|
+| **TextPattern** | `IUIAutomationTextPattern.GetVisibleRanges()` | Word, VS Code, rich editors | Returns per-line bounding rectangles via SAFEARRAY. Handles multi-line ranges by splitting text across rects. |
+| **CurrentName** | `IUIAutomationElement.CurrentName()` | Most UI elements | Works for text labels, headings, links. Primary strategy for browser content. |
+| **ValuePattern** | `IUIAutomationValuePattern.CurrentValue()` | Edit controls, text inputs | Fallback for controls where CurrentName is empty but text is editable. |
+| **LegacyIAccessible** | `IUIAutomationLegacyIAccessiblePattern.CurrentValue()` | Legacy Win32 apps | Works for older apps that don't expose modern UIA patterns. |
+
+### Font Size Estimation
+
+Two methods, cross-checked:
+- **Height-based:** `font_size = element_height / 1.4` (line height ratio)
+- **Width-based:** `font_size = element_width / (char_count * 0.55)` (avg char width ratio)
+
+For elements with height > 30px and estimated font > 20px (padded bounding boxes), the width-based estimate is preferred to avoid overestimation.
+
+### Region Deduplication
+
+Regions are sorted by area (smallest first) and overlapping regions (>50% overlap) are removed to prevent double-rendering.
+
+### UI Chrome Filtering
+
+Two layers of filtering to prevent rendering on toolbars, ribbons, and navigation:
+1. **Position-based:** Skip regions in top 150px (CSS pixels), bottom 30px, narrow sidebars
+2. **Content-based:** Regex patterns detect Word style gallery text, ribbon labels, and similar UI chrome
 
 ### Text Detection Methods by Platform
 
@@ -306,10 +348,10 @@ The user sees their normal apps — unchanged. But text is transformed: morpheme
                     └──────┬───────┘
                            │
                     ┌──────┴───────┐     ┌─────────────────┐
-                    │ Tier 1:      │────▶│ Common Word      │
-                    │ Dictionary   │     │ Dictionary (5K)  │
-                    │ Lookup       │     │ Pre-computed,    │
-                    └──────┬───────┘     │ hand-verified    │
+                    │ Tier 1:      │────▶│ MorphoLex        │
+                    │ Dictionary   │     │ Dictionary (37K) │
+                    │ Lookup       │     │ Compact encoded, │
+                    └──────┬───────┘     │ lazy-decoded     │
                            │ miss        └─────────────────┘
                            │
                     ┌──────┴───────┐     ┌─────────────────┐
@@ -377,47 +419,37 @@ morphemeflow/
 │   │   │   ├── word-cache.ts
 │   │   │   └── types.ts
 │   │   ├── data/
-│   │   │   ├── morpheme-dictionary.json
+│   │   │   ├── morpholex-compact.json   # 37,215 entries (1.6MB)
 │   │   │   ├── prefix-rules.ts
 │   │   │   ├── suffix-rules.ts
 │   │   │   └── root-validator.ts
 │   │   └── package.json
 │   │
-│   ├── overlay/                   # PRIMARY: Tauri desktop overlay
-│   │   ├── src-tauri/             # Rust backend
-│   │   │   ├── src/
-│   │   │   │   ├── main.rs
-│   │   │   │   ├── text_detection.rs    # UIA + OCR
-│   │   │   │   ├── overlay_window.rs    # Transparent window management
-│   │   │   │   └── hotkey.rs            # Global hotkey handler
-│   │   │   ├── Cargo.toml
-│   │   │   └── tauri.conf.json
-│   │   ├── src/                   # WebView frontend (overlay UI)
-│   │   │   ├── overlay.ts         # Canvas-based text rendering
-│   │   │   ├── settings-ui.ts     # Settings window
-│   │   │   └── styles.css
-│   │   └── package.json
-│   │
-│   └── extension/                 # SECONDARY: Browser extension
-│       ├── src/
-│       │   ├── manifest.json
-│       │   ├── background/
-│       │   ├── content/
-│       │   ├── popup/
-│       │   └── shared/
+│   └── overlay/                   # PRIMARY: Tauri desktop overlay
+│       ├── src-tauri/             # Rust backend
+│       │   ├── src/
+│       │   │   ├── main.rs
+│       │   │   ├── text_detection.rs    # UIA multi-strategy text extraction
+│       │   │   ├── overlay_window.rs    # Transparent window management
+│       │   │   └── bin/
+│       │   │       └── capture_regions.rs  # Standalone capture/debug tool
+│       │   ├── capabilities/
+│       │   │   └── default.json         # Tauri v2 permissions
+│       │   ├── Cargo.toml
+│       │   └── tauri.conf.json
+│       ├── src/                   # WebView frontend (overlay UI)
+│       │   ├── overlay.ts         # Canvas-based morpheme renderer
+│       │   ├── settings-ui.ts     # Settings window
+│       │   └── styles.css
 │       └── package.json
 │
-├── public/
-│   └── fonts/                     # Bundled accessible fonts
-│
 ├── test/
-│   ├── engine/                    # Engine unit tests
-│   └── fixtures/
+│   ├── engine/                    # Engine unit tests (41 passing)
+│   └── fixtures/                  # Captured region JSON for analysis
 │
 ├── research/                      # Research documents
 ├── CLAUDE.md
 ├── ARCHITECTURE.md
-├── PLAN.md
 ├── package.json                   # Monorepo root
 └── LICENSE
 ```
@@ -514,5 +546,4 @@ morphemeflow/
 
 ---
 
-*This document defines the technical architecture for MorphemeFlow v0.2 (Universal Overlay).*
-*The browser extension remains as a secondary deployment target for users who prefer it.*
+*This document defines the technical architecture for MorphemeFlow v0.3 (Universal Overlay — Working).*

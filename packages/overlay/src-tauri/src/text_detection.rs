@@ -326,7 +326,10 @@ unsafe fn collect_text(
         if let Ok(pattern) = element.GetCurrentPatternAs::<IUIAutomationTextPattern>(UIA_TextPatternId) {
             if let Ok(visible_ranges) = pattern.GetVisibleRanges() {
                 let range_count = visible_ranges.Length().unwrap_or(0);
-                if range_count > 0 {
+                eprintln!("[MorphemeFlow] TextPattern: {} visible ranges for control type {}", range_count, control_type);
+                // Cap ranges to avoid slowdown on large documents (VS Code returns 200+)
+                let max_ranges = range_count.min(80);
+                if max_ranges > 0 {
                     // Word returns document-internal (negative) coords from TextPattern.
                     // We need to map these to screen coords using the element's internal rect
                     // and the actual screen position (via ClientToScreen).
@@ -339,16 +342,18 @@ unsafe fn collect_text(
                     let mut offset_y = 0.0_f64;
                     let mut offset_found = false;
 
-                    for i in 0..range_count {
+                    for i in 0..max_ranges {
                         if regions.len() >= MAX_REGIONS { break; }
                         if let Ok(range) = visible_ranges.GetElement(i) {
-                            if let Ok(txt) = range.GetText(500) {
+                            if let Ok(txt) = range.GetText(2000) {
                                 let text = txt.to_string().trim().to_string();
-                                if text.len() > 1 && text.len() < 500 {
-                                    if let Some((x, y, w, h)) = get_first_rect_from_safearray(&range) {
+                                if text.len() > 1 {
+                                    let rects = get_all_rects_from_safearray(&range);
+                                        if !rects.is_empty() {
                                         // Calculate offset on first valid rect
                                         if !offset_found {
-                                            if x < -1000.0 || y < -1000.0 {
+                                            let (rx, ry, _, _) = rects[0];
+                                            if rx < -1000.0 || ry < -1000.0 {
                                                 if let Some(ref er) = elem_rect {
                                                     offset_x = screen_origin.x as f64 - er.left as f64;
                                                     offset_y = screen_origin.y as f64 - er.top as f64;
@@ -357,29 +362,69 @@ unsafe fn collect_text(
                                             offset_found = true;
                                         }
 
-                                        let sx = x + offset_x;
-                                        let sy = y + offset_y;
+                                        if rects.len() == 1 {
+                                            // Single-line range — use text as-is
+                                            let (x, y, w, h) = rects[0];
+                                            let sx = x + offset_x;
+                                            let sy = y + offset_y;
+                                            if w > 20.0 && h >= 10.0 && sx >= 0.0 && sy >= 0.0 {
+                                                let font_size = estimate_font_size(50020, &text, w, h);
+                                                regions.push(TextRegion {
+                                                    text,
+                                                    x: sx, y: sy,
+                                                    width: w, height: h,
+                                                    font_size,
+                                                    source: TextSource::Accessibility,
+                                                    control_type: 50020,
+                                                });
+                                            }
+                                        } else {
+                                            // Multi-line range — split text across lines
+                                            let total_width: f64 = rects.iter().map(|(_, _, w, _)| w).sum();
+                                            let chars: Vec<char> = text.chars().collect();
+                                            let total_chars = chars.len();
+                                            let first_h = rects[0].3;
+                                            let font_size = (first_h / 1.4).clamp(11.0, 28.0);
 
-                                        if w > 20.0 && h >= 10.0 && sx >= 0.0 && sy >= 0.0 {
-                                            let font_size = estimate_font_size(50020, &text, w, h);
-                                            regions.push(TextRegion {
-                                                text,
-                                                x: sx, y: sy,
-                                                width: w,
-                                                height: h,
-                                                font_size,
-                                                source: TextSource::Accessibility,
-                                                control_type: 50020,
-                                            });
+                                            let mut char_offset = 0usize;
+                                            for (x, y, w, h) in &rects {
+                                                if regions.len() >= MAX_REGIONS { break; }
+                                                let sx = x + offset_x;
+                                                let sy = y + offset_y;
+                                                if *w < 20.0 || *h < 10.0 || sx < 0.0 || sy < 0.0 {
+                                                    continue;
+                                                }
+                                                // Estimate how many chars fit on this line
+                                                let line_chars = ((w / total_width) * total_chars as f64).round() as usize;
+                                                let end = (char_offset + line_chars).min(total_chars);
+                                                let line_text: String = if char_offset < total_chars {
+                                                    chars[char_offset..end].iter().collect::<String>().trim().to_string()
+                                                } else {
+                                                    String::new()
+                                                };
+                                                char_offset = end;
+
+                                                if line_text.len() > 1 {
+                                                    regions.push(TextRegion {
+                                                        text: line_text,
+                                                        x: sx, y: sy,
+                                                        width: *w, height: *h,
+                                                        font_size,
+                                                        source: TextSource::Accessibility,
+                                                        control_type: 50020,
+                                                    });
+                                                }
+                                            }
                                         }
                                     }
                                 }
                             }
                         }
                     }
-                    if !regions.is_empty() {
-                        return Ok(());
-                    }
+                    // Don't return early — let tree walk also run to catch
+                    // any text that TextPattern missed (e.g., paragraph body text
+                    // that Word exposes as individual Text elements but not as
+                    // TextPattern visible ranges).
                 }
             }
         }
@@ -575,25 +620,35 @@ fn clean_card_text(text: &str) -> String {
     s.trim().to_string()
 }
 
-/// Extract the first bounding rectangle from a TextRange's SAFEARRAY.
+/// Extract ALL bounding rectangles from a TextRange's SAFEARRAY.
+/// Returns a Vec of (x, y, w, h) — one per visual line.
 #[cfg(target_os = "windows")]
-unsafe fn get_first_rect_from_safearray(
+unsafe fn get_all_rects_from_safearray(
     range: &windows::Win32::UI::Accessibility::IUIAutomationTextRange,
-) -> Option<(f64, f64, f64, f64)> {
+) -> Vec<(f64, f64, f64, f64)> {
     use windows::Win32::System::Ole::{SafeArrayGetLBound, SafeArrayGetUBound, SafeArrayAccessData, SafeArrayUnaccessData};
 
-    let rects_sa = range.GetBoundingRectangles().ok()?;
+    let rects_sa = match range.GetBoundingRectangles() {
+        Ok(sa) => sa,
+        Err(_) => return Vec::new(),
+    };
     let lbound = SafeArrayGetLBound(rects_sa, 1).unwrap_or(0);
     let ubound = SafeArrayGetUBound(rects_sa, 1).unwrap_or(-1);
     let count = (ubound - lbound + 1) as usize;
-    if count < 4 { return None; }
+    if count < 4 { return Vec::new(); }
 
     let mut data_ptr: *mut std::ffi::c_void = std::ptr::null_mut();
-    SafeArrayAccessData(rects_sa, &mut data_ptr).ok()?;
+    if SafeArrayAccessData(rects_sa, &mut data_ptr).is_err() {
+        return Vec::new();
+    }
     let doubles = std::slice::from_raw_parts(data_ptr as *const f64, count);
-    let result = (doubles[0], doubles[1], doubles[2], doubles[3]);
+    let num_rects = count / 4;
+    let mut rects = Vec::with_capacity(num_rects);
+    for i in 0..num_rects {
+        rects.push((doubles[i*4], doubles[i*4+1], doubles[i*4+2], doubles[i*4+3]));
+    }
     let _ = SafeArrayUnaccessData(rects_sa);
-    Some(result)
+    rects
 }
 
 /// Public API: collect text regions from a given UIA element (used by capture binary).

@@ -42,8 +42,8 @@ let settings = {
   rootColor: "#1E293B",
   suffixColor: "#059669",
   rootBold: true,
-  bgColor: "#FFFFFF",  // white background — blends with most apps
-  bgOpacity: 1.0,
+  bgColor: "#FFFFFF",
+  bgOpacity: 1.0,      // fully opaque — must cover original text completely
 };
 
 function init(): void {
@@ -106,7 +106,20 @@ async function scanAndRender(): Promise<void> {
 
   try {
     // @ts-expect-error — Tauri invoke API
-    const regions: TextRegion[] = await window.__TAURI__.core.invoke("scan_screen_text");
+    const rawRegions: TextRegion[] = await window.__TAURI__.core.invoke("scan_screen_text");
+
+    // UIA returns coordinates in physical screen pixels, but our canvas context
+    // is scaled by devicePixelRatio (ctx.scale(dpr, dpr)), so we must convert
+    // physical pixels → CSS pixels by dividing by dpr.
+    const dpr = window.devicePixelRatio || 1;
+    const regions: TextRegion[] = rawRegions.map(r => ({
+      ...r,
+      x: r.x / dpr,
+      y: r.y / dpr,
+      width: r.width / dpr,
+      height: r.height / dpr,
+      font_size: r.font_size / dpr,
+    }));
 
     if (regions.length > 0) {
       renderTextRegions(regions);
@@ -119,26 +132,48 @@ async function scanAndRender(): Promise<void> {
 }
 
 /**
+ * Detect text that is UI chrome (Word style gallery, toolbar labels, etc.)
+ * rather than actual document content.
+ */
+const UI_CHROME_PATTERNS = [
+  /^¶?\s*Normal¶?\s*No\s*Spacing/i,
+  /Heading\s*1.*Heading\s*2.*Heading\s*3/i,
+  /TitleSub.*Emphasis.*Intense/i,
+  /QuoteIntense.*QuoteSubtle.*Reference/i,
+  /^Calibri\s*\(/i,
+  /^(File|Home|Insert|Draw|Design|Layout|References|Mailings|Review|View)\s+(File|Home|Insert|Draw|Design|Layout|References|Mailings|Review|View)/i,
+];
+
+function isUiChromeText(text: string): boolean {
+  return UI_CHROME_PATTERNS.some(p => p.test(text));
+}
+
+/**
  * Render all detected text regions with morpheme highlighting
  */
 function renderTextRegions(regions: TextRegion[]): void {
   clearCanvas();
 
   // Filter: skip regions in the top toolbar/ribbon area of most apps,
-  // very small regions, status bars, and sidebar chrome
+  // very small regions, status bars, and sidebar chrome.
+  // Note: coordinates are already in CSS pixels (DPI-adjusted).
   const screenW = window.innerWidth;
   const screenH = window.innerHeight;
   const contentRegions = regions.filter(r => {
-    // Skip anything in the top 180px (app chrome: ribbon, toolbars, tabs)
-    if (r.y < 180) return false;
+    // Skip anything in the top 150px (CSS px: app chrome, ribbon, toolbars)
+    if (r.y < 150) return false;
     // Skip tiny regions (UI labels, not content)
-    if (r.height < 12 || r.width < 30) return false;
+    if (r.height < 8 || r.width < 20) return false;
     // Skip status bars at the very bottom
-    if (r.y > screenH - 40) return false;
+    if (r.y > screenH - 30) return false;
     // Skip very short text that's likely a UI button/link label
-    if (r.text.length <= 4 && r.width < 50) return false;
-    // Skip settings panels / sidebars far to the right (>85% of screen)
-    if (r.x > screenW * 0.85 && r.width < 200) return false;
+    if (r.text.length <= 3 && r.width < 40) return false;
+    // Skip settings panels / sidebars far to the right (>80% of screen)
+    if (r.x > screenW * 0.80 && r.width < 150) return false;
+    // Skip navigation / sidebar on the left (<12% of screen, narrow)
+    if (r.x < screenW * 0.12 && r.width < 140 && r.text.length < 30) return false;
+    // Skip Word style gallery and similar UI chrome by content
+    if (isUiChromeText(r.text)) return false;
     return true;
   });
 
@@ -154,10 +189,10 @@ function renderTextRegions(regions: TextRegion[]): void {
  * Render a single text region: background cover + morpheme text
  */
 function renderRegionOverlay(region: TextRegion): void {
-  const padding = 4;
+  const padding = 6;
   const fontSize = region.font_size;
 
-  // Draw background to cover original text
+  // Draw opaque background to fully cover original text
   ctx.fillStyle = settings.bgColor;
   ctx.globalAlpha = settings.bgOpacity;
   ctx.fillRect(
@@ -171,7 +206,12 @@ function renderRegionOverlay(region: TextRegion): void {
   // Clip rendering to the bounding box so text doesn't overflow
   ctx.save();
   ctx.beginPath();
-  ctx.rect(region.x - padding, region.y - padding, region.width + padding * 2, region.height + padding * 2);
+  ctx.rect(
+    region.x - padding,
+    region.y - padding,
+    region.width + padding * 2,
+    region.height + padding * 2
+  );
   ctx.clip();
 
   // For multi-line content (ListItem cards), wrap text into lines

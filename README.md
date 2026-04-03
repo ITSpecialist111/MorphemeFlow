@@ -51,10 +51,25 @@ Research-backed typography: optimized fonts, letter/word spacing, line height, b
 └─────────────────────────────────────────────────────┘
 ```
 
-1. **Text Detection** — Reads text from any application using Windows UI Automation API (with OCR fallback)
-2. **Morpheme Analysis** — 3-tier engine: dictionary lookup (2000+ words) -> rule-based affix stripping (26 prefixes, 30 suffixes, 800+ roots) -> syllable fallback
-3. **Overlay Rendering** — Draws styled text on a transparent, always-on-top, click-through window
+1. **Text Detection** — Reads text from any application using Windows UI Automation API with multiple extraction strategies:
+   - **TextPattern** with `GetVisibleRanges()` for rich text (Word, VS Code)
+   - **ValuePattern** for edit controls
+   - **LegacyIAccessible** for legacy apps
+   - **CurrentName** for standard UI elements
+   - OCR fallback for custom-rendered content
+2. **Morpheme Analysis** — 37,215-entry MorphoLex dictionary + rule-based affix stripping (26 prefixes, 30 suffixes, 800+ roots) + Knuth-Liang syllable fallback
+3. **Overlay Rendering** — Opaque background covers + morpheme-colored text on a transparent, always-on-top, click-through canvas
 4. **Toggle with hotkey** — Ctrl+Shift+M to toggle on/off
+
+## Current Status
+
+| Component | Status | Details |
+|-----------|--------|---------|
+| **Morpheme Engine** | **Complete** | 41/41 tests passing, 37K MorphoLex dictionary, 3-tier analysis |
+| **Desktop Overlay** | **Working** | Transparent click-through window, canvas renderer, system tray |
+| **Text Detection** | **Working** | UIA with TextPattern, ValuePattern, LegacyIAccessible, tree walking |
+| **Tested Apps** | **Working** | Word, Chrome (BBC, Wikipedia, GitHub), VS Code |
+| **Settings UI** | **Basic** | Presets (subtle/balanced/full), hotkey toggle |
 
 ## Architecture
 
@@ -62,12 +77,10 @@ Research-backed typography: optimized fonts, letter/word spacing, line height, b
 packages/
   engine/     # Pure TypeScript morpheme engine (shared)
   overlay/    # Tauri v2 desktop overlay (Rust + WebView)
-  extension/  # Chrome browser extension (MV3, secondary)
 ```
 
-- **Primary:** Tauri v2 desktop app — lightweight (~5MB), transparent overlay, works everywhere
-- **Secondary:** Chrome extension — more precise DOM-level modification for web content
-- **Shared:** Pure TypeScript engine used by both targets
+- **Primary:** Tauri v2 desktop app — transparent overlay, works everywhere
+- **Shared:** Pure TypeScript morpheme engine
 
 ## Features
 
@@ -106,10 +119,30 @@ npm run build:engine
 
 # Start overlay (requires Rust)
 npm run dev:overlay
-
-# Start extension dev build
-npm run dev:extension
 ```
+
+### Running the Overlay
+```bash
+# Start the Tauri dev server + overlay
+cd packages/overlay
+npx tauri dev
+
+# Or from the repo root
+npm run dev:overlay
+```
+
+Toggle the overlay with **Ctrl+Shift+M**. Right-click the system tray icon for settings/quit.
+
+### Capture & Debug Tool
+```bash
+# Capture text regions from a specific window (for debugging)
+cd packages/overlay/src-tauri
+cargo run --bin capture_regions -- "Word"     # captures from Word
+cargo run --bin capture_regions -- "Chrome"   # captures from Chrome
+cargo run --bin capture_regions               # captures from frontmost window
+```
+
+Saves JSON to `test/fixtures/captured-regions.json` for analysis.
 
 ## How It Compares
 
@@ -144,7 +177,7 @@ See `research/` directory for full research synthesis.
 All fonts are SIL OFL 1.1. All algorithms are original or public domain. No dependency on any proprietary system. Specifically:
 - No Bionic Reading API/brand/algorithm
 - No BeeLine Reader patented color gradient (US 9,396,167)
-- Uses: Knuth-Liang (public domain), CMU dictionary (BSD), hypher (BSD-3)
+- Uses: Knuth-Liang (public domain), CMU dictionary (BSD), hypher (BSD-3), MorphoLex (CC-BY)
 
 ## Contributing
 

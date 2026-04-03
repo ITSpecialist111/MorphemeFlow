@@ -12,7 +12,8 @@
       {
         "label": "overlay",
         "title": "MorphemeFlow Overlay",
-        "fullscreen": true,
+        "fullscreen": false,
+        "maximized": true,
         "transparent": true,
         "decorations": false,
         "alwaysOnTop": true,

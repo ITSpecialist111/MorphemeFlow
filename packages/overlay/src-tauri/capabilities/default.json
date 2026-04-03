@@ -1,0 +1,19 @@
+{
+  "identifier": "default",
+  "description": "Default capabilities for MorphemeFlow overlay",
+  "windows": ["overlay", "settings"],
+  "permissions": [
+    "core:default",
+    "core:event:default",
+    "core:event:allow-listen",
+    "core:event:allow-emit",
+    "core:window:default",
+    "core:window:allow-show",
+    "core:window:allow-hide",
+    "core:window:allow-set-focus",
+    "core:window:allow-is-visible",
+    "core:webview:default",
+    "core:app:default",
+    "core:tray:default"
+  ]
+}
