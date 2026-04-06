@@ -1,10 +1,26 @@
-# MorphemeFlow
+# MorphemeFlow (Project Periphery Architecture)
 
-**The world's first universal screen overlay for dyslexia reading support.**
+**The world's first hardware-accelerated, zero-latency screen overlay for dyslexia reading support across Windows 11.**
 
-MorphemeFlow is an open-source desktop application that sits transparently on top of **any application** — browsers, Word, PDFs, Slack, email, IDEs — and transforms text using evidence-based techniques that help dyslexic readers decode words through meaning, not just sound.
+> **Notice:** The project has pivoted from a DOM/Tauri-based overlay to a native Windows Rust architecture using Direct3D and DXGI Desktop Duplication to achieve zero scrolling latency. The previous TypeScript/Tauri version is archived in the `legacy-v1` directory.
 
-> Like f.lux changes your screen's color temperature everywhere, MorphemeFlow changes how text appears everywhere.
+Project Periphery handles dyslexia overlays by bypassing the OS UI document paradigm completely. It tracks text on the screen using swap-chain frame buffers and optical flow, compositing micro-kerning and morphemic highlights directly above the desktop surface without waiting for UI events.
+
+## 🚀 Architecture & Crates
+- `crates/engine` — Rust morpheme analyzer (prefix/root/suffix splitting, punctuation-aware).
+- `crates/compositor` — DXGI Desktop Duplication capture + move/dirty rect metadata + dirty-region GPU readback.
+- `crates/overlay-daemon` — Runtime orchestration: capture loop, UIA semantic scan loop, anchor tracker, click-through Win32 overlay renderer.
+
+## Current Native Build (April 6, 2026)
+
+| Component | Status | Notes |
+|---|---|---|
+| DXGI capture pipeline | Working | Captures frames and metadata at runtime |
+| Motion-aware tracking | Working | Move rect translation + dirty signature confidence |
+| UIA text intake | Working | Foreground-window semantic region extraction |
+| Overlay rendering | Working prototype | Morpheme-colored text rendering in transparent click-through window |
+| Flicker mitigation | Improved | Double-buffered paint + redraw only when frame index changes |
+| Automated matrix test harness | Working | Runs scripted app/web scenarios with screenshots + reports |
 
 ---
 
@@ -35,7 +51,7 @@ Research-backed typography: optimized fonts, letter/word spacing, line height, b
 
 ---
 
-## How It Works
+## How It Works (Current Prototype)
 
 ```
 ┌─────────────────────────────────────────────────────┐
@@ -51,36 +67,41 @@ Research-backed typography: optimized fonts, letter/word spacing, line height, b
 └─────────────────────────────────────────────────────┘
 ```
 
-1. **Text Detection** — Reads text from any application using Windows UI Automation API with multiple extraction strategies:
-   - **TextPattern** with `GetVisibleRanges()` for rich text (Word, VS Code)
-   - **ValuePattern** for edit controls
-   - **LegacyIAccessible** for legacy apps
-   - **CurrentName** for standard UI elements
-   - OCR fallback for custom-rendered content
-2. **Morpheme Analysis** — 37,215-entry MorphoLex dictionary + rule-based affix stripping (26 prefixes, 30 suffixes, 800+ roots) + Knuth-Liang syllable fallback
-3. **Overlay Rendering** — Opaque background covers + morpheme-colored text on a transparent, always-on-top, click-through canvas
-4. **Toggle with hotkey** — Ctrl+Shift+M to toggle on/off
+1. **Where loop (fast)** — DXGI Desktop Duplication captures frame metadata (move + dirty rects) and dirty-region readbacks.
+2. **What loop (async)** — UIA scanner finds visible text-like regions in the active window (`text + rect`) and filters noise.
+3. **Track loop (fusion)** — Anchors are matched/updated by text similarity, overlap, motion vectors, and dirty-signature stability.
+4. **Render loop (real-time)** — A transparent always-on-top click-through Win32 window draws morpheme-colored overlay text.
 
 ## Current Status
 
 | Component | Status | Details |
 |-----------|--------|---------|
-| **Morpheme Engine** | **Complete** | 41/41 tests passing, 37K MorphoLex dictionary, 3-tier analysis |
-| **Desktop Overlay** | **Working** | Transparent click-through window, canvas renderer, system tray |
-| **Text Detection** | **Working** | UIA with TextPattern, ValuePattern, LegacyIAccessible, tree walking |
-| **Tested Apps** | **Working** | Word, Chrome (BBC, Wikipedia, GitHub), VS Code |
-| **Settings UI** | **Basic** | Presets (subtle/balanced/full), hotkey toggle |
+| **Morpheme Engine** | **Working prototype** | Heuristic prefix/root/suffix splitter in Rust (`crates/engine`) |
+| **Desktop Overlay** | **Working** | Win32 transparent click-through overlay, double-buffered paint |
+| **Text Detection** | **Working** | UIA subtree scan with filtering/merge/dedupe |
+| **Tracking** | **Working** | Motion + confidence + dirty-signature persistence |
+| **Automated Validation** | **Working** | `scripts/overlay-matrix-test.ps1` with multi-app/multi-site scenarios |
+| **Legacy Stack** | **Archived** | Former TypeScript/Tauri build is in `legacy-v1/` |
 
-## Architecture
+Most recent matrix run:
+- `test-results/overlay-matrix/20260406-184848/report.md` → PASS `6/6` scenarios, FAIL `0`.
+- Jitter gate active: `visible_jitter <= 7`, `semantic_jitter <= 6`.
 
-```
-packages/
-  engine/     # Pure TypeScript morpheme engine (shared)
-  overlay/    # Tauri v2 desktop overlay (Rust + WebView)
-```
+## Rendering Behavior
 
-- **Primary:** Tauri v2 desktop app — transparent overlay, works everywhere
-- **Shared:** Pure TypeScript morpheme engine
+Default overlay mode now renders morpheme-colored text, not debug rectangles.
+
+Color mapping:
+- Prefix: amber
+- Root: mint green
+- Suffix: cool blue
+- Unknown: neutral light gray
+
+Debug options:
+- `PERIPHERY_DEBUG_BOXES=1` shows anchor rectangles.
+- `PERIPHERY_DEBUG_OVERLAY=1` shows telemetry text.
+
+Both are off by default for a clean reading view.
 
 ## Features
 
@@ -102,47 +123,47 @@ packages/
 ## Getting Started
 
 ### Prerequisites
-- Node.js 18+
-- Rust toolchain (for Tauri overlay)
-- Windows 10/11 (macOS/Linux support planned)
-
-### Development
-```bash
-# Install dependencies
-npm install
-
-# Run tests (engine)
-npm test
-
-# Build engine
-npm run build:engine
-
-# Start overlay (requires Rust)
-npm run dev:overlay
-```
+- Rust toolchain (`rustup`, `cargo`)
+- Windows 11 (current target platform)
 
 ### Running the Overlay
 ```bash
-# Start the Tauri dev server + overlay
-cd packages/overlay
-npx tauri dev
-
-# Or from the repo root
-npm run dev:overlay
+# From repo root
+cargo run --bin overlay-daemon
 ```
 
-Toggle the overlay with **Ctrl+Shift+M**. Right-click the system tray icon for settings/quit.
-
-### Capture & Debug Tool
+### Build and Test
 ```bash
-# Capture text regions from a specific window (for debugging)
-cd packages/overlay/src-tauri
-cargo run --bin capture_regions -- "Word"     # captures from Word
-cargo run --bin capture_regions -- "Chrome"   # captures from Chrome
-cargo run --bin capture_regions               # captures from frontmost window
+# Build all native crates
+cargo build --workspace
+
+# Run all Rust tests
+cargo test --workspace
 ```
 
-Saves JSON to `test/fixtures/captured-regions.json` for analysis.
+### Automated Multi-App/Web Test Harness
+```bash
+# Runs overlay-daemon against a scenario matrix of native apps + websites,
+# performs scripted scrolling, captures screenshots, and writes reports.
+powershell -ExecutionPolicy Bypass -File scripts/overlay-matrix-test.ps1
+```
+
+Jitter regression gate is enabled by default:
+- `-MaxVisibleJitter` default `7.0`
+- `-MaxSemanticJitter` default `6.0`
+- `-DisableJitterGate` to run informational-only sampling
+
+Outputs are written under:
+`test-results/overlay-matrix/<timestamp>/`
+
+Artifacts include:
+- `report.json`
+- `report.md`
+- per-scenario screenshots
+- overlay-daemon stdout/stderr logs
+
+### Legacy TypeScript/Tauri Stack
+The earlier implementation remains available in `legacy-v1/` for reference.
 
 ## How It Compares
 

@@ -31,3 +31,7 @@ packages/extension/dist/
 # Logs
 *.log
 npm-debug.log*
+
+# Test outputs
+test-results/
+test-output.txt
