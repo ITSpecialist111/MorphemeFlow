@@ -1,60 +1,73 @@
 # CLAUDE.md — MorphemeFlow Development Guide
 
 ## Project Overview
-MorphemeFlow is a **universal screen overlay** (desktop app + browser extension) that combines morpheme highlighting, syllable micro-kerning, and adaptive typography to help people with dyslexia read better in **any application**.
+MorphemeFlow delivers **morpheme highlighting, syllable micro-kerning, and adaptive typography** for dyslexia reading support.
+
+- **MorphemeFlow Reader** — Native Windows app (Tauri 2.x + Rust). Captures text from any application via clipboard or OCR, reflows it with morpheme highlighting, TTS, and reading ruler.
+- **MorphemeFlow Web** — MV3 browser extension. Enhances semantic reading content in place and preserves original DOM text.
+- **Rust Engine** — Shared morpheme analysis, tokenization, syllable splitting, word cache.
 
 ## Architecture
-- **Primary:** Tauri v2 desktop app with transparent click-through overlay
-- **Secondary:** Chrome browser extension (MV3) for precise DOM-level web support
-- **Shared:** Pure TypeScript morpheme engine used by both targets
+- **Engine:** `crates/engine/` — 3-tier morpheme analysis (dictionary, rule-based, syllable fallback), tokenizer, LRU cache.
+- **Reader App:** `apps/reader-windows/` — Tauri 2.x with WebView frontend, Rust backend for text analysis, clipboard capture, OCR.
+- **Web Extension:** `packages/web/` with the TypeScript engine in `packages/engine-ts/`.
+- **Product intent:** `docs/PRODUCT-INTENT.md` is authoritative. A literal cross-application glyph overlay is explicitly out of scope; see the post-mortem.
 
 ## Commands
-- `npm run dev` — Start development build with hot reload
-- `npm run build` — Production build (all packages)
-- `npm run test` — Run tests with Vitest
-- `npm run lint` — ESLint
-- `npm run dev:overlay` — Start Tauri desktop overlay in dev mode
-- `npm run dev:extension` — Start browser extension dev build
-- `npm run build:engine` — Build shared engine package only
+```bash
+# Typecheck, lint, and test TypeScript surfaces
+npm run typecheck
+npm run lint
+npm test
 
-## Project Structure (Monorepo)
-```
-morphemeflow/
-├── packages/
-│   ├── engine/            # SHARED: Pure morpheme engine (tokenizer, analyzer, cache)
-│   ├── overlay/           # PRIMARY: Tauri desktop overlay (transparent, click-through)
-│   │   ├── src-tauri/     # Rust backend (UIA text detection, window management)
-│   │   └── src/           # WebView frontend (canvas overlay, settings UI)
-│   └── extension/         # SECONDARY: Browser extension (MV3, DOM-level)
-├── public/
-│   └── fonts/             # Bundled accessible fonts (Lexend, OpenDyslexic, Atkinson)
-├── test/
-├── research/              # Research documents and references
-└── ARCHITECTURE.md        # Full system design
+# Build TypeScript engine + browser extension
+npm run build
+
+# Check and test Rust workspace (24 engine tests total: 22 unit + 2 integration)
+cargo check --workspace
+cargo test --workspace
+
+# Run Reader in dev mode
+npm run dev:reader
+
+# Build installer (MSI + NSIS)
+npm run build:reader
 ```
 
-## Key Architecture Decisions
-- **Universal overlay:** Transparent Tauri window sits on top of all applications
-- **Text detection:** Windows UI Automation API (primary) + OCR fallback for universal text access
-- **Morpheme detection:** Hybrid approach — dictionary lookup (~5K words) + rule-based affix stripping + syllable fallback
-- **Shared engine:** Pure TypeScript engine used by both overlay and extension
-- **Performance target:** < 200ms initial processing, < 50ms incremental
-- **No external API calls:** Everything runs client-side for privacy and speed
-
-## Methodology (gstack ETHOS)
-- **Boil the Lake:** Universal coverage — every app, every text, every user.
-- **Search Before Building:** Use proven algorithms (Liang's hyphenation, established morpheme databases).
-- **User Sovereignty:** Every feature is user-configurable. Presets for quick start, sliders for fine-tuning.
+## Project Structure
+```text
+Dyslexia-Solution/
+├── crates/engine/                   # Rust morpheme engine
+│   ├── src/analyzer.rs              # 3-tier analysis + rule-based syllable fallback
+│   ├── src/tokenizer.rs             # Unicode-aware tokenizer
+│   └── src/cache.rs                 # LRU word cache
+├── apps/reader-windows/             # Tauri 2.x desktop app
+│   ├── src-tauri/src/lib.rs         # Tauri commands, tray, shortcuts
+│   ├── src-tauri/src/capture.rs     # Clipboard-based text capture
+│   ├── src-tauri/src/ocr.rs         # Screen OCR (Windows.Media.Ocr)
+│   └── ui/                          # Frontend (HTML/CSS/JS)
+├── packages/engine-ts/              # TypeScript engine (Hypher/Knuth-Liang)
+├── packages/web/                    # Browser extension (MV3)
+├── data/test-fixtures/              # Shared test fixtures
+├── public/fonts/                    # Bundled fonts (Lexend, Atkinson, OpenDyslexic)
+├── research/                        # Research synthesis & typography studies
+├── docs/                            # Architecture, user guides, privacy
+└── experiments/                     # Archived experiments
+```
 
 ## Key Principles
 - All fonts must be SIL OFL 1.1 or similarly permissive
-- Never copy Bionic Reading's approach (arbitrary letter bolding) — our method is linguistically meaningful
-- Keep bundle size reasonable (engine <500KB, overlay <10MB, extension <2MB)
+- Never copy Bionic Reading's approach — our method is linguistically meaningful
 - Accessibility first: WCAG 2.1 AA minimum
 - Privacy: zero network requests, all processing client-side
-- Works across ALL applications — browser, desktop apps, PDFs, everything
+- Reader installer <25MB
+
+## Copyright Safety
+- NO Bionic Reading API/brand/algorithm
+- NO BeeLine Reader color gradient (patented US 9,396,167)
+- Using: Knuth-Liang (public domain), CMU dictionary (BSD), MorphoLex (CC-BY)
+- Fonts: Lexend, Atkinson Hyperlegible, OpenDyslexic (all SIL OFL 1.1)
 
 ## Research References
-See `research/00-research-synthesis.md` for the full research synthesis.
-See `research/typography-and-dyslexia-research.md` for typography/color details.
-See `ARCHITECTURE.md` for the universal overlay system design.
+See `research/` for research synthesis and typography studies.
+See `docs/ARCHITECTURE.md` for the v2 system design.

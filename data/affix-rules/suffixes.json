@@ -1,0 +1,152 @@
+[
+  {
+    "affix": "ization",
+    "meaning": "process of",
+    "requiresRoot": true
+  },
+  {
+    "affix": "fulness",
+    "meaning": "quality of",
+    "requiresRoot": true
+  },
+  {
+    "affix": "ousness",
+    "meaning": "quality of",
+    "requiresRoot": true
+  },
+  {
+    "affix": "ation",
+    "meaning": "action/process",
+    "requiresRoot": true
+  },
+  {
+    "affix": "ment",
+    "meaning": "result of",
+    "requiresRoot": true
+  },
+  {
+    "affix": "tion",
+    "meaning": "action/state",
+    "requiresRoot": true
+  },
+  {
+    "affix": "sion",
+    "meaning": "action/state",
+    "requiresRoot": true
+  },
+  {
+    "affix": "ness",
+    "meaning": "state of being",
+    "requiresRoot": true
+  },
+  {
+    "affix": "able",
+    "meaning": "capable of",
+    "requiresRoot": true
+  },
+  {
+    "affix": "ible",
+    "meaning": "capable of",
+    "requiresRoot": true
+  },
+  {
+    "affix": "ment",
+    "meaning": "result of",
+    "requiresRoot": true
+  },
+  {
+    "affix": "ence",
+    "meaning": "state of",
+    "requiresRoot": true
+  },
+  {
+    "affix": "ance",
+    "meaning": "state of",
+    "requiresRoot": true
+  },
+  {
+    "affix": "ious",
+    "meaning": "having quality",
+    "requiresRoot": true
+  },
+  {
+    "affix": "eous",
+    "meaning": "having quality",
+    "requiresRoot": true
+  },
+  {
+    "affix": "ous",
+    "meaning": "full of",
+    "requiresRoot": true
+  },
+  {
+    "affix": "ful",
+    "meaning": "full of",
+    "requiresRoot": true
+  },
+  {
+    "affix": "less",
+    "meaning": "without",
+    "requiresRoot": true
+  },
+  {
+    "affix": "ity",
+    "meaning": "quality",
+    "requiresRoot": true
+  },
+  {
+    "affix": "ist",
+    "meaning": "one who",
+    "requiresRoot": true
+  },
+  {
+    "affix": "ism",
+    "meaning": "belief/practice",
+    "requiresRoot": true
+  },
+  {
+    "affix": "ive",
+    "meaning": "tending to",
+    "requiresRoot": true
+  },
+  {
+    "affix": "ize",
+    "meaning": "make",
+    "requiresRoot": true
+  },
+  {
+    "affix": "ise",
+    "meaning": "make",
+    "requiresRoot": true
+  },
+  {
+    "affix": "ify",
+    "meaning": "make",
+    "requiresRoot": true
+  },
+  {
+    "affix": "ing",
+    "meaning": "action (ongoing)",
+    "requiresRoot": true
+  },
+  {
+    "affix": "ed",
+    "meaning": "past tense",
+    "requiresRoot": true
+  },
+  {
+    "affix": "er",
+    "meaning": "one who/more",
+    "requiresRoot": true
+  },
+  {
+    "affix": "ly",
+    "meaning": "in manner of",
+    "requiresRoot": true
+  },
+  {
+    "affix": "al",
+    "meaning": "relating to",
+    "requiresRoot": true
+  }
+]

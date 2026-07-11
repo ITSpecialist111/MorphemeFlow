@@ -1,0 +1,184 @@
+{
+  "_comment": "Shared test fixture for TS and Rust engine parity. Same input → same tier/structure.",
+  "words": [
+    {
+      "input": "helpful",
+      "expectedTier": "dictionary",
+      "expectedTypes": ["root", "suffix"],
+      "minMorphemes": 2
+    },
+    {
+      "input": "reconstruction",
+      "expectedTier": "dictionary",
+      "expectedTypes": ["prefix", "prefix", "root", "suffix"],
+      "minMorphemes": 4
+    },
+    {
+      "input": "abandonment",
+      "expectedTier": "dictionary",
+      "expectedTypes": ["root", "suffix"],
+      "minMorphemes": 2
+    },
+    {
+      "input": "beautiful",
+      "expectedTier": "dictionary",
+      "expectedTypes": ["root", "suffix"],
+      "minMorphemes": 2
+    },
+    {
+      "input": "darkness",
+      "expectedTier": "dictionary",
+      "expectedTypes": ["root", "suffix"],
+      "minMorphemes": 2
+    },
+    {
+      "input": "disagreement",
+      "expectedTier": "dictionary",
+      "expectedTypes": ["prefix", "root", "suffix"],
+      "minMorphemes": 3
+    },
+    {
+      "input": "discovery",
+      "expectedTier": "dictionary",
+      "expectedTypes": ["root", "suffix"],
+      "minMorphemes": 2
+    },
+    {
+      "input": "friendship",
+      "expectedTier": "dictionary",
+      "expectedTypes": ["root", "suffix"],
+      "minMorphemes": 2
+    },
+    {
+      "input": "hopeful",
+      "expectedTier": "dictionary",
+      "expectedTypes": ["root", "suffix"],
+      "minMorphemes": 2
+    },
+    {
+      "input": "impossible",
+      "expectedTier": "dictionary",
+      "expectedTypes": ["prefix", "root"],
+      "minMorphemes": 2
+    },
+    {
+      "input": "joyful",
+      "expectedTier": "dictionary",
+      "expectedTypes": ["root", "suffix"],
+      "minMorphemes": 2
+    },
+    {
+      "input": "kindness",
+      "expectedTier": "dictionary",
+      "expectedTypes": ["root", "suffix"],
+      "minMorphemes": 2
+    },
+    {
+      "input": "playful",
+      "expectedTier": "dictionary",
+      "expectedTypes": ["root", "suffix"],
+      "minMorphemes": 2
+    },
+    {
+      "input": "quickly",
+      "expectedTier": "dictionary",
+      "expectedTypes": ["root", "suffix"],
+      "minMorphemes": 2
+    },
+    {
+      "input": "teacher",
+      "expectedTier": "dictionary",
+      "expectedTypes": ["root", "suffix"],
+      "minMorphemes": 2
+    },
+    {
+      "input": "unexpected",
+      "expectedTier": "dictionary",
+      "expectedTypes": ["prefix", "root"],
+      "minMorphemes": 2
+    },
+    {
+      "input": "unhappy",
+      "expectedTier": "dictionary",
+      "expectedTypes": ["prefix", "root"],
+      "minMorphemes": 2
+    },
+    {
+      "input": "preheating",
+      "expectedTier": "dictionary",
+      "expectedTypes": ["prefix", "root"],
+      "minMorphemes": 2
+    },
+    {
+      "input": "running",
+      "expectedTier": "rule",
+      "minMorphemes": 1,
+      "_note": "Not in dictionary; Tier 2 rule-based"
+    },
+    {
+      "input": "walking",
+      "expectedTier": "rule",
+      "minMorphemes": 1,
+      "_note": "Not in dictionary; Tier 2 rule-based"
+    },
+    {
+      "input": "zygomorphic",
+      "expectedTier": "syllable",
+      "minSyllables": 2,
+      "_note": "Rare word; Tier 3 syllable fallback"
+    },
+    {
+      "input": "it",
+      "expectedTier": "syllable",
+      "minMorphemes": 1,
+      "_note": "Short word passthrough"
+    },
+    {
+      "input": "a",
+      "expectedTier": "syllable",
+      "minMorphemes": 1
+    },
+    {
+      "input": "cat",
+      "expectedTier": "syllable",
+      "minSyllables": 1
+    }
+  ],
+  "tokenization": [
+    {
+      "input": "Hello world!",
+      "expectedTokens": [
+        { "text": "Hello", "type": "word" },
+        { "text": " ", "type": "whitespace" },
+        { "text": "world", "type": "word" },
+        { "text": "!", "type": "punctuation" }
+      ]
+    },
+    {
+      "input": "don't",
+      "expectedTokens": [
+        { "text": "don't", "type": "word" }
+      ]
+    },
+    {
+      "input": "well-known",
+      "expectedTokens": [
+        { "text": "well-known", "type": "word" }
+      ]
+    },
+    {
+      "input": "3.14 and 1,000",
+      "expectedTokens": [
+        { "text": "3.14", "type": "number" },
+        { "text": " ", "type": "whitespace" },
+        { "text": "and", "type": "word" },
+        { "text": " ", "type": "whitespace" },
+        { "text": "1,000", "type": "number" }
+      ]
+    },
+    {
+      "input": "",
+      "expectedTokens": []
+    }
+  ]
+}

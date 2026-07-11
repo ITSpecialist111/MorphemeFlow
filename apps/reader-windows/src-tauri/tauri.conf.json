@@ -1,0 +1,73 @@
+{
+  "$schema": "https://raw.githubusercontent.com/nickelpack/tauri/dev/crates/tauri-config-schema/schema.json",
+  "productName": "MorphemeFlow Reader",
+  "version": "0.1.0",
+  "identifier": "com.morphemeflow.reader",
+  "build": {
+    "frontendDist": "../ui"
+  },
+  "app": {
+    "withGlobalTauri": true,
+    "windows": [
+      {
+        "label": "main",
+        "title": "MorphemeFlow Reader",
+        "width": 480,
+        "height": 720,
+        "resizable": true,
+        "decorations": true,
+        "transparent": false,
+        "center": true,
+        "minWidth": 360,
+        "minHeight": 480
+      },
+      {
+        "label": "ocr",
+        "title": "Select text to recognize",
+        "url": "index.html",
+        "width": 800,
+        "height": 600,
+        "visible": false,
+        "resizable": false,
+        "decorations": false,
+        "transparent": true,
+        "alwaysOnTop": true,
+        "skipTaskbar": true,
+        "shadow": false
+      }
+    ],
+    "security": {
+      "csp": "default-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'"
+    },
+    "trayIcon": {
+      "iconPath": "icons/icon.png",
+      "iconAsTemplate": false,
+      "tooltip": "MorphemeFlow Reader"
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": ["msi", "nsis"],
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/icon.ico"
+    ],
+    "windows": {
+      "webviewInstallMode": {
+        "type": "downloadBootstrapper"
+      },
+      "nsis": {
+        "installMode": "currentUser",
+        "installerIcon": "icons/icon.ico",
+        "displayLanguageSelector": false
+      }
+    },
+    "shortDescription": "Dyslexia-friendly reading tool with morpheme highlighting",
+    "longDescription": "MorphemeFlow Reader captures text from any application and displays it with morpheme-based highlighting, syllable spacing, accessible fonts, and text-to-speech — all processed locally with zero network requests.",
+    "copyright": "MIT License",
+    "category": "Education",
+    "homepage": "https://github.com/users/morphemeflow"
+  },
+  "plugins": {}
+}

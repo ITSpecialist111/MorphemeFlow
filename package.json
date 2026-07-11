@@ -1,46 +1,43 @@
 {
   "name": "morphemeflow",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
-  "description": "Universal screen overlay combining morpheme highlighting, syllable micro-kerning, and adaptive typography to help people with dyslexia read in any application.",
+  "description": "Morpheme highlighting, syllable micro-kerning, and adaptive typography to help people with dyslexia read — delivered as a browser extension and native reader app.",
   "type": "module",
   "workspaces": [
-    "packages/engine",
-    "packages/overlay",
-    "packages/extension"
+    "packages/engine-ts",
+    "packages/web"
   ],
   "scripts": {
-    "dev": "npm run dev:overlay",
-    "dev:overlay": "cd packages/overlay && npm run dev",
-    "dev:extension": "cd packages/extension && npm run dev",
-    "build": "npm run build:engine && npm run build:overlay && npm run build:extension",
-    "build:engine": "cd packages/engine && npm run build",
-    "build:overlay": "cd packages/overlay && npm run build",
-    "build:extension": "cd packages/extension && npm run build",
-    "test": "vitest run",
-    "test:watch": "vitest",
-    "lint": "eslint packages/*/src/ --ext .ts,.tsx"
+    "dev:web": "npm -w packages/web run dev",
+    "dev:reader": "cd apps/reader-windows && tauri dev",
+    "build": "npm run build:engine && npm run build:web",
+    "build:reader": "cd apps/reader-windows && tauri build",
+    "build:web": "npm -w packages/web run build",
+    "build:engine": "npm -w packages/engine-ts run build",
+    "test": "npm test --workspaces --if-present",
+    "typecheck": "npm -w packages/engine-ts run typecheck && npm -w packages/web run typecheck",
+    "lint": "eslint \"packages/**/src/**/*.{ts,tsx}\""
   },
   "keywords": [
     "dyslexia",
     "accessibility",
     "morpheme",
     "reading",
-    "overlay",
-    "universal"
+    "browser-extension"
   ],
   "author": "MorphemeFlow Contributors",
   "license": "MIT",
   "devDependencies": {
-    "@tauri-apps/cli": "^2.10.1",
+    "@eslint/js": "^9.39.0",
+    "@tauri-apps/cli": "^2.11.4",
     "@types/chrome": "^0.1.38",
-    "esbuild": "^0.27.4",
+    "@typescript-eslint/eslint-plugin": "^8.46.1",
+    "@typescript-eslint/parser": "^8.46.1",
+    "esbuild": "^0.28.1",
     "eslint": "^9.0.0",
-    "sharp": "^0.34.5",
     "typescript": "^5.4.0",
-    "vite": "^5.4.0",
-    "vitest": "^2.0.0",
-    "xlsx": "^0.18.5"
+    "vitest": "^4.0.17"
   },
   "dependencies": {
     "hyphenation.en-us": "^0.2.1",

@@ -20,13 +20,13 @@ Desktop.ini
 .env.local
 
 # Rust
-packages/overlay/src-tauri/target/
-
-# Vite
-packages/overlay/dist/
+**/target/
 
 # Extension build
-packages/extension/dist/
+packages/web/dist/
+
+# Reader assets staged from public/fonts by build.rs
+apps/reader-windows/ui/fonts/
 
 # Logs
 *.log

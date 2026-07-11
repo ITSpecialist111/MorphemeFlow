@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "types": ["chrome"],
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "declaration": false,
+    "sourceMap": true,
+    "outDir": "dist",
+    "paths": {
+      "@morphemeflow/engine": ["../engine-ts/src/index.ts"],
+      "@morphemeflow/engine/*": ["../engine-ts/src/*"]
+    }
+  },
+  "include": ["src/**/*.ts", "../engine-ts/src/**/*.ts", "../engine-ts/data/**/*.ts"],
+  "exclude": ["node_modules", "dist"]
+}

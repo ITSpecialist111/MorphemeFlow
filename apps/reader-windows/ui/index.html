@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MorphemeFlow Reader</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="header-left">
+      <h1 class="app-title">MorphemeFlow</h1>
+    </div>
+    <div class="header-right">
+      <button class="icon-btn" id="new-btn" title="Read new text" aria-label="Read new text" hidden>
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M8 3v10M3 8h10"/>
+        </svg>
+      </button>
+      <button class="icon-btn" id="pin-btn" title="Always on top" aria-label="Toggle always on top">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M8 1v10M4 7l4 4 4-4"/>
+        </svg>
+      </button>
+      <button class="icon-btn" id="settings-btn" title="Settings" aria-label="Open settings">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+          <circle cx="8" cy="8" r="2.5"/>
+          <path d="M8 1v2M8 13v2M1 8h2M13 8h2M3 3l1.5 1.5M11.5 11.5L13 13M3 13l1.5-1.5M11.5 4.5L13 3"/>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- Settings panel (hidden by default) -->
+  <div class="settings-panel" id="settings-panel" hidden>
+    <div class="settings-section feature-settings" aria-label="Reading features">
+      <label class="check-row"><input type="checkbox" id="toggle-morphemes" checked> Morpheme colours</label>
+      <label class="check-row"><input type="checkbox" id="toggle-syllables" checked> Syllable spacing</label>
+      <label class="check-row"><input type="checkbox" id="toggle-ruler"> Reading ruler</label>
+    </div>
+    <div class="settings-section">
+      <div class="settings-title">Preset</div>
+      <div class="preset-grid" role="group" aria-label="Preset selection">
+        <button class="picker-btn" data-preset="subtle">Subtle</button>
+        <button class="picker-btn active" data-preset="balanced">Balanced</button>
+        <button class="picker-btn" data-preset="full">Full</button>
+      </div>
+    </div>
+    <div class="settings-section">
+      <div class="settings-title">Theme</div>
+      <div class="theme-grid" id="theme-grid" role="group" aria-label="Theme selection"></div>
+    </div>
+    <div class="settings-section">
+      <div class="settings-title">Font</div>
+      <div class="font-grid" role="group" aria-label="Font selection">
+        <button class="picker-btn" data-font="system">System</button>
+        <button class="picker-btn" data-font="lexend">Lexend</button>
+        <button class="picker-btn" data-font="atkinson">Atkinson</button>
+        <button class="picker-btn" data-font="verdana">Verdana</button>
+        <button class="picker-btn" data-font="opendyslexic">OpenDyslexic</button>
+      </div>
+    </div>
+    <div class="settings-section">
+      <div class="slider-row">
+        <label for="slider-font-size">Font Size</label>
+        <input type="range" id="slider-font-size" min="14" max="36" step="1" value="20">
+        <span class="slider-val" id="val-font-size">20px</span>
+      </div>
+      <div class="slider-row">
+        <label for="slider-letter-sp">Letter Spacing</label>
+        <input type="range" id="slider-letter-sp" min="0" max="20" step="1" value="5">
+        <span class="slider-val" id="val-letter-sp">0.05em</span>
+      </div>
+      <div class="slider-row">
+        <label for="slider-word-sp">Word Spacing</label>
+        <input type="range" id="slider-word-sp" min="0" max="40" step="2" value="16">
+        <span class="slider-val" id="val-word-sp">0.16em</span>
+      </div>
+      <div class="slider-row">
+        <label for="slider-syllable-gap">Syllable Gap</label>
+        <input type="range" id="slider-syllable-gap" min="0" max="20" step="1" value="8">
+        <span class="slider-val" id="val-syllable-gap">0.08em</span>
+      </div>
+      <div class="slider-row">
+        <label for="slider-line-h">Line Height</label>
+        <input type="range" id="slider-line-h" min="14" max="30" step="1" value="20">
+        <span class="slider-val" id="val-line-h">2.0</span>
+      </div>
+      <div class="slider-row">
+        <label for="slider-intensity">Highlight Intensity</label>
+        <input type="range" id="slider-intensity" min="0" max="100" step="5" value="60">
+        <span class="slider-val" id="val-intensity">60%</span>
+      </div>
+      <div class="slider-row">
+        <label for="slider-tts-rate">Speech Rate</label>
+        <input type="range" id="slider-tts-rate" min="5" max="18" step="1" value="9">
+        <span class="slider-val" id="val-tts-rate">0.9×</span>
+      </div>
+    </div>
+    <div class="settings-section">
+      <div class="settings-title">Hotkeys</div>
+      <div class="hotkey-row">
+        <label>Capture Selection</label>
+        <button class="hotkey-btn" id="hotkey-capture" data-action="capture">Ctrl+Shift+M</button>
+      </div>
+      <div class="hotkey-row">
+        <label>OCR Snap Region</label>
+        <button class="hotkey-btn" id="hotkey-ocr" data-action="ocr">Ctrl+Shift+R</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main content area -->
+  <main class="content" id="content">
+    <!-- Empty state -->
+    <div class="empty-state" id="empty-state">
+      <div class="empty-icon">
+        <svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="6" y="6" width="36" height="36" rx="4"/>
+          <path d="M14 18h20M14 24h16M14 30h12"/>
+        </svg>
+      </div>
+      <p class="empty-title">Ready to read</p>
+      <p class="empty-hint">Press <kbd>Ctrl+Shift+M</kbd> to capture selected text</p>
+      <p class="empty-hint">or <kbd>Ctrl+Shift+R</kbd> to OCR a screen region</p>
+      <button class="secondary-btn" id="ocr-btn">Snap a screen region</button>
+      <div class="empty-divider"></div>
+      <p class="empty-hint">Or paste text below:</p>
+      <textarea class="paste-area" id="paste-area" placeholder="Paste or type text here..." rows="3"></textarea>
+      <button class="analyze-btn" id="analyze-btn">Analyze</button>
+    </div>
+
+    <!-- Analyzed text output -->
+    <div class="reader-output" id="reader-output" hidden></div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-left">
+      <span id="word-count">0 words</span>
+      <span class="sep">&middot;</span>
+      <span id="analysis-time">0ms</span>
+    </div>
+    <div class="footer-right">
+      <button class="icon-btn" id="ruler-btn" title="Toggle reading ruler (R)" aria-label="Toggle reading ruler">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M1 4h12M1 10h12"/><path d="M3 2v4M7 2v4M11 2v4"/>
+        </svg>
+      </button>
+      <button class="icon-btn" id="tts-play" title="Read aloud" aria-label="Play text-to-speech" disabled>
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor">
+          <path d="M3 2l9 5-9 5V2z"/>
+        </svg>
+      </button>
+      <button class="icon-btn" id="tts-stop" title="Stop" aria-label="Stop text-to-speech" disabled>
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor">
+          <rect x="2" y="2" width="10" height="10" rx="1"/>
+        </svg>
+      </button>
+    </div>
+  </footer>
+
+  <div class="status-toast" id="status-toast" role="status" aria-live="polite" hidden></div>
+
+  <script src="main.js"></script>
+
+  <!-- Onboarding modal (first-run only) -->
+  <div class="onboarding-overlay" id="onboarding" hidden>
+    <div class="onboarding-modal">
+      <div class="onboarding-step" data-step="1">
+        <h2>Welcome to MorphemeFlow</h2>
+        <p>A dyslexia-friendly reading tool that breaks words into meaningful parts and makes text easier to read.</p>
+        <div class="onboarding-preset-pick">
+          <p>Choose your reading style:</p>
+          <div class="preset-grid">
+            <button class="picker-btn" data-ob-preset="subtle">Subtle</button>
+            <button class="picker-btn active" data-ob-preset="balanced">Balanced</button>
+            <button class="picker-btn" data-ob-preset="full">Full</button>
+          </div>
+        </div>
+        <button class="onboarding-next" id="ob-next-1">Next</button>
+      </div>
+      <div class="onboarding-step" data-step="2" hidden>
+        <h2>Capture Text</h2>
+        <p>Select text in any app, then press:</p>
+        <p><kbd>Ctrl+Shift+M</kbd></p>
+        <p>The selected text will appear here, beautifully formatted with morpheme highlighting.</p>
+        <button class="onboarding-next" id="ob-next-2">Next</button>
+      </div>
+      <div class="onboarding-step" data-step="3" hidden>
+        <h2>OCR Snap</h2>
+        <p>For non-selectable text (images, PDFs), press:</p>
+        <p><kbd>Ctrl+Shift+R</kbd></p>
+        <p>Draw a rectangle around the text and it will be recognized automatically.</p>
+        <button class="onboarding-next" id="ob-finish">Get Started</button>
+      </div>
+      <div class="onboarding-dots">
+        <span class="dot active"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dedicated transparent window surface used only for OCR rectangle selection. -->
+  <div class="ocr-overlay" id="ocr-overlay" hidden>
+    <div class="ocr-instructions" id="ocr-instructions">
+      <strong>Draw around the text to read</strong>
+      <span>Press Esc to cancel</span>
+    </div>
+    <div class="ocr-selection" id="ocr-selection" hidden>
+      <span id="ocr-dimensions"></span>
+    </div>
+    <div class="ocr-processing" id="ocr-processing" hidden>
+      <span class="spinner" aria-hidden="true"></span>
+      Recognizing text locally…
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MorphemeFlow</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      width: 340px;
+      max-height: 580px;
+      overflow-y: auto;
+      font-family: system-ui, 'Segoe UI', -apple-system, sans-serif;
+      font-size: 14px;
+      color: #1E293B;
+      background: #FAFAFA;
+    }
+    body::-webkit-scrollbar { width: 4px; }
+    body::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 2px; }
+
+    /* Header */
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 16px;
+      background: linear-gradient(135deg, #7C3AED, #4F46E5);
+      color: white;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .header h1 { font-size: 16px; font-weight: 600; }
+    .toggle-btn {
+      background: rgba(255,255,255,0.2);
+      border: 1px solid rgba(255,255,255,0.3);
+      color: white;
+      padding: 6px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 600;
+      transition: background 0.15s;
+    }
+    .toggle-btn.active { background: rgba(255,255,255,0.4); }
+    .toggle-btn:hover { background: rgba(255,255,255,0.35); }
+
+    /* Sections */
+    .section { padding: 10px 16px; border-bottom: 1px solid #E2E8F0; }
+    .section-title {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #64748B;
+      margin-bottom: 8px;
+    }
+
+    /* Disabled state */
+    .mf-disabled .section:not(.section--site) { opacity: 0.45; pointer-events: none; }
+
+    /* Demo text */
+    .demo-text {
+      padding: 10px 14px;
+      background: #F8FAFC;
+      font-size: 16px;
+      line-height: 1.8;
+      letter-spacing: 0.05em;
+      border-radius: 6px;
+    }
+    .demo-text .prefix { color: #7C3AED; }
+    .demo-text .root { color: #1E293B; font-weight: 600; }
+    .demo-text .suffix { color: #059669; }
+
+    /* Presets */
+    .presets {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+    }
+    .preset-btn {
+      background: white;
+      border: 2px solid #E2E8F0;
+      padding: 7px 4px;
+      border-radius: 8px;
+      cursor: pointer;
+      text-align: center;
+      font-size: 12px;
+      font-weight: 500;
+      transition: all 0.15s;
+    }
+    .preset-btn:hover { border-color: #7C3AED; }
+    .preset-btn.active { border-color: #7C3AED; background: #F5F3FF; }
+
+    /* Feature toggles */
+    .feature-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 5px 0;
+    }
+    .feature-label { font-size: 13px; }
+    .feature-toggle {
+      position: relative;
+      width: 36px;
+      height: 20px;
+      flex-shrink: 0;
+    }
+    .feature-toggle input {
+      position: absolute;
+      width: 1px; height: 1px;
+      overflow: hidden;
+      clip: rect(0,0,0,0);
+      white-space: nowrap;
+    }
+    .feature-toggle .slider {
+      position: absolute;
+      inset: 0;
+      background: #CBD5E1;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .feature-toggle .slider::after {
+      content: "";
+      position: absolute;
+      width: 16px; height: 16px;
+      left: 2px; top: 2px;
+      background: white;
+      border-radius: 50%;
+      transition: 0.2s;
+    }
+    .feature-toggle input:checked + .slider { background: #7C3AED; }
+    .feature-toggle input:checked + .slider::after { left: 18px; }
+
+    /* Sliders */
+    .slider-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 0;
+    }
+    .slider-row label {
+      font-size: 12px;
+      color: #475569;
+      min-width: 90px;
+      flex-shrink: 0;
+    }
+    .slider-row input[type="range"] {
+      flex: 1;
+      height: 4px;
+      -webkit-appearance: none;
+      appearance: none;
+      background: #E2E8F0;
+      border-radius: 2px;
+      outline: none;
+    }
+    .slider-row input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 14px; height: 14px;
+      background: #7C3AED;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+    .slider-row .slider-value {
+      font-size: 11px;
+      color: #64748B;
+      min-width: 32px;
+      text-align: right;
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* Picker grids */
+    .picker-grid {
+      display: grid;
+      gap: 4px;
+    }
+    .picker-grid--fonts {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    .picker-grid--themes {
+      grid-template-columns: repeat(4, 1fr);
+    }
+    .picker-item {
+      background: white;
+      border: 2px solid #E2E8F0;
+      padding: 6px 4px;
+      border-radius: 6px;
+      cursor: pointer;
+      text-align: center;
+      font-size: 11px;
+      font-weight: 500;
+      transition: all 0.15s;
+      line-height: 1.3;
+    }
+    .picker-item:hover { border-color: #A78BFA; }
+    .picker-item.active { border-color: #7C3AED; background: #F5F3FF; }
+
+    /* Theme swatches */
+    .theme-swatch {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      margin: 0 auto 3px;
+      border: 1px solid rgba(0,0,0,0.1);
+    }
+
+    /* Ruler mode buttons */
+    .ruler-modes {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 4px;
+      margin-top: 4px;
+    }
+    .ruler-mode-btn {
+      background: white;
+      border: 2px solid #E2E8F0;
+      padding: 5px 4px;
+      border-radius: 6px;
+      cursor: pointer;
+      text-align: center;
+      font-size: 11px;
+      font-weight: 500;
+      transition: all 0.15s;
+    }
+    .ruler-mode-btn:hover { border-color: #A78BFA; }
+    .ruler-mode-btn.active { border-color: #7C3AED; background: #F5F3FF; }
+
+    /* Site override */
+    .site-btn {
+      width: 100%;
+      padding: 8px;
+      background: white;
+      border: 1px solid #E2E8F0;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 12px;
+      color: #475569;
+      transition: all 0.15s;
+    }
+    .site-btn:hover { border-color: #7C3AED; color: #7C3AED; }
+    .site-btn.disabled-site { background: #FEF2F2; border-color: #FECACA; color: #DC2626; }
+
+    /* Stats footer */
+    .stats {
+      font-size: 11px;
+      color: #94A3B8;
+      padding: 8px 16px;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+    }
+    .stat-item { display: flex; gap: 3px; align-items: center; }
+
+    /* Focus-visible outlines for keyboard navigation */
+    :focus-visible {
+      outline: 2px solid #7C3AED;
+      outline-offset: 2px;
+      border-radius: 4px;
+    }
+    .feature-toggle input:focus-visible + .slider {
+      outline: 2px solid #7C3AED;
+      outline-offset: 2px;
+    }
+    input[type="range"]:focus-visible {
+      outline: 2px solid #7C3AED;
+      outline-offset: 4px;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>MorphemeFlow</h1>
+    <button class="toggle-btn" id="toggle-btn" aria-label="Toggle MorphemeFlow on or off">OFF</button>
+  </div>
+
+  <div id="popup-body">
+    <!-- Preview -->
+    <div class="section">
+      <div class="demo-text" id="demo-text" aria-label="Preview of morpheme highlighting">
+        <span class="prefix">un</span><span class="root">success</span><span class="suffix">ful</span>
+        <span class="prefix">re</span><span class="root">construct</span><span class="suffix">ion</span>
+      </div>
+    </div>
+
+    <!-- Presets -->
+    <div class="section">
+      <div class="section-title">Presets</div>
+      <div class="presets" role="group" aria-label="Preset options">
+        <button class="preset-btn" data-preset="subtle" aria-label="Subtle preset">Subtle</button>
+        <button class="preset-btn active" data-preset="balanced" aria-label="Balanced preset">Balanced</button>
+        <button class="preset-btn" data-preset="full" aria-label="Full preset">Full</button>
+      </div>
+    </div>
+
+    <!-- Features -->
+    <div class="section">
+      <div class="section-title">Features</div>
+      <div class="feature-row">
+        <span class="feature-label">Morpheme Highlighting</span>
+        <label class="feature-toggle">
+          <input type="checkbox" id="feat-morpheme" checked aria-label="Toggle morpheme highlighting">
+          <span class="slider"></span>
+        </label>
+      </div>
+      <div id="morpheme-sliders" class="sub-controls">
+        <div class="slider-row">
+          <label for="slider-morph-intensity">Intensity</label>
+          <input type="range" id="slider-morph-intensity" min="0" max="100" step="5" value="60">
+          <span class="slider-value" id="val-morph-intensity">60%</span>
+        </div>
+      </div>
+
+      <div class="feature-row">
+        <span class="feature-label">Syllable Spacing</span>
+        <label class="feature-toggle">
+          <input type="checkbox" id="feat-syllable" checked aria-label="Toggle syllable spacing">
+          <span class="slider"></span>
+        </label>
+      </div>
+      <div id="syllable-sliders" class="sub-controls">
+        <div class="slider-row">
+          <label for="slider-syllable-gap">Gap</label>
+          <input type="range" id="slider-syllable-gap" min="0" max="20" step="1" value="8">
+          <span class="slider-value" id="val-syllable-gap">0.08em</span>
+        </div>
+      </div>
+
+      <div class="feature-row">
+        <span class="feature-label">Reading Environment</span>
+        <label class="feature-toggle">
+          <input type="checkbox" id="feat-reading-env" checked aria-label="Toggle reading environment">
+          <span class="slider"></span>
+        </label>
+      </div>
+
+      <div class="feature-row">
+        <span class="feature-label">Reading Ruler</span>
+        <label class="feature-toggle">
+          <input type="checkbox" id="feat-ruler" aria-label="Toggle reading ruler">
+          <span class="slider"></span>
+        </label>
+      </div>
+      <div id="ruler-controls" class="sub-controls">
+        <div class="ruler-modes" role="group" aria-label="Reading ruler mode">
+          <button class="ruler-mode-btn active" data-mode="focus" aria-label="Focus mode">Focus</button>
+          <button class="ruler-mode-btn" data-mode="highlight" aria-label="Highlight mode">Highlight</button>
+          <button class="ruler-mode-btn" data-mode="underline" aria-label="Underline mode">Underline</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Font Picker -->
+    <div class="section" id="section-font">
+      <div class="section-title">Font</div>
+      <div class="picker-grid picker-grid--fonts" role="group" aria-label="Font selection">
+        <button class="picker-item" data-font="system" aria-label="System font">System</button>
+        <button class="picker-item" data-font="lexend" aria-label="Lexend font">Lexend</button>
+        <button class="picker-item" data-font="atkinson" aria-label="Atkinson Hyperlegible font">Atkinson</button>
+        <button class="picker-item" data-font="verdana" aria-label="Verdana font">Verdana</button>
+        <button class="picker-item" data-font="opendyslexic" aria-label="OpenDyslexic font">OpenDyslexic</button>
+      </div>
+    </div>
+
+    <!-- Typography Sliders -->
+    <div class="section" id="section-typography">
+      <div class="section-title">Typography</div>
+      <div class="slider-row">
+        <label for="slider-font-size">Font Size</label>
+        <input type="range" id="slider-font-size" min="12" max="28" step="1" value="18">
+        <span class="slider-value" id="val-font-size">18px</span>
+      </div>
+      <div class="slider-row">
+        <label for="slider-letter-sp">Letter Spacing</label>
+        <input type="range" id="slider-letter-sp" min="0" max="20" step="1" value="7">
+        <span class="slider-value" id="val-letter-sp">0.07em</span>
+      </div>
+      <div class="slider-row">
+        <label for="slider-word-sp">Word Spacing</label>
+        <input type="range" id="slider-word-sp" min="0" max="50" step="2" value="16">
+        <span class="slider-value" id="val-word-sp">0.16em</span>
+      </div>
+      <div class="slider-row">
+        <label for="slider-line-h">Line Height</label>
+        <input type="range" id="slider-line-h" min="12" max="30" step="1" value="18">
+        <span class="slider-value" id="val-line-h">1.8</span>
+      </div>
+      <div class="slider-row">
+        <label for="slider-line-w">Line Width</label>
+        <input type="range" id="slider-line-w" min="40" max="120" step="5" value="70">
+        <span class="slider-value" id="val-line-w">70ch</span>
+      </div>
+    </div>
+
+    <!-- Theme Picker -->
+    <div class="section" id="section-theme">
+      <div class="section-title">Theme</div>
+      <div class="picker-grid picker-grid--themes" id="theme-grid" role="group" aria-label="Theme selection">
+        <!-- Filled by JS -->
+      </div>
+    </div>
+
+    <!-- Site Override -->
+    <div class="section section--site">
+      <button class="site-btn" id="site-btn" aria-label="Toggle MorphemeFlow for this website">Disable on this site</button>
+    </div>
+  </div>
+
+  <!-- Stats Footer -->
+  <div class="stats" id="stats-bar">
+    <span class="stat-item"><span id="stat-words">0</span> words</span>
+    <span class="stat-item"><span id="stat-time">0</span>ms</span>
+  </div>
+
+  <script src="popup.js" type="module"></script>
+</body>
+</html>

@@ -1,0 +1,492 @@
+[
+  {
+    "text": "File\nEdit\nS",
+    "x": 0.0,
+    "y": 0.0,
+    "width": 1920.0,
+    "height": 35.0,
+    "font_size": 24.28571428571429,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "Active View Switcher",
+    "x": 0.0,
+    "y": 35.0,
+    "width": 48.0,
+    "height": 576.0,
+    "font_size": 28.0,
+    "source": "Accessibility",
+    "control_type": 50018
+  },
+  {
+    "text": "Claude",
+    "x": 1207.0,
+    "y": 37.0,
+    "width": 41.0,
+    "height": 20.0,
+    "font_size": 14.285714285714286,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "EXPLORER",
+    "x": 68.0,
+    "y": 45.0,
+    "width": 50.0,
+    "height": 15.0,
+    "font_size": 11.0,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "README.md # MorphemeFlow (string)",
+    "x": 218.0,
+    "y": 70.0,
+    "width": 247.0,
+    "height": 22.0,
+    "font_size": 15.714285714285715,
+    "source": "Accessibility",
+    "control_type": 50007
+  },
+  {
+    "text": "## Getting Started (string)",
+    "x": 499.0,
+    "y": 70.0,
+    "width": 107.0,
+    "height": 22.0,
+    "font_size": 15.714285714285715,
+    "source": "Accessibility",
+    "control_type": 50026
+  },
+  {
+    "text": "### Capture & Debug Tool (string)",
+    "x": 640.0,
+    "y": 70.0,
+    "width": 156.0,
+    "height": 22.0,
+    "font_size": 15.714285714285715,
+    "source": "Accessibility",
+    "control_type": 50026
+  },
+  {
+    "text": "DYSLEXIA-SOLUTION",
+    "x": 68.0,
+    "y": 73.0,
+    "width": 110.0,
+    "height": 15.0,
+    "font_size": 11.0,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "C:\\Users\\graham\\Documents\\GitHub\\Dyslexia-Solution\\.claude",
+    "x": 78.0,
+    "y": 92.0,
+    "width": 139.0,
+    "height": 22.0,
+    "font_size": 15.714285714285715,
+    "source": "Accessibility",
+    "control_type": 50026
+  },
+  {
+    "text": "README.md, preview",
+    "x": 218.0,
+    "y": 92.0,
+    "width": 940.0,
+    "height": 786.0,
+    "font_size": 28.0,
+    "source": "Accessibility",
+    "control_type": 50026
+  },
+  {
+    "text": "I can see the problems clearly:",
+    "x": 1175.0,
+    "y": 105.0,
+    "width": 173.0,
+    "height": 18.0,
+    "font_size": 12.857142857142858,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "C:\\Users\\graham\\Documents\\GitHub\\Dyslexia-Solution\\node_modules",
+    "x": 78.0,
+    "y": 114.0,
+    "width": 139.0,
+    "height": 22.0,
+    "font_size": 15.714285714285715,
+    "source": "Accessibility",
+    "control_type": 50026
+  },
+  {
+    "text": "C:\\Users\\graham\\Documents\\GitHub\\Dyslexia-Solution\\packages • Contains emphasized items",
+    "x": 78.0,
+    "y": 136.0,
+    "width": 139.0,
+    "height": 22.0,
+    "font_size": 15.714285714285715,
+    "source": "Accessibility",
+    "control_type": 50026
+  },
+  {
+    "text": "Image alt text rendered as content — \"former funeral director robert Bush leaves Hull Crown Court...\" is alt text, not visible text",
+    "x": 1203.0,
+    "y": 140.0,
+    "width": 701.0,
+    "height": 39.0,
+    "font_size": 13.928571428571429,
+    "source": "Accessibility",
+    "control_type": 50007
+  },
+  {
+    "text": "C:\\Users\\graham\\Documents\\GitHub\\Dyslexia-Solution\\public",
+    "x": 78.0,
+    "y": 158.0,
+    "width": 139.0,
+    "height": 22.0,
+    "font_size": 15.714285714285715,
+    "source": "Accessibility",
+    "control_type": 50026
+  },
+  {
+    "text": "C:\\Users\\graham\\Documents\\GitHub\\Dyslexia-Solution\\research",
+    "x": 78.0,
+    "y": 180.0,
+    "width": 139.0,
+    "height": 22.0,
+    "font_size": 15.714285714285715,
+    "source": "Accessibility",
+    "control_type": 50026
+  },
+  {
+    "text": "\"missing image descriptions\" accessibility text showing up",
+    "x": 1203.0,
+    "y": 183.0,
+    "width": 701.0,
+    "height": 20.0,
+    "font_size": 14.285714285714286,
+    "source": "Accessibility",
+    "control_type": 50007
+  },
+  {
+    "text": "C:\\Users\\graham\\Documents\\GitHub\\Dyslexia-Solution\\scripts",
+    "x": 78.0,
+    "y": 202.0,
+    "width": 139.0,
+    "height": 22.0,
+    "font_size": 15.714285714285715,
+    "source": "Accessibility",
+    "control_type": 50026
+  },
+  {
+    "text": "Huge background boxes covering images",
+    "x": 1203.0,
+    "y": 206.0,
+    "width": 701.0,
+    "height": 20.0,
+    "font_size": 14.285714285714286,
+    "source": "Accessibility",
+    "control_type": 50007
+  },
+  {
+    "text": "C:\\Users\\graham\\Documents\\GitHub\\Dyslexia-Solution\\test • Contains emphasized items",
+    "x": 78.0,
+    "y": 224.0,
+    "width": 139.0,
+    "height": 22.0,
+    "font_size": 15.714285714285715,
+    "source": "Accessibility",
+    "control_type": 50026
+  },
+  {
+    "text": "Text extending off-screen on the right",
+    "x": 1203.0,
+    "y": 230.0,
+    "width": 701.0,
+    "height": 20.0,
+    "font_size": 14.285714285714286,
+    "source": "Accessibility",
+    "control_type": 50007
+  },
+  {
+    "text": "C:\\Users\\graham\\Documents\\GitHub\\Dyslexia-Solution\\.gitignore",
+    "x": 56.0,
+    "y": 246.0,
+    "width": 161.0,
+    "height": 22.0,
+    "font_size": 15.714285714285715,
+    "source": "Accessibility",
+    "control_type": 50026
+  },
+  {
+    "text": "\"attribution\" label showing as content",
+    "x": 1203.0,
+    "y": 253.0,
+    "width": 701.0,
+    "height": 20.0,
+    "font_size": 14.285714285714286,
+    "source": "Accessibility",
+    "control_type": 50007
+  },
+  {
+    "text": "C:\\Users\\graham\\Documents\\GitHub\\Dyslexia-Solution\\ARCHITECTURE.md",
+    "x": 56.0,
+    "y": 268.0,
+    "width": 161.0,
+    "height": 22.0,
+    "font_size": 15.714285714285715,
+    "source": "Accessibility",
+    "control_type": 50026
+  },
+  {
+    "text": "I removed the Image filter too aggressively. Image alt text is NOT visible — it's accessibility metadata. Let me fix all of these:",
+    "x": 1175.0,
+    "y": 287.0,
+    "width": 708.0,
+    "height": 17.0,
+    "font_size": 12.142857142857144,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "C:\\Users\\graham\\Documents\\GitHub\\Dyslexia-Solution\\CLAUDE.md",
+    "x": 56.0,
+    "y": 290.0,
+    "width": 161.0,
+    "height": 22.0,
+    "font_size": 15.714285714285715,
+    "source": "Accessibility",
+    "control_type": 50026
+  },
+  {
+    "text": "C:\\Users\\graham\\Documents\\GitHub\\Dyslexia-Solution\\LICENSE",
+    "x": 56.0,
+    "y": 312.0,
+    "width": 161.0,
+    "height": 22.0,
+    "font_size": 15.714285714285715,
+    "source": "Accessibility",
+    "control_type": 50026
+  },
+  {
+    "text": "Edited overlay.ts, 6 insertions, 0 deletions",
+    "x": 1175.0,
+    "y": 321.0,
+    "width": 729.0,
+    "height": 20.0,
+    "font_size": 14.285714285714286,
+    "source": "Accessibility",
+    "control_type": 50026
+  },
+  {
+    "text": "C:\\Users\\graham\\Documents\\GitHub\\Dyslexia-Solution\\package-lock.json",
+    "x": 56.0,
+    "y": 334.0,
+    "width": 161.0,
+    "height": 22.0,
+    "font_size": 15.714285714285715,
+    "source": "Accessibility",
+    "control_type": 50026
+  },
+  {
+    "text": "C:\\Users\\graham\\Documents\\GitHub\\Dyslexia-Solution\\package.json",
+    "x": 56.0,
+    "y": 356.0,
+    "width": 161.0,
+    "height": 22.0,
+    "font_size": 15.714285714285715,
+    "source": "Accessibility",
+    "control_type": 50026
+  },
+  {
+    "text": "Now also remove the Image capture from Rust — it wastes time and the text is never useful:",
+    "x": 1175.0,
+    "y": 358.0,
+    "width": 527.0,
+    "height": 17.0,
+    "font_size": 12.142857142857144,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "C:\\Users\\graham\\Documents\\GitHub\\Dyslexia-Solution\\PLAN.md",
+    "x": 56.0,
+    "y": 378.0,
+    "width": 161.0,
+    "height": 22.0,
+    "font_size": 15.714285714285715,
+    "source": "Accessibility",
+    "control_type": 50026
+  },
+  {
+    "text": "Edited text_detection.rs, 1 insertion, 31 deletions",
+    "x": 1175.0,
+    "y": 392.0,
+    "width": 729.0,
+    "height": 20.0,
+    "font_size": 14.285714285714286,
+    "source": "Accessibility",
+    "control_type": 50026
+  },
+  {
+    "text": "C:\\Users\\graham\\Documents\\GitHub\\Dyslexia-Solution\\README.md",
+    "x": 56.0,
+    "y": 400.0,
+    "width": 161.0,
+    "height": 22.0,
+    "font_size": 15.714285714285715,
+    "source": "Accessibility",
+    "control_type": 50026
+  },
+  {
+    "text": "C:\\Users\\graham\\Documents\\GitHub\\Dyslexia-Solution\\RESEARCH-SYNTHESIS.md",
+    "x": 56.0,
+    "y": 422.0,
+    "width": 161.0,
+    "height": 22.0,
+    "font_size": 15.714285714285715,
+    "source": "Accessibility",
+    "control_type": 50026
+  },
+  {
+    "text": "Now fix the text going off-screen — clamp rendering to screen bounds:",
+    "x": 1175.0,
+    "y": 429.0,
+    "width": 410.0,
+    "height": 17.0,
+    "font_size": 12.142857142857144,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "C:\\Users\\graham\\Documents\\GitHub\\Dyslexia-Solution\\tsconfig.json • 1 problem in this file",
+    "x": 56.0,
+    "y": 444.0,
+    "width": 161.0,
+    "height": 22.0,
+    "font_size": 15.714285714285715,
+    "source": "Accessibility",
+    "control_type": 50026
+  },
+  {
+    "text": "C:\\Users\\graham\\Documents\\GitHub\\Dyslexia-Solution\\vite.config.ts",
+    "x": 56.0,
+    "y": 466.0,
+    "width": 161.0,
+    "height": 22.0,
+    "font_size": 15.714285714285715,
+    "source": "Accessibility",
+    "control_type": 50026
+  },
+  {
+    "text": "C:\\Users\\graham\\Documents\\GitHub\\Dyslexia-Solution\\vitest.config.ts",
+    "x": 56.0,
+    "y": 488.0,
+    "width": 161.0,
+    "height": 22.0,
+    "font_size": 15.714285714285715,
+    "source": "Accessibility",
+    "control_type": 50026
+  },
+  {
+    "text": "Now the big merged TextPattern block at the top — the merge y-tolerance of 15px is merging TextPattern fragments from different lines into one giant blob. The 15px is too aggressive for TextPattern ranges. Let me reduce it back but use font-relative tolerance:",
+    "x": 1175.0,
+    "y": 502.0,
+    "width": 729.0,
+    "height": 56.0,
+    "font_size": 15.0,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "Edited text_detection.rs, 3 insertions, 3 deletions",
+    "x": 1175.0,
+    "y": 575.0,
+    "width": 729.0,
+    "height": 20.0,
+    "font_size": 14.285714285714286,
+    "source": "Accessibility",
+    "control_type": 50026
+  },
+  {
+    "text": "Now kill, build and relaunch:",
+    "x": 1175.0,
+    "y": 612.0,
+    "width": 163.0,
+    "height": 17.0,
+    "font_size": 12.142857142857144,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "Clean build. Time the scan:",
+    "x": 1175.0,
+    "y": 760.0,
+    "width": 153.0,
+    "height": 17.0,
+    "font_size": 12.142857142857144,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "Suggested context, file, README.md file:///c%3A/Users/graham/Documents/GitHub/Dyslexia-Solution",
+    "x": 1178.0,
+    "y": 883.0,
+    "width": 102.0,
+    "height": 20.0,
+    "font_size": 14.285714285714286,
+    "source": "Accessibility",
+    "control_type": 50026
+  },
+  {
+    "text": "",
+    "x": 12.0,
+    "y": 926.0,
+    "width": 24.0,
+    "height": 24.0,
+    "font_size": 17.142857142857142,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "",
+    "x": 12.0,
+    "y": 974.0,
+    "width": 24.0,
+    "height": 24.0,
+    "font_size": 17.142857142857142,
+    "source": "Accessibility",
+    "control_type": 50020
+  },
+  {
+    "text": "remote Dyslexia-Solution (Git) - main*, Checkout Branch/Tag... Dyslexia-Solution (Git) - Synchronize Changes Errors: 4",
+    "x": 0.0,
+    "y": 1010.0,
+    "width": 194.0,
+    "height": 22.0,
+    "font_size": 15.714285714285715,
+    "source": "Accessibility",
+    "control_type": 50026
+  },
+  {
+    "text": "git-commit Graham Hosking (20 minutes ago) Ln 145, Col 66 Spaces: 2 UTF-8 LF Editor Language Status: Markdown link validation disabled, next: $(copilot) No inline suggestion available, Inline suggestions",
+    "x": 1312.0,
+    "y": 1010.0,
+    "width": 475.0,
+    "height": 22.0,
+    "font_size": 15.714285714285715,
+    "source": "Accessibility",
+    "control_type": 50026
+  },
+  {
+    "text": "1 agent session in progress Notifications",
+    "x": 1854.0,
+    "y": 1010.0,
+    "width": 66.0,
+    "height": 22.0,
+    "font_size": 15.714285714285715,
+    "source": "Accessibility",
+    "control_type": 50026
+  }
+]

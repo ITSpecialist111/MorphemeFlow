@@ -1,0 +1,23 @@
+{
+  "name": "@morphemeflow/web",
+  "version": "0.1.0",
+  "description": "MorphemeFlow browser extension — morpheme highlighting and adaptive typography for dyslexia reading support",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node build.mjs --watch",
+    "build": "node build.mjs",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@morphemeflow/engine": "*"
+  },
+  "devDependencies": {
+    "esbuild": "^0.28.1",
+    "jsdom": "^26.1.0",
+    "typescript": "^5.4.0",
+    "vitest": "^4.1.0"
+  },
+  "license": "MIT"
+}
