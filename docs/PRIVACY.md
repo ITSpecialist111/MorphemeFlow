@@ -1,6 +1,6 @@
 # MorphemeFlow Privacy Policy
 
-**Last updated:** July 11, 2026
+**Last updated:** September 5, 2026
 
 ## Summary
 
@@ -35,9 +35,25 @@ For selection capture, Reader temporarily asks the foreground application to cop
 
 The OCR selector captures only the rectangle explicitly drawn by the user. Pixels are passed to the built-in `Windows.Media.Ocr` engine on the device and discarded after recognition. MorphemeFlow does not save screenshots.
 
+The optional Windows live lens repeatedly samples a bounded region around the pointer while enabled. It compares the pixels before and after recognition, rejects changed frames, and shows recognized text in a separate lens. It does not run until activated, and stopping it invalidates pending results. Recognized text can contain OCR mistakes.
+
+Screen focus itself reads only pointer/display geometry. Its click-through panes do not read application text or take screenshots.
+
+### Android
+
+Android screen tools require explicit user activation in Accessibility settings. The service does not request app-content retrieval, gesture injection, touch exploration, or key filtering. A non-touchable focus layer passes input through to other apps; only the separate toolbar and reading lens receive input in their own bounds.
+
+Tapping **Read screen band** requests an Android display screenshot. The full screenshot exists transiently in memory, then a local crop of the chosen band is submitted to the bundled ML Kit Latin OCR model. Pixels are released after recognition. There is no continuous capture, screenshot history, automatic document saving, or content logging. Protected content can be denied or blanked by Android.
+
+The APK excludes `INTERNET` and `ACCESS_NETWORK_STATE`, including permissions declared by dependencies. WebView navigation is restricted to packaged assets, with file/content access and network loads disabled. The virtual `appassets.androidplatform.net` origin is served by `WebViewAssetLoader` locally, not fetched from that domain. OCR uses the bundled model, not an install-time model download.
+
+Preferences remain in app-private storage. Backup and device-transfer rules exclude app data. Shared passages remain in memory, including across rotation, and Clear removes them from the active Reader. Incoming share-intent text is removed after consumption. The OS, keyboard, source application, and speech provider have their own policies outside MorphemeFlow's control.
+
 ### Text-to-speech and logs
 
-Reader uses the local WebView2/Windows speech facilities. Crash and operational messages are stored in `%APPDATA%\MorphemeFlow\logs\reader.log`; captured text is not included. Logs are never transmitted automatically.
+Windows Reader selects an English voice marked `localService` by WebView2. Android selects an installed English voice that does not require a network connection. Missing offline voices produce visible feedback instead of selecting a cloud voice. Voice installation is managed by the operating system and may require a separate download.
+
+Windows crash and operational messages are stored in `%APPDATA%\MorphemeFlow\logs\reader.log`. Android logs capture status and geometry failures, not recognized content. Logs are never transmitted automatically. Development tests explicitly save fixture screenshots as test evidence; production capture paths do not.
 
 ## Permissions Explained
 

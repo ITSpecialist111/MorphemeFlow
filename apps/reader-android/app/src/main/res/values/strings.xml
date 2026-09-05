@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">MorphemeFlow</string>
+    <string name="accessibility_consent_title">Enable MorphemeFlow screen tools</string>
+    <string name="accessibility_consent">MorphemeFlow uses Android accessibility access to display a reading band over other apps. It takes a screenshot only when you tap Read screen band. Text recognition and reading analysis run on this device. Screenshots are discarded after recognition and are never uploaded. The app has no Internet permission and does not retrieve app text or passwords through accessibility. Protected screens may not be readable. You can turn off the controls at any time or disable the service in Android settings.</string>
+    <string name="accessibility_description">Dyslexia reading support: a movable screen focus band and user-requested local screen OCR. No Internet permission, no app-content retrieval, no keystroke collection, and no automatic screen recording.</string>
+</resources>

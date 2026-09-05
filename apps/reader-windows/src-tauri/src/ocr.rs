@@ -39,6 +39,29 @@ pub fn max_image_dimension() -> u32 {
     OcrEngine::MaxImageDimension().unwrap_or(2600)
 }
 
+#[cfg(windows)]
+pub fn ocr_stable_region(
+    x: i32,
+    y: i32,
+    width: i32,
+    height: i32,
+) -> Result<Option<String>, String> {
+    if width <= 0
+        || height <= 0
+        || width as u32 > max_image_dimension()
+        || height as u32 > max_image_dimension()
+    {
+        return Err("Invalid reading lens capture dimensions".to_string());
+    }
+    unsafe {
+        let before = capture_screen_rect(x, y, width, height)?;
+        let bitmap = create_software_bitmap(&before, width, height)?;
+        let text = run_ocr(bitmap)?;
+        let after = capture_screen_rect(x, y, width, height)?;
+        Ok((before == after).then_some(text))
+    }
+}
+
 #[cfg(not(windows))]
 pub fn max_image_dimension() -> u32 {
     2600
@@ -69,7 +92,17 @@ unsafe fn capture_screen_rect(x: i32, y: i32, w: i32, h: i32) -> Result<Vec<u8>,
     }
 
     let old = SelectObject(hdc_mem, hbitmap.into());
-    let blt_result = BitBlt(hdc_mem, 0, 0, w, h, Some(hdc_screen), x, y, SRCCOPY);
+    let blt_result = BitBlt(
+        hdc_mem,
+        0,
+        0,
+        w,
+        h,
+        Some(hdc_screen),
+        x,
+        y,
+        SRCCOPY | CAPTUREBLT,
+    );
     SelectObject(hdc_mem, old);
 
     if blt_result.is_err() {

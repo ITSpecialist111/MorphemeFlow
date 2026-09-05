@@ -2,7 +2,7 @@
 
 ## What is MorphemeFlow Reader?
 
-MorphemeFlow Reader is a Windows desktop app that makes text easier to read by breaking words into their meaningful parts (morphemes) and applying dyslexia-friendly formatting. It works with text from **any** application.
+MorphemeFlow Reader is a Windows reading aid with adjustable typography, word-part highlighting, and local speech. It accepts selected text or screen OCR from applications that permit capture. Whether the formatting makes reading easier is individual and must be tested with the reader.
 
 ## Getting Started
 
@@ -13,7 +13,7 @@ MorphemeFlow Reader is a Windows desktop app that makes text easier to read by b
 
 ### First Launch
 On first launch, a quick 3-step setup will help you:
-1. **Choose a preset** — Subtle, Balanced, or Full
+1. **Choose a preset** — Subtle, Balanced, or Spacious
 2. **Learn selection capture** — how to grab text from any app
 3. **Learn OCR snap** — how to capture non-selectable text
 
@@ -60,9 +60,15 @@ Press **R** (when not typing) or use the ruler button in the footer to toggle a 
 ## Customization
 
 ### Presets
-- **Subtle** — Light formatting, small font, low highlight intensity
-- **Balanced** — Medium formatting (recommended starting point)
-- **Full** — Maximum formatting, large font, high intensity
+- **Subtle** — 18px Atkinson, light spacing, low highlight intensity
+- **Balanced** — 20px Atkinson, moderate spacing (a starting point, not a proven best setting)
+- **Spacious** — 24px Lexend, wider word/syllable spacing, and larger line spacing
+
+The **Reading style** selector sits beside the Reader text and in the live lens toolbar. **Plain text** shows the same captured passage in a neutral 16px layout without word-part colours or added spacing. It does not reproduce the source website's layout. Switching styles never changes the words.
+
+Custom font, spacing, line-height, theme, and intensity changes apply in both windows, including a paused lens. Editing a setting leaves Plain comparison mode. Previously saved font choices are retained until a preset is deliberately selected.
+
+Use the same passage to compare visual comfort. To compare comprehension or reading speed, alternate between styles using similarly difficult new passages so rereading does not distort the result. A visibly different presentation is not evidence of better reading.
 
 ### Settings (click the gear icon)
 - **Theme** — 7 options: Cream, Light, Gray, Blue, Green, Peach, Dark
@@ -98,7 +104,9 @@ Right-click the MorphemeFlow tray icon for:
 - Settings
 - Quit
 
-Closing the Reader window hides it to the tray so the global capture shortcuts remain available. Use **Quit** from the tray menu to exit fully.
+In Windows 0.1.1, the main window's **X** and tray **Quit** stop the screen tools and exit the application. If selection capture is active, exit waits for its clipboard restoration to finish. Use **Hide Reader** from the tray only when you deliberately want the background tools to keep running.
+
+The lens's **Close** button hides and stops the lens only. It can be reopened with **Live lens** or **Ctrl+Shift+L**. **Ctrl+Alt+Shift+Esc** stops both screen tools without quitting the Reader.
 
 ## Privacy
 

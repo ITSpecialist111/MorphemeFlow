@@ -1,0 +1,51 @@
+:root {
+  --bg: var(--cp-bg);
+  --fg: var(--cp-text);
+  --accent: var(--cp-accent);
+  --prefix-color: var(--cp-accent);
+  --root-color: var(--cp-text);
+  --suffix-color: color-mix(in srgb, var(--cp-link) 80%, var(--cp-text));
+  --inflection-color: var(--cp-text-muted);
+  --font-family: 'Lexend', 'Segoe UI', sans-serif;
+  --letter-spacing: 0;
+  --highlight-intensity: 100%;
+}
+.lens-shell { border: 1px solid var(--cp-border-strong); }
+.lens-toolbar {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--cp-border);
+  background: var(--cp-surface);
+  color: var(--cp-text);
+  font: 12px 'Segoe UI', sans-serif;
+  flex-shrink: 0;
+}
+.lens-toolbar strong { font-size: 14px; }
+.lens-toolbar #reading-style {
+  color: var(--cp-text);
+  background: var(--cp-surface);
+  border-color: var(--cp-border-strong);
+}
+.lens-toolbar nav { display: flex; gap: 6px; margin-left: auto; }
+.lens-toolbar button {
+  min-height: 36px;
+  padding: 6px 10px;
+  border: 1px solid var(--cp-border-strong);
+  border-radius: 4px;
+  color: var(--cp-text);
+  background: var(--cp-surface-soft);
+  font: inherit;
+  cursor: pointer;
+}
+.lens-toolbar button:hover { background: var(--cp-accent-soft); }
+.lens-toolbar button:disabled { color: var(--cp-text-muted); cursor: default; }
+.lens-shell :focus-visible { outline: 2px solid var(--cp-accent); outline-offset: 2px; }
+#lens-status { color: var(--cp-text-muted); overflow-wrap: anywhere; }
+#lens-output { padding: 12px 20px; overflow-y: auto; flex: 1; min-height: 0; width: 100%; }
+@media (max-width: 480px) {
+  .lens-toolbar nav { margin-left: 0; width: 100%; }
+  #lens-output { padding: 12px; }
+}

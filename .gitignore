@@ -35,3 +35,9 @@ npm-debug.log*
 # Test outputs
 test-results/
 test-output.txt
+
+# Android generated state and local SDK configuration
+apps/reader-android/.gradle/
+apps/reader-android/.kotlin/
+apps/reader-android/**/build/
+apps/reader-android/local.properties

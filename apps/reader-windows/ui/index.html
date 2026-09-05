@@ -32,8 +32,40 @@
     </div>
   </header>
 
+  <section class="screen-toolbar" aria-label="Screen tools">
+    <label class="check-row"><input type="checkbox" id="screen-focus-enabled"> Screen focus</label>
+    <label class="check-row"><input type="checkbox" id="live-lens-enabled"> Live lens</label>
+    <button class="screen-command" id="screen-focus-off" title="Turn off all screen tools (Ctrl+Alt+Shift+Esc)">Turn off</button>
+  </section>
+
   <!-- Settings panel (hidden by default) -->
   <div class="settings-panel" id="settings-panel" hidden>
+    <div class="settings-section" aria-label="Screen focus settings">
+      <div class="settings-title">Screen focus</div>
+      <label class="check-row"><input type="checkbox" id="focus-follow-pointer" checked> Follow pointer</label>
+      <div class="slider-row">
+        <label for="focus-height">Band height</label>
+        <input type="range" id="focus-height" min="40" max="320" step="10" value="100">
+        <output class="slider-val" id="focus-height-value" for="focus-height">100px</output>
+      </div>
+      <div class="slider-row">
+        <label for="focus-dim">Surround dimming</label>
+        <input type="range" id="focus-dim" min="0" max="70" value="35">
+        <output class="slider-val" id="focus-dim-value" for="focus-dim">35%</output>
+      </div>
+      <div class="slider-row">
+        <label for="focus-tint-opacity">Band tint</label>
+        <input type="range" id="focus-tint-opacity" min="0" max="30" value="0">
+        <output class="slider-val" id="focus-tint-opacity-value" for="focus-tint-opacity">0%</output>
+      </div>
+      <div class="slider-row">
+        <label for="focus-tint">Tint colour</label>
+        <select id="focus-tint">
+          <option value="warm">Warm</option><option value="rose">Rose</option>
+          <option value="mint">Mint</option><option value="sky">Sky</option>
+        </select>
+      </div>
+    </div>
     <div class="settings-section feature-settings" aria-label="Reading features">
       <label class="check-row"><input type="checkbox" id="toggle-morphemes" checked> Morpheme colours</label>
       <label class="check-row"><input type="checkbox" id="toggle-syllables" checked> Syllable spacing</label>
@@ -44,7 +76,7 @@
       <div class="preset-grid" role="group" aria-label="Preset selection">
         <button class="picker-btn" data-preset="subtle">Subtle</button>
         <button class="picker-btn active" data-preset="balanced">Balanced</button>
-        <button class="picker-btn" data-preset="full">Full</button>
+        <button class="picker-btn" data-preset="full">Spacious</button>
       </div>
     </div>
     <div class="settings-section">
@@ -112,6 +144,16 @@
   </div>
 
   <!-- Main content area -->
+  <section class="reading-tools" id="reading-tools" aria-label="Reading appearance" hidden>
+    <label for="reading-style">Reading style</label>
+    <select id="reading-style">
+      <option value="plain">Plain text</option>
+      <option value="subtle">Subtle</option>
+      <option value="balanced" selected>Balanced</option>
+      <option value="full">Spacious</option>
+      <option value="custom">Custom</option>
+    </select>
+  </section>
   <main class="content" id="content">
     <!-- Empty state -->
     <div class="empty-state" id="empty-state">
@@ -163,7 +205,7 @@
 
   <div class="status-toast" id="status-toast" role="status" aria-live="polite" hidden></div>
 
-  <script src="main.js"></script>
+  <script type="module" src="main.js"></script>
 
   <!-- Onboarding modal (first-run only) -->
   <div class="onboarding-overlay" id="onboarding" hidden>
@@ -176,7 +218,7 @@
           <div class="preset-grid">
             <button class="picker-btn" data-ob-preset="subtle">Subtle</button>
             <button class="picker-btn active" data-ob-preset="balanced">Balanced</button>
-            <button class="picker-btn" data-ob-preset="full">Full</button>
+            <button class="picker-btn" data-ob-preset="full">Spacious</button>
           </div>
         </div>
         <button class="onboarding-next" id="ob-next-1">Next</button>

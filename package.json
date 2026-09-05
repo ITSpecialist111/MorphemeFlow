@@ -15,7 +15,11 @@
     "build:reader": "cd apps/reader-windows && tauri build",
     "build:web": "npm -w packages/web run build",
     "build:engine": "npm -w packages/engine-ts run build",
-    "test": "npm test --workspaces --if-present",
+    "test": "npm run test:fonts && npm test --workspaces --if-present",
+    "test:reader": "node --test apps/reader-windows/test/*.test.js",
+    "test:fonts": "node scripts/verify-fonts.mjs",
+    "build:android:assets": "node apps/reader-android/build-assets.mjs",
+    "test:android:assets": "npm run build:android:assets && node --test apps/reader-android/test/*.test.mjs",
     "typecheck": "npm -w packages/engine-ts run typecheck && npm -w packages/web run typecheck",
     "lint": "eslint \"packages/**/src/**/*.{ts,tsx}\""
   },
@@ -30,6 +34,7 @@
   "license": "MIT",
   "devDependencies": {
     "@eslint/js": "^9.39.0",
+    "@playwright/test": "^1.63.0",
     "@tauri-apps/cli": "^2.11.4",
     "@types/chrome": "^0.1.38",
     "@typescript-eslint/eslint-plugin": "^8.46.1",

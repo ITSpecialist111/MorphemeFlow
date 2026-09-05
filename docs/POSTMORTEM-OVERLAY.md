@@ -4,6 +4,8 @@
 **Duration of experiment:** ~2 weeks (late March – early April 2026)
 **Outcome:** Abandoned — architectural limitations, not implementation bugs
 
+**September 2026 clarification:** This post-mortem concerns automatic source-glyph replacement. Native focus overlays and separately laid-out reading lenses do not depend on that mechanism. The new Windows/Android approach is documented in [SCREEN-TOOLS.md](SCREEN-TOOLS.md); this archived compositor remains excluded from production builds.
+
 ---
 
 ## What we built

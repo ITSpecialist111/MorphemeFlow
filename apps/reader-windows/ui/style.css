@@ -90,6 +90,58 @@ body {
 
 .header-right { display: flex; gap: 4px; }
 
+.screen-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-secondary);
+  flex-shrink: 0;
+}
+.screen-toolbar .check-row { font-size: 13px; min-height: 32px; }
+.screen-toolbar button { min-height: 32px; }
+.screen-command {
+  padding: 6px 10px;
+  color: var(--fg);
+  background: var(--control-bg);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+.screen-command:hover { border-color: var(--accent); }
+.reading-tools {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-shrink: 0;
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-secondary);
+}
+#reading-style {
+  max-width: 100%;
+  min-height: 36px;
+  padding: 4px 8px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  font: inherit;
+  color: var(--fg);
+  background: var(--control-bg);
+}
+#focus-tint {
+  padding: 6px;
+  color: var(--fg);
+  background: var(--control-bg);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+}
+.slider-row input[type="range"] { min-width: 0; }
+
 .icon-btn {
   background: rgba(255,255,255,0.15);
   border: none;
@@ -348,6 +400,14 @@ kbd {
   max-width: 75ch;
   margin: 0 auto;
 }
+
+.reader-output .word {
+  display: inline-block;
+  max-width: 100%;
+  vertical-align: baseline;
+}
+
+.reader-output.reading-plain .word { display: inline; }
 
 .reader-output .morpheme {
   display: inline;

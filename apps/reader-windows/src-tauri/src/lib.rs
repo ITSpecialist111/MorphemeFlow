@@ -1,14 +1,14 @@
 // MorphemeFlow Reader — Tauri application
 
 mod capture;
+mod lens;
+mod lifecycle;
 mod ocr;
+mod overlay;
 
 use engine::{MorphemeAnalyzer, Tokenizer, WordCache};
 use serde::Serialize;
-use std::sync::{
-    atomic::{AtomicBool, Ordering},
-    Mutex,
-};
+use std::sync::Mutex;
 use tauri::{
     menu::{MenuBuilder, MenuItemBuilder},
     tray::TrayIconBuilder,
@@ -18,6 +18,9 @@ use tauri_plugin_global_shortcut::{GlobalShortcutExt, ShortcutState};
 
 const DEFAULT_CAPTURE_HOTKEY: &str = "ctrl+shift+m";
 const DEFAULT_OCR_HOTKEY: &str = "ctrl+shift+r";
+const OVERLAY_HOTKEY: &str = "ctrl+shift+f";
+const OVERLAY_OFF_HOTKEY: &str = "ctrl+alt+shift+escape";
+const LENS_HOTKEY: &str = "ctrl+shift+l";
 
 fn init_crash_log() {
     let log_dir = app_data_dir().map(|directory| directory.join("logs"));
@@ -71,7 +74,7 @@ struct AppState {
     cache: Mutex<WordCache>,
     hotkeys: Mutex<HotkeyConfig>,
     ocr_selection: Mutex<Option<OcrSelectionState>>,
-    capture_busy: AtomicBool,
+    lifecycle: Mutex<lifecycle::ReaderLifecycle>,
 }
 
 #[derive(Clone)]
@@ -212,6 +215,64 @@ fn get_dictionary_size(state: State<'_, AppState>) -> usize {
 }
 
 #[tauri::command]
+fn get_overlay_settings(app: tauri::AppHandle) -> Result<overlay::OverlaySettings, String> {
+    #[cfg(windows)]
+    {
+        Ok(app.state::<overlay::OverlayController>().settings())
+    }
+    #[cfg(not(windows))]
+    Err("Screen overlay is only available on Windows".to_string())
+}
+
+#[tauri::command]
+fn set_overlay_settings(
+    settings: overlay::OverlaySettings,
+    app: tauri::AppHandle,
+) -> Result<(), String> {
+    if settings.enabled && is_closing(&app) {
+        return Err("MorphemeFlow is closing".to_string());
+    }
+    #[cfg(windows)]
+    {
+        app.state::<overlay::OverlayController>()
+            .configure(settings)?;
+        let _ = app.emit("overlay-settings-changed", settings);
+        Ok(())
+    }
+    #[cfg(not(windows))]
+    Err("Screen overlay is only available on Windows".to_string())
+}
+
+fn toggle_overlay(app: &tauri::AppHandle, off: bool) {
+    if let Ok(mut settings) = get_overlay_settings(app.clone()) {
+        settings.enabled = !off && !settings.enabled;
+        if let Err(error) = set_overlay_settings(settings, app.clone()) {
+            emit_status(app, "error", &error);
+        }
+    }
+    if off {
+        let _ = lens::set_lens_enabled(false, app.clone());
+        let _ = app.emit("screen-tools-stopped", ());
+    }
+}
+
+#[tauri::command]
+fn stop_screen_tools(app: tauri::AppHandle) {
+    toggle_overlay(&app, true);
+}
+
+#[tauri::command]
+fn open_lens_in_reader(text: String, app: tauri::AppHandle) -> Result<(), String> {
+    if text.len() > 100_000 {
+        return Err("The reading lens text is too large".to_string());
+    }
+    lens::set_lens_paused(true, app.clone())?;
+    show_reader(&app);
+    app.emit("selection-captured", SelectionCaptured { text })
+        .map_err(|error| error.to_string())
+}
+
+#[tauri::command]
 fn get_cache_stats(state: State<'_, AppState>) -> (usize, f64) {
     let cache = state
         .cache
@@ -293,6 +354,10 @@ fn complete_ocr_selection(
     let physical_y = selection.origin_y + (y * selection.scale_factor).round() as i32;
     let physical_width = (width * selection.scale_factor).round() as i32;
     let physical_height = (height * selection.scale_factor).round() as i32;
+    #[cfg(windows)]
+    let overlay_controller = app.state::<overlay::OverlayController>();
+    #[cfg(windows)]
+    let _overlay_pause = overlay_controller.suspend()?;
     let result = ocr::ocr_region(physical_x, physical_y, physical_width, physical_height);
 
     show_reader(&app);
@@ -392,19 +457,50 @@ fn emit_status(app: &tauri::AppHandle, kind: &str, message: &str) {
     );
 }
 
+fn is_closing(app: &tauri::AppHandle) -> bool {
+    app.state::<AppState>()
+        .lifecycle
+        .lock()
+        .unwrap_or_else(|error| error.into_inner())
+        .is_closing()
+}
+
 fn show_reader(app: &tauri::AppHandle) {
+    if is_closing(app) {
+        return;
+    }
     if let Some(window) = app.get_webview_window("main") {
         let _ = window.show();
         let _ = window.set_focus();
     }
 }
 
+fn close_reader(app: &tauri::AppHandle) {
+    let can_exit = app
+        .state::<AppState>()
+        .lifecycle
+        .lock()
+        .unwrap_or_else(|error| error.into_inner())
+        .request_close();
+    toggle_overlay(app, true);
+    for label in ["main", "lens", "ocr"] {
+        if let Some(window) = app.get_webview_window(label) {
+            let _ = window.hide();
+        }
+    }
+    if can_exit {
+        app.exit(0);
+    }
+}
+
 fn trigger_selection_capture(app: tauri::AppHandle) {
     let source_window = capture::foreground_window_handle();
-    if app
+    if !app
         .state::<AppState>()
-        .capture_busy
-        .swap(true, Ordering::AcqRel)
+        .lifecycle
+        .lock()
+        .unwrap_or_else(|error| error.into_inner())
+        .begin_capture()
     {
         emit_status(&app, "warning", "A text capture is already in progress");
         return;
@@ -412,9 +508,16 @@ fn trigger_selection_capture(app: tauri::AppHandle) {
 
     std::thread::spawn(move || {
         let result = capture::capture_selection(source_window);
-        app.state::<AppState>()
-            .capture_busy
-            .store(false, Ordering::Release);
+        let closing = app
+            .state::<AppState>()
+            .lifecycle
+            .lock()
+            .unwrap_or_else(|error| error.into_inner())
+            .finish_capture();
+        if closing {
+            app.exit(0);
+            return;
+        }
         show_reader(&app);
 
         match result {
@@ -433,6 +536,9 @@ fn trigger_selection_capture(app: tauri::AppHandle) {
 }
 
 fn begin_ocr_selection(app: &tauri::AppHandle) -> Result<(), String> {
+    if is_closing(app) {
+        return Err("MorphemeFlow is closing".to_string());
+    }
     let state = app.state::<AppState>();
     let mut active = state
         .ocr_selection
@@ -548,6 +654,7 @@ pub fn run() {
     tauri::Builder::default()
         .plugin(tauri_plugin_global_shortcut::Builder::new().build())
         .plugin(tauri_plugin_store::Builder::new().build())
+        .manage(lens::LensSession(Mutex::new(lens::LensState::default())))
         .manage(AppState {
             analyzer: MorphemeAnalyzer::new(),
             tokenizer: Tokenizer::new(),
@@ -557,11 +664,19 @@ pub fn run() {
                 ocr: DEFAULT_OCR_HOTKEY.to_string(),
             }),
             ocr_selection: Mutex::new(None),
-            capture_busy: AtomicBool::new(false),
+            lifecycle: Mutex::new(lifecycle::ReaderLifecycle::default()),
         })
         .setup(|app| {
+            #[cfg(windows)]
+            app.manage(overlay::OverlayController::start().map_err(std::io::Error::other)?);
             let show = MenuItemBuilder::with_id("show", "Show Reader").build(app)?;
             let hide = MenuItemBuilder::with_id("hide", "Hide Reader").build(app)?;
+            let overlay_toggle =
+                MenuItemBuilder::with_id("overlay", "Toggle Screen Focus").build(app)?;
+            let overlay_off =
+                MenuItemBuilder::with_id("overlay-off", "Turn Off Screen Focus").build(app)?;
+            let lens_toggle =
+                MenuItemBuilder::with_id("lens", "Toggle Live Reading Lens").build(app)?;
             let separator_one = tauri::menu::PredefinedMenuItem::separator(app)?;
             let capture = MenuItemBuilder::with_id("capture", "Capture Selection").build(app)?;
             let snap = MenuItemBuilder::with_id("snap", "Snap Region (OCR)").build(app)?;
@@ -572,6 +687,9 @@ pub fn run() {
             let menu = MenuBuilder::new(app)
                 .item(&show)
                 .item(&hide)
+                .item(&overlay_toggle)
+                .item(&lens_toggle)
+                .item(&overlay_off)
                 .item(&separator_one)
                 .item(&capture)
                 .item(&snap)
@@ -585,6 +703,14 @@ pub fn run() {
                 .tooltip("MorphemeFlow Reader")
                 .on_menu_event(|app, event| match event.id().as_ref() {
                     "show" => show_reader(app),
+                    "overlay" => toggle_overlay(app, false),
+                    "overlay-off" => toggle_overlay(app, true),
+                    "lens" => {
+                        let enabled = !lens::get_lens_state(app.clone()).enabled;
+                        if let Err(error) = lens::set_lens_enabled(enabled, app.clone()) {
+                            emit_status(app, "error", &error);
+                        }
+                    }
                     "hide" => {
                         if let Some(window) = app.get_webview_window("main") {
                             let _ = window.hide();
@@ -601,7 +727,7 @@ pub fn run() {
                         show_reader(app);
                         let _ = app.emit("open-settings", ());
                     }
-                    "quit" => app.exit(0),
+                    "quit" => close_reader(app),
                     _ => {}
                 })
                 .build(app)?;
@@ -610,13 +736,49 @@ pub fn run() {
                 .map_err(std::io::Error::other)?;
             register_action_shortcut(app.handle(), "ocr", DEFAULT_OCR_HOTKEY)
                 .map_err(std::io::Error::other)?;
-
-            if let Some(window) = app.get_webview_window("main") {
-                let window_for_close = window.clone();
+            for (shortcut, off) in [(OVERLAY_HOTKEY, false), (OVERLAY_OFF_HOTKEY, true)] {
+                if let Err(error) =
+                    app.global_shortcut()
+                        .on_shortcut(shortcut, move |app, _, event| {
+                            if event.state == ShortcutState::Pressed {
+                                toggle_overlay(app, off);
+                            }
+                        })
+                {
+                    log_info(&format!(
+                        "Screen focus shortcut unavailable ({shortcut}): {error}"
+                    ));
+                }
+            }
+            if let Err(error) = app
+                .global_shortcut()
+                .on_shortcut(LENS_HOTKEY, |app, _, event| {
+                    if event.state == ShortcutState::Pressed {
+                        let enabled = !lens::get_lens_state(app.clone()).enabled;
+                        if let Err(error) = lens::set_lens_enabled(enabled, app.clone()) {
+                            emit_status(app, "error", &error);
+                        }
+                    }
+                })
+            {
+                log_info(&format!("Reading lens shortcut unavailable: {error}"));
+            }
+            if let Some(window) = app.get_webview_window("lens") {
+                let app_handle = app.handle().clone();
                 window.on_window_event(move |event| {
                     if let WindowEvent::CloseRequested { api, .. } = event {
                         api.prevent_close();
-                        let _ = window_for_close.hide();
+                        let _ = lens::set_lens_enabled(false, app_handle.clone());
+                    }
+                });
+            }
+
+            if let Some(window) = app.get_webview_window("main") {
+                let app_for_close = app.handle().clone();
+                window.on_window_event(move |event| {
+                    if let WindowEvent::CloseRequested { api, .. } = event {
+                        api.prevent_close();
+                        close_reader(&app_for_close);
                     }
                 });
             }
@@ -627,6 +789,14 @@ pub fn run() {
             analyze_text,
             get_dictionary_size,
             get_cache_stats,
+            get_overlay_settings,
+            set_overlay_settings,
+            stop_screen_tools,
+            lens::get_lens_state,
+            lens::set_lens_enabled,
+            lens::set_lens_paused,
+            lens::capture_lens,
+            open_lens_in_reader,
             window_role,
             capture_selection_cmd,
             start_ocr_selection,

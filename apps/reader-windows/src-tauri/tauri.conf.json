@@ -1,7 +1,7 @@
 {
   "$schema": "https://raw.githubusercontent.com/nickelpack/tauri/dev/crates/tauri-config-schema/schema.json",
   "productName": "MorphemeFlow Reader",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "identifier": "com.morphemeflow.reader",
   "build": {
     "frontendDist": "../ui"
@@ -20,6 +20,19 @@
         "center": true,
         "minWidth": 360,
         "minHeight": 480
+      },
+      {
+        "label": "lens",
+        "title": "MorphemeFlow Reading Lens",
+        "url": "lens.html",
+        "width": 800,
+        "height": 260,
+        "visible": false,
+        "focus": false,
+        "resizable": false,
+        "decorations": false,
+        "alwaysOnTop": true,
+        "skipTaskbar": true
       },
       {
         "label": "ocr",

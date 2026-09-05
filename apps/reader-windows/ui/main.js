@@ -1,5 +1,10 @@
 // MorphemeFlow Reader — integrated Reader and OCR selector frontend
 
+import { renderTokens } from './render.js';
+import { initOverlayControls } from './overlay-controls.js';
+import { localEnglishVoice } from './speech.js';
+import { applyReadingPreferences, normalizeReadingPreferences, READER_SETTINGS_KEY, READING_PRESETS, selectReadingStyle } from './reading-preferences.js';
+
 const tauri = window.__TAURI__ || {};
 const internals = window.__TAURI_INTERNALS__ || {};
 const invoke = tauri.core?.invoke || internals.invoke || (async (command) => {
@@ -7,40 +12,12 @@ const invoke = tauri.core?.invoke || internals.invoke || (async (command) => {
 });
 const listen = tauri.event?.listen || (async () => () => {});
 
-const SETTINGS_KEY = 'reader-settings-v1';
+const SETTINGS_KEY = READER_SETTINGS_KEY;
 const DEFAULT_HOTKEYS = {
   capture: 'Ctrl+Shift+M',
   ocr: 'Ctrl+Shift+R',
 };
-const PRESETS = {
-  subtle: {
-    fontSize: 18,
-    letterSpacing: 3,
-    wordSpacing: 10,
-    syllableGap: 4,
-    lineHeight: 16,
-    intensity: 30,
-    ttsRate: 10,
-  },
-  balanced: {
-    fontSize: 20,
-    letterSpacing: 5,
-    wordSpacing: 16,
-    syllableGap: 8,
-    lineHeight: 20,
-    intensity: 60,
-    ttsRate: 9,
-  },
-  full: {
-    fontSize: 24,
-    letterSpacing: 10,
-    wordSpacing: 24,
-    syllableGap: 14,
-    lineHeight: 24,
-    intensity: 90,
-    ttsRate: 8,
-  },
-};
+const PRESETS = READING_PRESETS;
 const THEMES = [
   { id: 'cream', label: 'Cream', color: '#FDF6E3' },
   { id: 'light', label: 'Light', color: '#FFFFFF' },
@@ -52,8 +29,9 @@ const THEMES = [
 ];
 const DEFAULT_SETTINGS = {
   theme: 'cream',
-  font: 'system',
+  font: 'atkinson',
   preset: 'balanced',
+  readingMode: 'assisted',
   pinned: false,
   morphemesEnabled: true,
   syllablesEnabled: true,
@@ -101,6 +79,7 @@ async function initReaderWindow() {
   applySettings();
   await restoreHotkeys();
   await bindBackendEvents();
+  await initOverlayControls({ invoke, listen, showStatus });
   showOnboardingIfNeeded();
 }
 
@@ -135,6 +114,7 @@ async function loadSettings() {
 }
 
 function sanitizeSettings() {
+  Object.assign(settings, normalizeReadingPreferences(settings));
   const themeIds = new Set(THEMES.map((theme) => theme.id));
   const fonts = new Set(['system', 'lexend', 'atkinson', 'verdana', 'opendyslexic']);
   if (!themeIds.has(settings.theme)) settings.theme = DEFAULT_SETTINGS.theme;
@@ -177,6 +157,15 @@ async function saveSettings() {
       console.warn('[MorphemeFlow] settings store save failed', error);
     }
   }
+  await publishReadingPreferences();
+}
+
+async function publishReadingPreferences() {
+  try {
+    await tauri.event?.emit('reader-preferences-changed', normalizeReadingPreferences(settings));
+  } catch (error) {
+    console.warn('[MorphemeFlow] Could not update the reading lens preferences', error);
+  }
 }
 
 function buildThemeGrid() {
@@ -195,6 +184,7 @@ function buildThemeGrid() {
     button.addEventListener('click', () => {
       settings.theme = theme.id;
       settings.preset = 'custom';
+      settings.readingMode = 'assisted';
       applySettings();
       scheduleSave();
     });
@@ -205,6 +195,7 @@ function buildThemeGrid() {
 function bindSettings() {
   byId('settings-btn').addEventListener('click', () => toggleSettings());
   byId('new-btn').addEventListener('click', showInput);
+  byId('reading-style').addEventListener('change', (event) => changeReadingStyle(event.target.value));
 
   byId('pin-btn').addEventListener('click', async () => {
     const next = !settings.pinned;
@@ -222,6 +213,7 @@ function bindSettings() {
     button.addEventListener('click', () => {
       settings.font = button.dataset.font;
       settings.preset = 'custom';
+      settings.readingMode = 'assisted';
       applySettings();
       scheduleSave();
     });
@@ -240,6 +232,7 @@ function bindSettings() {
     byId(id).addEventListener('change', (event) => {
       settings[key] = event.target.checked;
       settings.preset = 'custom';
+      settings.readingMode = 'assisted';
       applySettings();
       scheduleSave();
     });
@@ -258,6 +251,7 @@ function bindSettings() {
     byId(id).addEventListener('input', (event) => {
       settings[key] = Number(event.target.value);
       settings.preset = 'custom';
+      settings.readingMode = 'assisted';
       applySettings();
       scheduleSave();
     });
@@ -278,32 +272,20 @@ function toggleSettings(force) {
 
 function applyPreset(name, persist = true) {
   if (!PRESETS[name]) return;
-  Object.assign(settings, PRESETS[name], { preset: name });
+  Object.assign(settings, selectReadingStyle(settings, name));
   applySettings();
   if (persist) scheduleSave();
 }
 
-function applySettings() {
-  document.body.classList.forEach((className) => {
-    if (className.startsWith('theme-')) document.body.classList.remove(className);
-  });
-  document.body.classList.add(`theme-${settings.theme}`);
+function changeReadingStyle(style) {
+  Object.assign(settings, selectReadingStyle(settings, style));
+  applySettings();
+  scheduleSave();
+}
 
-  const fontFamilies = {
-    system: "system-ui, 'Segoe UI', -apple-system, sans-serif",
-    lexend: "'Lexend', system-ui, sans-serif",
-    atkinson: "'Atkinson Hyperlegible', system-ui, sans-serif",
-    verdana: 'Verdana, Geneva, sans-serif',
-    opendyslexic: "'OpenDyslexic', system-ui, sans-serif",
-  };
-  const root = document.documentElement.style;
-  root.setProperty('--font-family', fontFamilies[settings.font]);
-  root.setProperty('--font-size', `${settings.fontSize}px`);
-  root.setProperty('--letter-spacing', `${(settings.letterSpacing / 100).toFixed(2)}em`);
-  root.setProperty('--word-spacing', `${(settings.wordSpacing / 100).toFixed(2)}em`);
-  root.setProperty('--syllable-gap', `${(settings.syllableGap / 100).toFixed(2)}em`);
-  root.setProperty('--line-height', (settings.lineHeight / 10).toFixed(1));
-  root.setProperty('--highlight-intensity', `${settings.intensity}%`);
+function applySettings() {
+  applyReadingPreferences(byId('reader-output'), settings);
+  byId('reading-style').value = settings.readingMode === 'plain' ? 'plain' : settings.preset;
 
   setSlider('slider-font-size', 'val-font-size', settings.fontSize, `${settings.fontSize}px`);
   setSlider('slider-letter-sp', 'val-letter-sp', settings.letterSpacing, `${(settings.letterSpacing / 100).toFixed(2)}em`);
@@ -316,8 +298,6 @@ function applySettings() {
   byId('toggle-morphemes').checked = settings.morphemesEnabled;
   byId('toggle-syllables').checked = settings.syllablesEnabled;
   byId('toggle-ruler').checked = settings.rulerEnabled;
-  byId('reader-output').classList.toggle('morphemes-off', !settings.morphemesEnabled);
-  byId('reader-output').classList.toggle('syllables-off', !settings.syllablesEnabled);
   byId('pin-btn').classList.toggle('active', settings.pinned);
   byId('ruler-btn').classList.toggle('active', settings.rulerEnabled);
 
@@ -331,7 +311,7 @@ function applySettings() {
     button.classList.toggle('active', button.dataset.theme === settings.theme);
   });
 
-  if (ruler) ruler.hidden = !settings.rulerEnabled;
+  if (ruler) ruler.hidden = !settings.rulerEnabled || settings.readingMode === 'plain';
 }
 
 function setSlider(inputId, valueId, value, label) {
@@ -458,26 +438,11 @@ async function analyzeText(text) {
 
 function renderResult(result) {
   const output = byId('reader-output');
-  output.replaceChildren();
-  let sourceOffset = 0;
-
-  for (const token of result.tokens) {
-    if (token.token_type === 'word' && Array.isArray(token.morphemes)) {
-      const word = document.createElement('span');
-      word.className = 'word';
-      word.dataset.start = String(sourceOffset);
-      word.dataset.end = String(sourceOffset + token.text.length);
-      word.dataset.tier = token.tier || '';
-      renderWord(word, token);
-      output.appendChild(word);
-    } else {
-      output.appendChild(document.createTextNode(token.text));
-    }
-    sourceOffset += token.text.length;
-  }
+  renderTokens(output, result.tokens);
 
   currentPlainText = result.tokens.map((token) => token.text).join('');
   byId('empty-state').hidden = true;
+  byId('reading-tools').hidden = false;
   output.hidden = false;
   byId('new-btn').hidden = false;
   byId('word-count').textContent = `${result.word_count} ${result.word_count === 1 ? 'word' : 'words'}`;
@@ -487,49 +452,9 @@ function renderResult(result) {
   applySettings();
 }
 
-function renderWord(container, token) {
-  const morphemes = token.morphemes.map((morpheme) => ({ ...morpheme }));
-  if (morphemes.map((morpheme) => morpheme.text).join('') !== token.text) {
-    container.textContent = token.text;
-    return;
-  }
-
-  const syllables = Array.isArray(token.syllables) ? token.syllables : [];
-  const boundaries = new Set();
-  if (syllables.join('') === token.text) {
-    let offset = 0;
-    for (const syllable of syllables.slice(0, -1)) {
-      offset += syllable.length;
-      boundaries.add(offset);
-    }
-  }
-
-  let wordOffset = 0;
-  for (const morpheme of morphemes) {
-    const span = document.createElement('span');
-    span.className = `morpheme ${morpheme.m_type}`;
-    if (morpheme.meaning) span.title = morpheme.meaning;
-
-    let buffer = '';
-    for (const character of morpheme.text) {
-      buffer += character;
-      wordOffset += character.length;
-      if (boundaries.has(wordOffset)) {
-        span.appendChild(document.createTextNode(buffer));
-        buffer = '';
-        const gap = document.createElement('span');
-        gap.className = 'syllable-gap';
-        gap.setAttribute('aria-hidden', 'true');
-        span.appendChild(gap);
-      }
-    }
-    if (buffer) span.appendChild(document.createTextNode(buffer));
-    container.appendChild(span);
-  }
-}
-
 function showInput() {
   stopSpeech();
+  byId('reading-tools').hidden = true;
   byId('reader-output').hidden = true;
   byId('empty-state').hidden = false;
   byId('new-btn').hidden = true;
@@ -537,6 +462,8 @@ function showInput() {
 }
 
 async function bindBackendEvents() {
+  await listen('reader-style-selected', (event) => changeReadingStyle(event.payload));
+  await listen('reader-preferences-requested', publishReadingPreferences);
   await listen('selection-captured', (event) => {
     if (event.payload?.text) analyzeText(event.payload.text);
   });
@@ -585,8 +512,15 @@ function bindTts() {
       return;
     }
 
+    const voice = localEnglishVoice(speechSynthesis.getVoices());
+    if (!voice) {
+      showStatus('No offline English voice is available. Install one in Windows speech settings, then try again.', 'warning');
+      return;
+    }
     speechSynthesis.cancel();
     ttsUtterance = new SpeechSynthesisUtterance(currentPlainText);
+    ttsUtterance.voice = voice;
+    ttsUtterance.lang = voice.lang;
     ttsUtterance.rate = settings.ttsRate / 10;
     ttsUtterance.pitch = 1;
     ttsUtterance.onboundary = (event) => highlightWordAtOffset(event.charIndex);

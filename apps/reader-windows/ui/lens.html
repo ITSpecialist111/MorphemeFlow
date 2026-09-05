@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MorphemeFlow Reading Lens</title>
+  <script src="theme.js"></script>
+  <link rel="stylesheet" href="clawpilot.css">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="lens.css">
+</head>
+<body class="lens-shell">
+  <header class="lens-toolbar">
+    <strong>MorphemeFlow</strong>
+    <span id="lens-status" role="status">Screen OCR</span>
+    <label for="reading-style">Style</label>
+    <select id="reading-style">
+      <option value="plain">Plain text</option>
+      <option value="subtle">Subtle</option>
+      <option value="balanced" selected>Balanced</option>
+      <option value="full">Spacious</option>
+      <option value="custom">Custom</option>
+    </select>
+    <nav aria-label="Reading lens controls">
+      <button id="lens-pause" type="button" aria-pressed="false">Pause</button>
+      <button id="lens-reader" type="button" disabled>Open in Reader</button>
+      <button id="lens-close" type="button">Close</button>
+    </nav>
+  </header>
+  <main id="lens-output" class="reader-output" aria-label="Recognized screen text" tabindex="0"></main>
+  <script type="module" src="lens.js"></script>
+</body>
+</html>

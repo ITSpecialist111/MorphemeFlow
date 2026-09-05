@@ -2,18 +2,19 @@
 
 **Morpheme highlighting, syllable micro-kerning, and adaptive typography to help people with dyslexia read.**
 
-One product suite, two complementary surfaces:
+One product, native screen tools on Windows and Android, plus optional browser enhancement:
 
-- **MorphemeFlow Reader** — The universal Windows hub. Select text in almost any application or draw around text on screen; Reader reflows it with morpheme highlighting, syllable spacing, adaptive typography, a reading ruler, and local text-to-speech.
+- **Windows** — A click-through screen focus band, optional tint, and live OCR reading lens over ordinary applications. Selection capture, rectangle OCR, and the full Reader remain available.
+- **Android 11+** — A user-enabled accessibility overlay with a movable focus band, on-demand local OCR lens, shared-text Reader, and offline speech. The reading engine, fonts, and OCR model are bundled in one APK.
 - **MorphemeFlow Web** — The optional high-fidelity browser surface (Chrome/Edge/Firefox). It enhances semantic reading content directly in the DOM while preserving the exact original text.
 
-“Universal” means coverage of the reading journey, not an unreliable attempt to replace every glyph in another application's framebuffer. The archived DXGI/UIA experiment and its evidence are documented in [docs/POSTMORTEM-OVERLAY.md](docs/POSTMORTEM-OVERLAY.md). The authoritative product direction is [docs/PRODUCT-INTENT.md](docs/PRODUCT-INTENT.md).
+The September 2026 implementation restores the cross-app overlay goal without attempting unsupported per-glyph replacement. Secure screens, protected content, exclusive fullscreen, and device policies remain explicit exclusions. See [docs/SCREEN-TOOLS.md](docs/SCREEN-TOOLS.md) for controls, architecture, and limits, and [docs/PRODUCT-INTENT.md](docs/PRODUCT-INTENT.md) for the authoritative direction.
 
 ---
 
 ## Project verdict
 
-**The original literal Windows-wide text overlay did not work. The product goal does work through the Reader plus browser-extension architecture.** The current result is a validated beta, not yet a fully hardened public release.
+**The original glyph-replacement compositor failed. Native focus overlays and nearby reflow lenses now work on tested Windows and Android application surfaces.** This is a tested prototype, not an all-app guarantee or a hardened public release.
 
 ### What failed
 
@@ -31,6 +32,9 @@ These are platform constraints, not defects that can be solved by adding more ov
 
 | Reading context | Working approach | Validation status |
 |---|---|---|
+| Windows apps without modifying their content | Native click-through focus/tint layer | Real desktop click-through, no-focus-stealing, capture exclusion, and removal test |
+| Unprotected Windows text near the pointer | Live OCR lens with morphemes and syllable spacing | Actual Tauri runtime test recognizes and refreshes a known sentence in a separate native app |
+| Android app content | Accessibility focus overlay, on-demand OCR lens, Share/Process Text | Emulator tests exercise touch-through, known-text OCR, protected content, sharing, and rotation |
 | Selectable text in native apps, browsers, editors, and PDF viewers | Reader records the source window, preserves every clipboard format, issues Copy, restores the clipboard, then reflows the captured text | Verified end to end with foreground Notepad text and plain/rich clipboard data |
 | Images, scanned PDFs, games, and inaccessible controls | Reader displays a temporary per-monitor rectangle selector and runs local `Windows.Media.Ocr` after hiding itself | Verified with an exact controlled Segoe UI target; source quality still affects accuracy |
 | Standard web articles and web applications | MV3 extension transforms semantic DOM/prose content in place while skipping navigation, forms, editors, code, and hidden UI | Engine and DOM regression tests pass; full real-site browser matrix remains |
@@ -46,7 +50,7 @@ The key safety rule is now enforced in both engines: **analysis may add styling 
 4. Clipboard preservation must include HTML, images, and custom formats—not only plain text—and capture must remain pinned to the window active when the shortcut fired.
 5. The repository already contained useful engine and extension work, but its user journeys, status documents, validation, and release tooling needed to be connected and corrected.
 
-### Evidence so far
+### July 2026 baseline
 
 - **225 JavaScript tests:** 221 TypeScript engine tests and 4 browser DOM tests.
 - **24 Rust tests:** 22 unit tests and 2 shared-fixture integration tests.
@@ -54,7 +58,7 @@ The key safety rule is now enforced in both engines: **analysis may add styling 
 - A successful capture restored Unicode text, HTML, a custom clipboard format, and bitmap data unchanged.
 - Production artifacts were generated below the 25 MiB target: 11.42 MiB executable, 3.80 MiB MSI, and 2.69 MiB NSIS installer.
 
-Detailed executed evidence is in [docs/VALIDATION-2026-07-11.md](docs/VALIDATION-2026-07-11.md).
+These are historical results, not current release claims. Current screen-tool evidence and remaining gates are in [docs/VALIDATION-2026-09-05.md](docs/VALIDATION-2026-09-05.md). The earlier evidence remains in [docs/VALIDATION-2026-07-11.md](docs/VALIDATION-2026-07-11.md).
 
 ### What is next
 
@@ -100,15 +104,19 @@ Research-backed typography: optimized fonts (Lexend, Atkinson Hyperlegible), con
 *Beta implementation complete; store submission and real-site evidence are still pending.* Build it locally with `npm run build:web`, then load `packages/web/dist/` as an unpacked extension.
 
 ### Reader (Windows)
-*Universal-capture beta implemented; signed public installer validation is still pending.* Run it with `npm run dev:reader`.
+Run with `npm run dev:reader`, or build the MSI/NSIS packages with `npm run build:reader`. `Ctrl+Shift+F` toggles screen focus, `Ctrl+Shift+L` toggles the live lens, and `Ctrl+Alt+Shift+Esc` stops both. Signed public installer validation is still pending.
+
+### Reader (Android)
+Build with `apps/reader-android/gradlew.bat -p apps/reader-android assembleDebug` on Windows. Install the debug APK on a test device, open MorphemeFlow, and choose **Screen tools** to review the accessibility disclosure. See [apps/reader-android/README.md](apps/reader-android/README.md). This is not a Play Store release.
 
 ---
 
 ## Development
 
 ### Prerequisites
-- **Web extension:** Node.js 20+, npm
+- **JavaScript assets/tests:** Node.js 22+ and npm (Node 24 tested)
 - **Rust engine / Reader:** Rust toolchain (`rustup`, `cargo`)
+- **Android:** JDK 17+, Android SDK platform 36, `ANDROID_HOME`, and the bundled Gradle wrapper
 
 ### Quick start
 
@@ -120,6 +128,8 @@ npm install
 npm test
 npm run lint
 npm run typecheck
+npm run test:reader
+npm run test:android:assets
 
 # Build both TypeScript packages
 npm run build
@@ -140,7 +150,8 @@ Dyslexia-Solution/
 ├── packages/
 │   ├── engine-ts/              # TypeScript engine (shared by web extension)
 │   └── web/                    # Browser extension (MV3)
-├── apps/reader-windows/        # Native Reader app (validated beta)
+├── apps/reader-windows/        # Windows focus overlay, live lens, and Reader
+├── apps/reader-android/        # Android accessibility overlay and Reader
 ├── data/
 │   ├── morpheme-dictionary/    # Dictionary data & generation scripts
 │   └── cmudict/                # CMU Pronouncing Dictionary
@@ -169,7 +180,7 @@ Dyslexia-Solution/
 | P10 | Cross-product polish & launch | In progress |
 
 See [PLAN-V2.md](PLAN-V2.md) for the detailed work breakdown and [STRATEGY-V2.md](STRATEGY-V2.md) for the strategic rationale.
-See [docs/VALIDATION-2026-07-11.md](docs/VALIDATION-2026-07-11.md) for the latest executed evidence and [docs/RELEASE-CHECKLIST.md](docs/RELEASE-CHECKLIST.md) for remaining public-release gates.
+See [docs/VALIDATION-2026-09-05.md](docs/VALIDATION-2026-09-05.md) for the latest executed evidence and [docs/RELEASE-CHECKLIST.md](docs/RELEASE-CHECKLIST.md) for remaining public-release gates.
 
 ---
 
@@ -196,7 +207,7 @@ Built on peer-reviewed research: Carlisle (2000), Bowers et al. (2010), Zorzi et
 
 ## License
 
-**MIT** — fully open source, free forever. All fonts are SIL OFL 1.1. No proprietary dependencies. No Bionic Reading API. No BeeLine Reader patents.
+MorphemeFlow source is **MIT** licensed. Bundled fonts use SIL OFL 1.1, with the licence files included. Android OCR uses the bundled Google ML Kit SDK under Google's terms; it is not an open-source OCR implementation. Windows OCR is supplied by Windows. No Bionic Reading API or BeeLine gradient mechanism is used.
 
 ## Contributing
 
